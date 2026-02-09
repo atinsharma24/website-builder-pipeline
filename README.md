@@ -50,78 +50,56 @@ npm start
 npm run dev
 ```
 
+## Workflows
+
+### A. Full Automated Pipeline (Gemini as Builder)
+Runs both agents automatically.
+
+```bash
+curl -X POST "http://localhost:4000/pipeline" \
+  -H "Content-Type: application/json" \
+  -d @test-input.json
+```
+
+### B. Antigravity Workflow (You are the Builder)
+1. **Run Architect**: Generates a task file for you.
+   ```bash
+   curl -X POST "http://localhost:4000/architect" \
+     -H "Content-Type: application/json" \
+     -d @test-input.json
+   ```
+   *Tip: Use `?mock=true` if hitting API rate limits.*
+
+2. **Generate Site**: Open the generated task file in `tasks/` and ask Antigravity (the AI agent) to "Generate the website based on this task".
+
+3. **Upload**: The file watcher will auto-upload to Supabase. Or manually trigger:
+   ```bash
+   curl -X POST "http://localhost:4000/upload?runId={run-id}&slug={slug}"
+   ```
+
 ## API Endpoints
 
-### POST /pipeline
-Runs the complete website generation pipeline.
-
-**Request:**
-```json
-{
-  "business_name": "Sharma Optics",
-  "address": "123 MG Road",
-  "city": "Indore",
-  "state": "Madhya Pradesh",
-  "owner_name": "Atin Sharma",
-  "business_category": "optical",
-  "description": "Premium optical store with 25 years of trusted service...",
-  "photos": [
-    { "url": "https://example.com/photo.jpg", "alt": "Store front" }
-  ],
-  "phone": "+91 731 4001234",
-  "email": "info@sharmaoptics.com"
-}
-```
-
-**Query Parameters:**
-- `?mock=true` - Use mock agents (no LLM calls)
-- `?skipUpload=true` - Skip Supabase upload
-
-**Response (success):**
-```json
-{
-  "status": "success",
-  "run_id": "run-1739094866123",
-  "business_slug": "sharma-optics",
-  "storage_path": "sharma-optics/1739094866123/index.html",
-  "public_url": "https://xxx.supabase.co/storage/v1/object/public/websites/sharma-optics/1739094866123/index.html",
-  "html_size_bytes": 45678,
-  "generated_at": "2026-02-09T08:14:26.123Z"
-}
-```
-
-### POST /validate
-Validates business input without running the pipeline.
-
-### GET /health
-Health check endpoint.
-
-## Test with Mock Data
-```bash
-# Start server in one terminal
-npm start
-
-# In another terminal, run mock test
-npm run test:mock
-```
+| Endpoint | Method | Description | Query Params |
+|----------|--------|-------------|--------------|
+| `/pipeline` | POST | Full automated generation | `?mock=true`, `?skipUpload=true` |
+| `/architect`| POST | Generate task for Antigravity | `?mock=true` |
+| `/upload` | POST | Manually upload generated HTML | `?runId=...&slug=...` |
+| `/validate` | POST | Validate input JSON | - |
+| `/health` | GET | Health check | - |
 
 ## Project Structure
 ```
 src/
 ├── agents/
-│   ├── architect.ts   # Architect Agent (generates website spec)
-│   └── builder.ts     # Builder Agent (generates HTML)
+│   ├── architect.ts   # Architect Agent
+│   └── builder.ts     # Builder Agent
 ├── schemas/
-│   ├── business-input.ts    # Input validation
-│   ├── architect-output.ts  # Agent contract
-│   └── pipeline-result.ts   # Output schema
+│   ├── business-input.ts
+│   └── architect-output.ts
 ├── services/
-│   ├── supabase.ts    # Storage upload
-│   └── slugify.ts     # URL-safe slugs
 ├── pipeline/
-│   └── orchestrator.ts # Main pipeline
-├── bridge-server.ts   # Fastify API server
-└── watcher.ts         # File watcher (legacy)
+├── bridge-server.ts   # API server
+└── tasks/             # Generated tasks for Antigravity
 ```
 
 ## License

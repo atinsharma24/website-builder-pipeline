@@ -4,18 +4,18 @@ import "dotenv/config";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 const model = genAI.getGenerativeModel({
-    model: process.env.GEMINI_MODEL || "gemini-2.5-flash-preview-05-20",
+  model: process.env.GEMINI_MODEL || "gemini-2.0-flash",
 });
 
 /**
  * Clean LLM output by removing markdown code fences
  */
 function cleanLLMOutput(text: string): string {
-    return text
-        .replace(/```html/gi, "")
-        .replace(/```json/gi, "")
-        .replace(/```/g, "")
-        .trim();
+  return text
+    .replace(/```html/gi, "")
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
 }
 
 /**
@@ -23,8 +23,8 @@ function cleanLLMOutput(text: string): string {
  * Takes an ArchitectOutput and generates a complete, stunning HTML website
  */
 export async function runBuilder(spec: ArchitectOutput): Promise<string> {
-    const styleGuidelines = spec.site_style_guidelines
-        ? `
+  const styleGuidelines = spec.site_style_guidelines
+    ? `
 ## Style Guidelines
 - Primary Color: ${spec.site_style_guidelines.primary_color || "#2563eb"}
 - Secondary Color: ${spec.site_style_guidelines.secondary_color || "#f8fafc"}
@@ -34,16 +34,16 @@ export async function runBuilder(spec: ArchitectOutput): Promise<string> {
 - Tone: ${spec.site_style_guidelines.tone || "professional"}
 - Layout: ${spec.site_style_guidelines.layout || "single-page"}
 `
-        : "";
+    : "";
 
-    const sectionsGuide = spec.page_sections
-        ? `
+  const sectionsGuide = spec.page_sections
+    ? `
 ## Required Sections
 ${spec.page_sections.map((s) => `- **${s.section_name}** (${s.section_id}): ${s.copy_hints || "Standard content"}`).join("\n")}
 `
-        : "";
+    : "";
 
-    const prompt = `You are an ELITE Web Developer known for creating visually STUNNING, JAW-DROPPING websites that make business owners say "WOW!"
+  const prompt = `You are an ELITE Web Developer known for creating visually STUNNING, JAW-DROPPING websites that make business owners say "WOW!"
 
 ## WEBSITE SPECIFICATION
 ${spec.website_generation_prompt}
@@ -195,10 +195,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 NOW CREATE THE WEBSITE. OUTPUT ONLY THE HTML CODE.`;
 
-    const result = await model.generateContent(prompt);
-    const rawOutput = result.response.text();
+  const result = await model.generateContent(prompt);
+  const rawOutput = result.response.text();
 
-    return cleanLLMOutput(rawOutput);
+  return cleanLLMOutput(rawOutput);
 }
 
 /**
@@ -206,15 +206,15 @@ NOW CREATE THE WEBSITE. OUTPUT ONLY THE HTML CODE.`;
  * Returns a minimal but styled HTML template
  */
 export function mockBuilder(spec: ArchitectOutput): string {
-    const colors = spec.site_style_guidelines || {
-        primary_color: "#2563eb",
-        secondary_color: "#f8fafc",
-        accent_color: "#f59e0b",
-        font_heading: "Playfair Display",
-        font_body: "Inter",
-    };
+  const colors = spec.site_style_guidelines || {
+    primary_color: "#2563eb",
+    secondary_color: "#f8fafc",
+    accent_color: "#f59e0b",
+    font_heading: "Playfair Display",
+    font_body: "Inter",
+  };
 
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
