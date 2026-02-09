@@ -3,7 +3,8 @@ import cors from "@fastify/cors";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { runArchitect } from "./agents.js";
+import { runPipeline } from "./pipeline/index.js";
+import { BusinessInputSchema } from "./schemas/index.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -14,64 +15,112 @@ const __dirname = path.dirname(__filename);
 const fastify = Fastify({ logger: true });
 await fastify.register(cors);
 
-// Ensure directories exist
-const tasksDir = path.join(__dirname, "../tasks");
+// Ensure output directory exists for local file saves
 const outputDir = path.join(__dirname, "../output");
-if (!fs.existsSync(tasksDir)) fs.mkdirSync(tasksDir, { recursive: true });
 if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
-fastify.post("/generate", async (request, reply) => {
-    const { prompt, userId } = request.body as { prompt: string; userId: string };
+// ============================================
+// POST /pipeline - Main Pipeline Endpoint
+// ============================================
+// Accepts structured business input and runs the complete pipeline
+fastify.post("/pipeline", async (request, reply) => {
+    const body = request.body as Record<string, unknown>;
+
+    // Check for mock mode query param
+    const useMock = (request.query as Record<string, string>).mock === "true";
+    const skipUpload = (request.query as Record<string, string>).skipUpload === "true";
 
     try {
-        const runId = `task-${Date.now()}`;
+        console.log(`\n🌐 Received pipeline request (mock=${useMock}, skipUpload=${skipUpload})`);
 
-        // 1. Call GEMINI (The Architect) - This uses the API Key
-        console.log(`[${runId}] Consulting The Architect (Gemini)...`);
-        const architectSpec = await runArchitect(prompt);
+        const result = await runPipeline(body, {
+            useMock,
+            skipUpload,
+            outputDir, // Save locally as backup
+        });
 
-        // 2. Create Instructions for Antigravity Agent (You!)
-        const agentInstructions = `
-# WEBSITE GENERATION TASK
-**ID:** ${runId}
+        if (result.status === "error") {
+            return reply.code(400).send(result);
+        }
 
-## USER REQUEST
-"${prompt}"
-
-## TECHNICAL ARCHITECTURE
-${architectSpec}
-
-## YOUR JOB (Antigravity Agent)
-1. Read the requirements above.
-2. Generate a single 'index.html' file using Tailwind CSS.
-3. Save it EXACTLY to: output/${runId}/index.html
-`;
-
-        // 3. Save to "tasks" folder
-        const taskFilePath = path.join(tasksDir, `${runId}.md`);
-        fs.writeFileSync(taskFilePath, agentInstructions);
-
-        console.log(`[${runId}] Spec saved to ${taskFilePath}. Waiting for Agent...`);
-
-        return {
-            status: "processing",
-            message: "Architect phase complete. Task sent to Local Agent.",
-            runId
-        };
-
+        return result;
     } catch (error) {
         request.log.error(error);
-        return reply.code(500).send({ error: "Architecture Phase Failed" });
+        return reply.code(500).send({
+            status: "error",
+            error_message: "Internal pipeline error",
+            error_phase: "unknown",
+        });
     }
 });
 
+// ============================================
+// POST /validate - Validate Input Only
+// ============================================
+// Validates business input without running the pipeline
+fastify.post("/validate", async (request, reply) => {
+    const body = request.body as Record<string, unknown>;
+
+    const validation = BusinessInputSchema.safeParse(body);
+
+    if (!validation.success) {
+        return reply.code(400).send({
+            valid: false,
+            errors: validation.error.issues.map((e) => ({
+                field: e.path.join("."),
+                message: e.message,
+            })),
+        });
+    }
+
+    return {
+        valid: true,
+        data: validation.data,
+    };
+});
+
+// ============================================
+// GET /health - Health Check
+// ============================================
+fastify.get("/health", async () => {
+    return {
+        status: "healthy",
+        timestamp: new Date().toISOString(),
+        env: {
+            gemini_configured: !!process.env.GEMINI_API_KEY,
+            supabase_configured: !!(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY),
+        },
+    };
+});
+
+// ============================================
+// Start Server
+// ============================================
 const start = async () => {
     try {
-        await fastify.listen({ port: 4000 });
-        console.log("🌉 Hybrid Bridge Server listening on port 4000");
+        const port = parseInt(process.env.PORT || "4000", 10);
+        await fastify.listen({ port, host: "0.0.0.0" });
+
+        console.log("\n" + "=".repeat(60));
+        console.log("🚀 Website Pipeline API Server");
+        console.log("=".repeat(60));
+        console.log(`   Port: ${port}`);
+        console.log(`   Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+        console.log(`   Supabase: ${process.env.SUPABASE_URL ? "✅ Configured" : "❌ Missing"}`);
+        console.log("=".repeat(60));
+        console.log("\nEndpoints:");
+        console.log("  POST /pipeline   - Run full website generation pipeline");
+        console.log("  POST /validate   - Validate business input");
+        console.log("  GET  /health     - Health check");
+        console.log("\nQuery params for /pipeline:");
+        console.log("  ?mock=true       - Use mock agents (no LLM calls)");
+        console.log("  ?skipUpload=true - Skip Supabase upload");
+        console.log("=".repeat(60) + "\n");
+
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
     }
 };
+
 start();

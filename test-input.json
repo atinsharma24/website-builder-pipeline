@@ -1,0 +1,38 @@
+{
+    "business_name": "Sharma Optics",
+    "address": "123 MG Road, Near City Center",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "owner_name": "Atin Sharma",
+    "business_category": "optical",
+    "description": "Premium optical store offering designer frames, contact lenses, and comprehensive eye examinations. With over 25 years of trusted service in Central India, Sharma Optics combines cutting-edge technology with personalized care. We carry exclusive brands like Ray-Ban, Oakley, and Titan, along with affordable options for every budget. Our certified optometrists use the latest diagnostic equipment to ensure perfect vision correction.",
+    "photos": [
+        {
+            "url": "https://picsum.photos/seed/store1/800/600",
+            "alt": "Store exterior"
+        },
+        {
+            "url": "https://picsum.photos/seed/frames1/800/600",
+            "alt": "Designer frame collection"
+        },
+        {
+            "url": "https://picsum.photos/seed/exam1/800/600",
+            "alt": "Eye examination room"
+        },
+        {
+            "url": "https://picsum.photos/seed/glasses1/800/600",
+            "alt": "Premium sunglasses display"
+        }
+    ],
+    "phone": "+91 731 4001234",
+    "email": "info@sharmaoptics.com",
+    "hours": {
+        "Monday": "10:00 AM - 8:00 PM",
+        "Tuesday": "10:00 AM - 8:00 PM",
+        "Wednesday": "10:00 AM - 8:00 PM",
+        "Thursday": "10:00 AM - 8:00 PM",
+        "Friday": "10:00 AM - 8:00 PM",
+        "Saturday": "10:00 AM - 9:00 PM",
+        "Sunday": "11:00 AM - 6:00 PM"
+    }
+}
