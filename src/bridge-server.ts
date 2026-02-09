@@ -3,103 +3,75 @@ import cors from "@fastify/cors";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { v4 as uuidv4 } from "uuid";
-import "dotenv/config";
+import { runArchitect } from "./agents.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Directories for task files
-const PENDING_DIR = path.join(__dirname, "../tasks/pending");
-const COMPLETED_DIR = path.join(__dirname, "../tasks/completed");
+const fastify = Fastify({ logger: true });
+await fastify.register(cors);
 
 // Ensure directories exist
-[PENDING_DIR, COMPLETED_DIR].forEach((dir) => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-});
+const tasksDir = path.join(__dirname, "../tasks");
+const outputDir = path.join(__dirname, "../output");
+if (!fs.existsSync(tasksDir)) fs.mkdirSync(tasksDir, { recursive: true });
+if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
-const server = Fastify({ logger: true });
+fastify.post("/generate", async (request, reply) => {
+    const { prompt, userId } = request.body as { prompt: string; userId: string };
 
-// Enable CORS for n8n connections
-await server.register(cors, {
-    origin: true, // Allow all origins (tighten in production)
-});
+    try {
+        const runId = `task-${Date.now()}`;
 
-// --- Request/Response Types ---
-interface GenerateRequest {
-    prompt: string;
-    userId: string;
-}
+        // 1. Call GEMINI (The Architect) - This uses the API Key
+        console.log(`[${runId}] Consulting The Architect (Gemini)...`);
+        const architectSpec = await runArchitect(prompt);
 
-interface GenerateResponse {
-    status: "queued" | "error";
-    taskId?: string;
-    error?: string;
-}
+        // 2. Create Instructions for Antigravity Agent (You!)
+        const agentInstructions = `
+# WEBSITE GENERATION TASK
+**ID:** ${runId}
 
-// --- POST /generate ---
-// n8n sends technical prompts here, we queue them as task files
-server.post<{ Body: GenerateRequest }>("/generate", async (request, reply) => {
-    const { prompt, userId } = request.body;
+## USER REQUEST
+"${prompt}"
 
-    if (!prompt || !userId) {
-        return reply.code(400).send({
-            status: "error",
-            error: "Both 'prompt' and 'userId' are required",
-        } as GenerateResponse);
-    }
+## TECHNICAL ARCHITECTURE
+${architectSpec}
 
-    // Generate unique task ID: timestamp + short uuid
-    const timestamp = Date.now();
-    const shortId = uuidv4().split("-")[0];
-    const taskId = `${timestamp}-${shortId}`;
-
-    // Write task file with metadata header
-    const taskContent = `---
-taskId: ${taskId}
-userId: ${userId}
-createdAt: ${new Date().toISOString()}
----
-
-${prompt}
+## YOUR JOB (Antigravity Agent)
+1. Read the requirements above.
+2. Generate a single 'index.html' file using Tailwind CSS.
+3. Save it EXACTLY to: output/${runId}/index.html
 `;
 
-    const taskPath = path.join(PENDING_DIR, `task-${taskId}.md`);
+        // 3. Save to "tasks" folder
+        const taskFilePath = path.join(tasksDir, `${runId}.md`);
+        fs.writeFileSync(taskFilePath, agentInstructions);
 
-    try {
-        fs.writeFileSync(taskPath, taskContent, "utf-8");
-        console.log(`📝 Task queued: ${taskId}`);
+        console.log(`[${runId}] Spec saved to ${taskFilePath}. Waiting for Agent...`);
 
-        return reply.send({
-            status: "queued",
-            taskId: taskId,
-        } as GenerateResponse);
+        return {
+            status: "processing",
+            message: "Architect phase complete. Task sent to Local Agent.",
+            runId
+        };
+
     } catch (error) {
-        console.error("Failed to write task file:", error);
-        return reply.code(500).send({
-            status: "error",
-            error: "Failed to queue task",
-        } as GenerateResponse);
+        request.log.error(error);
+        return reply.code(500).send({ error: "Architecture Phase Failed" });
     }
 });
 
-// --- Health Check ---
-server.get("/health", async () => {
-    return { status: "ok", service: "bridge-server" };
-});
-
-// --- Start Server ---
 const start = async () => {
     try {
-        await server.listen({ port: 4000, host: "0.0.0.0" });
-        console.log("🌉 Bridge Server listening on http://localhost:4000");
-        console.log("📂 Pending tasks:", PENDING_DIR);
+        await fastify.listen({ port: 4000 });
+        console.log("🌉 Hybrid Bridge Server listening on port 4000");
     } catch (err) {
-        server.log.error(err);
+        fastify.log.error(err);
         process.exit(1);
     }
 };
-
 start();
