@@ -1,0 +1,2973 @@
+<!doctype html>
+
+<html lang="en" data-theme="light">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+    <title>Verve West — Fashion Retail Portfolio (HTML Only)</title>
+
+    <meta name="description"
+        content="Verve West is a modern fashion retail portfolio template for garment & fashion retailers—mobile responsive, SEO-ready, with light/dark mode, gallery, products, and contact form UI." />
+
+    <meta name="keywords"
+        content="fashion retailer website, garment store portfolio, boutique website HTML, clothing store template, retail lookbook, fashion portfolio" />
+
+    <meta name="theme-color" content="#fffaf5" />
+
+
+
+    <!-- Social preview -->
+
+    <meta property="og:title" content="Verve West — Fashion Retail Portfolio" />
+
+    <meta property="og:description"
+        content="A clean, mobile-first fashion retail portfolio template with categories, products, gallery, and contact." />
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1765009433753-c7462637d21f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600" />
+
+    <meta property="og:url" content="https://example.com" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+
+
+    <style>
+        /* ===============================
+
+       Design System
+
+    =============================== */
+
+        :root {
+
+            --bg: #fffaf5;
+
+            --bg-elev: #ffffff;
+
+            --bg-soft: #fff2ea;
+
+
+
+            --text: #241a16;
+
+            --muted: #6b5c55;
+
+
+
+            --primary: #d3543c;
+
+            --primary-2: #b94632;
+
+
+
+            --border: #f2e7de;
+
+            --shadow: 0 16px 40px rgba(33, 24, 20, 0.10);
+
+
+
+            --radius-lg: 16px;
+
+            --radius-md: 12px;
+
+            --radius-sm: 10px;
+
+
+
+            --max: 1160px;
+
+
+
+            --s1: 8px;
+
+            --s2: 12px;
+
+            --s3: 16px;
+
+            --s4: 24px;
+
+            --s5: 32px;
+
+            --s6: 48px;
+
+            --s7: 72px;
+
+
+
+            --focus: 0 0 0 4px rgba(211, 84, 60, 0.25);
+
+        }
+
+
+
+        /* Dark mode */
+
+        html[data-theme="dark"] {
+
+            --bg: #0f0c0b;
+
+            --bg-elev: #151110;
+
+            --bg-soft: #1a1412;
+
+
+
+            --text: #f6eee9;
+
+            --muted: #cbbcb4;
+
+
+
+            --primary: #ff7a61;
+
+            --primary-2: #ff5a3e;
+
+
+
+            --border: rgba(255, 255, 255, 0.10);
+
+            --shadow: 0 18px 46px rgba(0, 0, 0, 0.45);
+
+            --focus: 0 0 0 4px rgba(255, 122, 97, 0.25);
+
+        }
+
+
+
+        /* ===============================
+
+       Base
+
+    =============================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+        }
+
+
+
+        body {
+
+            margin: 0;
+
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            line-height: 1.6;
+
+        }
+
+
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+            color: inherit;
+        }
+
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: var(--max);
+
+            margin: 0 auto;
+
+            padding: 0 var(--s4);
+
+        }
+
+        @media (max-width: 520px) {
+
+            .container {
+                padding: 0 var(--s3);
+            }
+
+        }
+
+
+
+        .section {
+            padding: var(--s7) 0;
+        }
+
+        @media (max-width: 820px) {
+
+            .section {
+                padding: var(--s6) 0;
+            }
+
+        }
+
+
+
+        .section.alt {
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.01)), var(--bg-elev);
+        }
+
+        html[data-theme="dark"] .section.alt {
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03)), var(--bg-elev);
+        }
+
+
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.15;
+            margin: 0 0 var(--s3) 0;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 4vw, 3.25rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: clamp(1.15rem, 1.7vw, 1.35rem);
+        }
+
+        p {
+            margin: 0 0 var(--s3) 0;
+            color: var(--muted);
+        }
+
+
+
+        .grid {
+
+            display: grid;
+
+            gap: var(--s4);
+
+        }
+
+        .grid.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid.three {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid.four {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+
+
+        @media (max-width: 980px) {
+
+            .grid.three {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid.four {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 640px) {
+
+            .grid.two,
+            .grid.three,
+            .grid.four {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+
+        .card {
+
+            background: var(--bg-elev);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-lg);
+
+            box-shadow: var(--shadow);
+
+            padding: var(--s4);
+
+            overflow: hidden;
+
+        }
+
+
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--s2);
+        }
+
+        .chip {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            border: 1px solid var(--border);
+
+            background: color-mix(in srgb, var(--bg-elev), transparent 0%);
+
+            color: var(--muted);
+
+            font-size: 0.95rem;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 12px 16px;
+
+            border-radius: var(--radius-md);
+
+            border: 1px solid transparent;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease, box-shadow .16s ease;
+
+            user-select: none;
+
+            white-space: nowrap;
+
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: var(--focus);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+
+
+        .btn.primary {
+
+            background: var(--primary);
+
+            color: #fff;
+
+            box-shadow: 0 14px 28px rgba(211, 84, 60, 0.22);
+
+        }
+
+        .btn.primary:hover {
+            background: var(--primary-2);
+        }
+
+
+
+        .btn.ghost {
+
+            background: transparent;
+
+            border-color: var(--border);
+
+            color: var(--text);
+
+        }
+
+        .btn.ghost:hover {
+
+            border-color: color-mix(in srgb, var(--primary), var(--border) 55%);
+
+            color: var(--primary);
+
+        }
+
+
+
+        .btn.icon {
+
+            padding: 10px 12px;
+
+            border-radius: 12px;
+
+        }
+
+
+
+        .icon-svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .sr-only {
+
+            position: absolute !important;
+
+            width: 1px;
+            height: 1px;
+
+            padding: 0;
+            margin: -1px;
+
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+
+            border: 0;
+
+        }
+
+
+
+        /* ===============================
+
+       Header (Improved + Responsive)
+
+    =============================== */
+
+        .skip-link {
+
+            position: absolute;
+
+            left: -999px;
+
+            top: 10px;
+
+            background: var(--bg-elev);
+
+            border: 1px solid var(--border);
+
+            padding: 10px 12px;
+
+            border-radius: 12px;
+
+            z-index: 9999;
+
+        }
+
+        .skip-link:focus {
+            left: 12px;
+            box-shadow: var(--focus);
+        }
+
+
+
+        header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            background: color-mix(in srgb, var(--bg), transparent 10%);
+
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+
+        .header-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: var(--s3);
+
+            padding: 12px 0;
+
+        }
+
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-width: 190px;
+
+        }
+
+        .brand-mark {
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 12px;
+
+            background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary), #fff 30%));
+
+            box-shadow: 0 12px 22px rgba(211, 84, 60, 0.25);
+
+        }
+
+        .brand-name {
+
+            font-weight: 900;
+
+            letter-spacing: 0.4px;
+
+            line-height: 1.1;
+
+        }
+
+        .brand-tag {
+
+            font-size: 0.9rem;
+
+            color: var(--muted);
+
+            margin-top: 2px;
+
+            line-height: 1.1;
+
+        }
+
+
+
+        /* Desktop nav */
+
+        .nav-desktop {
+            display: none;
+        }
+
+        .nav-desktop ul {
+
+            list-style: none;
+
+            display: flex;
+
+            gap: 8px;
+
+            margin: 0;
+
+            padding: 0;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .nav-desktop a {
+
+            display: inline-flex;
+
+            padding: 10px 12px;
+
+            border-radius: 12px;
+
+            color: var(--text);
+
+            border: 1px solid transparent;
+
+            transition: background .16s ease, border-color .16s ease, color .16s ease;
+
+        }
+
+        .nav-desktop a:hover {
+
+            background: color-mix(in srgb, var(--bg-elev), var(--primary) 6%);
+
+            border-color: color-mix(in srgb, var(--border), var(--primary) 25%);
+
+            color: var(--primary);
+
+        }
+
+
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+
+        .nav-toggle {
+            display: inline-flex;
+        }
+
+        .nav-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+
+
+        @media (min-width: 900px) {
+
+            .nav-desktop {
+                display: block;
+            }
+
+            .nav-toggle {
+                display: none;
+            }
+
+            .header-inner {
+                padding: 14px 0;
+            }
+
+        }
+
+
+
+        /* Mobile Drawer */
+
+        body.nav-open {
+            overflow: hidden;
+        }
+
+
+
+        .drawer-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.45);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: opacity .18s ease;
+
+            z-index: 200;
+
+        }
+
+        .drawer {
+
+            position: fixed;
+
+            top: 0;
+            right: 0;
+
+            width: min(380px, 92vw);
+
+            height: 100%;
+
+            background: var(--bg-elev);
+
+            border-left: 1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            transform: translateX(110%);
+
+            transition: transform .22s ease;
+
+            z-index: 220;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        body.nav-open .drawer-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        body.nav-open .drawer {
+            transform: translateX(0);
+        }
+
+
+
+        .drawer-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 16px;
+
+            border-bottom: 1px solid var(--border);
+
+            gap: 10px;
+
+        }
+
+        .drawer-header strong {
+            letter-spacing: 0.3px;
+        }
+
+        .drawer-body {
+
+            padding: 14px 16px 18px;
+
+            overflow: auto;
+
+        }
+
+        .drawer-nav ul {
+
+            list-style: none;
+
+            margin: 0;
+
+            padding: 0;
+
+            display: grid;
+
+            gap: 10px;
+
+        }
+
+        .drawer-nav a {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 12px 12px;
+
+            border-radius: 14px;
+
+            border: 1px solid var(--border);
+
+            background: color-mix(in srgb, var(--bg-elev), var(--bg) 12%);
+
+        }
+
+        .drawer-nav a:hover {
+
+            border-color: color-mix(in srgb, var(--border), var(--primary) 35%);
+
+            color: var(--primary);
+
+        }
+
+        .drawer-cta {
+
+            display: grid;
+
+            gap: 10px;
+
+            margin-top: 14px;
+
+        }
+
+
+
+        /* ===============================
+
+       Hero
+
+    =============================== */
+
+        .hero {
+
+            padding: var(--s7) 0 var(--s6);
+
+            background:
+
+                radial-gradient(900px 520px at 10% 10%, color-mix(in srgb, var(--primary), transparent 85%), transparent 60%),
+
+                radial-gradient(820px 420px at 95% 0%, color-mix(in srgb, var(--primary), transparent 90%), transparent 55%),
+
+                linear-gradient(180deg, color-mix(in srgb, var(--bg), #fff 12%), var(--bg));
+
+        }
+
+        html[data-theme="dark"] .hero {
+
+            background:
+
+                radial-gradient(900px 520px at 10% 10%, rgba(255, 122, 97, 0.16), transparent 60%),
+
+                radial-gradient(820px 420px at 95% 0%, rgba(255, 122, 97, 0.10), transparent 55%),
+
+                linear-gradient(180deg, #0f0c0b, #0f0c0b);
+
+        }
+
+
+
+        .hero-wrap {
+
+            display: grid;
+
+            gap: var(--s5);
+
+            align-items: center;
+
+            grid-template-columns: 1.1fr 0.9fr;
+
+        }
+
+        @media (max-width: 980px) {
+
+            .hero-wrap {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+
+        .hero-lede {
+
+            font-size: 1.1rem;
+
+            max-width: 60ch;
+
+        }
+
+
+
+        .cta-row {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: var(--s3);
+
+        }
+
+
+
+        .hero-media {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+        .hero-shot {
+
+            border-radius: var(--radius-lg);
+
+            border: 1px solid var(--border);
+
+            background: var(--bg-elev);
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+        }
+
+        .hero-shot.big {
+            aspect-ratio: 4 / 3;
+        }
+
+        .hero-shot.small {
+            aspect-ratio: 16 / 9;
+        }
+
+
+
+        .hero-shot img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+        /* ===============================
+
+       Image Card (consistent sizing)
+
+    =============================== */
+
+        .thumb {
+
+            aspect-ratio: 4 / 3;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+
+            background: var(--bg-soft);
+
+            margin-bottom: 12px;
+
+        }
+
+        .thumb.tall {
+            aspect-ratio: 3 / 4;
+        }
+
+        .thumb.wide {
+            aspect-ratio: 16 / 9;
+        }
+
+
+
+        .thumb img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+        .meta-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-top: 10px;
+
+        }
+
+
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+
+            font-size: 0.85rem;
+
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            border: 1px solid var(--border);
+
+            background: color-mix(in srgb, var(--bg-elev), var(--bg) 14%);
+
+            color: var(--muted);
+
+        }
+
+
+
+        /* ===============================
+
+       Feature / Trust
+
+    =============================== */
+
+        .feature {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: flex-start;
+
+        }
+
+        .feature .dot {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 999px;
+
+            background: color-mix(in srgb, var(--primary), transparent 84%);
+
+            border: 1px solid color-mix(in srgb, var(--border), var(--primary) 25%);
+
+            flex-shrink: 0;
+
+        }
+
+
+
+        /* ===============================
+
+       Brands strip (safe, no external logos)
+
+    =============================== */
+
+        .brands {
+
+            display: grid;
+
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+
+            gap: 12px;
+
+            margin-top: 16px;
+
+        }
+
+        @media (max-width: 980px) {
+            .brands {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .brands {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+
+
+        .brand-pill {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            height: 46px;
+
+            border-radius: 14px;
+
+            border: 1px solid var(--border);
+
+            background: color-mix(in srgb, var(--bg-elev), var(--bg) 10%);
+
+            color: var(--muted);
+
+            font-weight: 800;
+
+            letter-spacing: 0.4px;
+
+            text-transform: uppercase;
+
+            font-size: 0.8rem;
+
+        }
+
+
+
+        /* ===============================
+
+       About list
+
+    =============================== */
+
+        ul.clean {
+
+            margin: 0;
+
+            padding-left: 18px;
+
+            color: var(--muted);
+
+        }
+
+        ul.clean li {
+            margin: 8px 0;
+        }
+
+
+
+        /* ===============================
+
+       FAQ
+
+    =============================== */
+
+        details {
+
+            background: var(--bg-elev);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow);
+
+            padding: 14px 14px;
+
+            overflow: hidden;
+
+        }
+
+        details+details {
+            margin-top: 12px;
+        }
+
+        summary {
+
+            cursor: pointer;
+
+            font-weight: 800;
+
+            color: var(--text);
+
+            outline: none;
+
+        }
+
+        details p {
+            margin-top: 10px;
+        }
+
+
+
+        /* ===============================
+
+       Contact form
+
+    =============================== */
+
+        .form {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding: 12px 12px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+
+            background: color-mix(in srgb, var(--bg-elev), var(--bg) 8%);
+
+            outline: none;
+
+        }
+
+        input:focus,
+        textarea:focus {
+            box-shadow: var(--focus);
+            border-color: color-mix(in srgb, var(--primary), var(--border) 50%);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+
+        /* ===============================
+
+       Footer
+
+    =============================== */
+
+        footer {
+
+            background: var(--bg-elev);
+
+            border-top: 1px solid var(--border);
+
+            padding: var(--s6) 0;
+
+        }
+
+        .footer-grid {
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr;
+
+            gap: var(--s5);
+
+        }
+
+        @media (max-width: 900px) {
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: var(--s4);
+            }
+
+        }
+
+        .footer-grid a:hover {
+            color: var(--primary);
+        }
+
+
+
+        /* ===============================
+
+       Toast
+
+    =============================== */
+
+        .toast {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 18px;
+
+            transform: translateX(-50%) translateY(20px);
+
+            background: var(--bg-elev);
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            border-radius: 14px;
+
+            padding: 12px 14px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: opacity .2s ease, transform .2s ease;
+
+            z-index: 300;
+
+            width: min(520px, calc(100% - 24px));
+
+        }
+
+        .toast.show {
+
+            opacity: 1;
+
+            transform: translateX(-50%) translateY(0);
+
+        }
+
+        .toast strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+
+
+        /* ===============================
+
+       Reveal animation (subtle)
+
+    =============================== */
+
+        [data-reveal] {
+
+            opacity: 0;
+
+            transform: translateY(10px);
+
+            transition: opacity .5s ease, transform .5s ease;
+
+        }
+
+        [data-reveal].reveal-in {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            [data-reveal] {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+        }
+
+
+
+        /* ===============================
+
+       Mobile quick actions bar
+
+    =============================== */
+
+        .mobile-bar {
+
+            position: fixed;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 90;
+
+            background: color-mix(in srgb, var(--bg-elev), var(--bg) 10%);
+
+            border-top: 1px solid var(--border);
+
+            padding: 10px 10px;
+
+            display: flex;
+
+            gap: 10px;
+
+            justify-content: space-between;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        .mobile-bar .btn {
+            flex: 1;
+            padding: 12px 10px;
+        }
+
+        @media (min-width: 900px) {
+
+            .mobile-bar {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 899px) {
+
+            body {
+                padding-bottom: 74px;
+            }
+
+            .desktop-only {
+                display: none !important;
+            }
+
+        }
+    </style>
+
+
+
+    <!-- Structured Data (edit with real details later) -->
+
+    <script type="application/ld+json">
+
+  {
+
+    "@context": "https://schema.org",
+
+    "@type": "ClothingStore",
+
+    "name": "Verve West",
+
+    "url": "https://example.com",
+
+    "telephone": "+91-9999999999",
+
+    "address": {
+
+      "@type": "PostalAddress",
+
+      "addressLocality": "Bandra West",
+
+      "addressRegion": "Maharashtra",
+
+      "addressCountry": "IN"
+
+    }
+
+  }
+
+  </script>
+
+</head>
+
+
+
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+
+
+    <!-- Header -->
+
+    <header>
+
+        <div class="container header-inner">
+
+            <a class="brand" href="#hero" aria-label="Verve West Home">
+
+                <span class="brand-mark" aria-hidden="true"></span>
+
+                <span>
+
+                    <div class="brand-name">Verve West</div>
+
+                    <div class="brand-tag">Fashion retail portfolio</div>
+
+                </span>
+
+            </a>
+
+
+
+            <nav class="nav-desktop" aria-label="Primary">
+
+                <ul>
+
+                    <li><a href="#categories">Categories</a></li>
+
+                    <li><a href="#products">Products</a></li>
+
+                    <li><a href="#gallery">Gallery</a></li>
+
+                    <li><a href="#about">About</a></li>
+
+                    <li><a href="#contact">Visit</a></li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <div class="header-actions">
+
+                <!-- Theme toggle -->
+
+                <button id="themeToggle" class="btn ghost icon" type="button" aria-pressed="false"
+                    aria-label="Toggle dark mode">
+
+                    <!-- Moon -->
+
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" id="themeIcon">
+
+                        <path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z" />
+
+                    </svg>
+
+                    <span class="sr-only" id="themeLabel">Toggle theme</span>
+
+                </button>
+
+
+
+                <!-- Desktop CTAs -->
+
+                <a class="btn ghost desktop-only" href="tel:9999999999" aria-label="Call">
+
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1C10.85 22 2 13.15 2 2.5a1 1 0 0 1 1-1H6.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" />
+                    </svg>
+
+                    Call
+
+                </a>
+
+                <a class="btn primary desktop-only" href="https://wa.me/9999999999" target="_blank" rel="noopener"
+                    aria-label="WhatsApp">
+
+                    <svg class="icon-svg" viewBox="0 0 32 32" aria-hidden="true">
+                        <path
+                            d="M19.11 17.2c-.3-.16-1.78-.88-2.05-.98-.27-.1-.47-.16-.67.16-.2.3-.77.98-.94 1.18-.17.2-.35.22-.65.08-.3-.16-1.25-.46-2.38-1.46-.88-.78-1.47-1.74-1.64-2.04-.17-.3-.02-.46.13-.62.14-.14.3-.35.45-.52.16-.18.2-.3.3-.5.1-.2.05-.38-.02-.54-.08-.16-.67-1.6-.9-2.2-.24-.56-.5-.48-.67-.48h-.57c-.18 0-.48.06-.73.3-.25.24-.96.94-.96 2.3 0 1.35 1 2.65 1.14 2.84.14.2 1.98 3.03 4.8 4.25.67.3 1.2.48 1.6.62.68.22 1.3.2 1.78.12.54-.08 1.78-.72 2.03-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.36m-3.1 8.54c-4.76 0-8.64-3.88-8.64-8.64 0-4.77 3.88-8.64 8.64-8.64 4.77 0 8.64 3.87 8.64 8.64 0 4.76-3.87 8.64-8.64 8.64m0-19.68c-6.1 0-11.04 4.95-11.04 11.04 0 6.1 4.94 11.04 11.04 11.04 6.1 0 11.04-4.94 11.04-11.04 0-6.1-4.94-11.04-11.04-11.04" />
+                    </svg>
+
+                    WhatsApp
+
+                </a>
+
+
+
+                <!-- Mobile nav toggle -->
+
+                <button id="navToggle" class="btn ghost icon nav-toggle" type="button" aria-controls="mobileDrawer"
+                    aria-expanded="false" aria-label="Open menu">
+
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z" />
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- Mobile Drawer -->
+
+    <div class="drawer-overlay" id="navOverlay" aria-hidden="true"></div>
+
+    <aside class="drawer" id="mobileDrawer" aria-label="Mobile menu">
+
+        <div class="drawer-header">
+
+            <strong>Menu</strong>
+
+            <button class="btn ghost icon" type="button" id="navClose" aria-label="Close menu">
+
+                <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3 1.42 1.42Z" />
+                </svg>
+
+            </button>
+
+        </div>
+
+        <div class="drawer-body">
+
+            <nav class="drawer-nav" aria-label="Mobile primary">
+
+                <ul>
+
+                    <li><a href="#hero">Home <span aria-hidden="true">→</span></a></li>
+
+                    <li><a href="#categories">Categories <span aria-hidden="true">→</span></a></li>
+
+                    <li><a href="#products">Products <span aria-hidden="true">→</span></a></li>
+
+                    <li><a href="#gallery">Gallery <span aria-hidden="true">→</span></a></li>
+
+                    <li><a href="#about">About <span aria-hidden="true">→</span></a></li>
+
+                    <li><a href="#contact">Visit / Contact <span aria-hidden="true">→</span></a></li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <div class="drawer-cta">
+
+                <a class="btn primary" href="https://wa.me/9999999999" target="_blank" rel="noopener">WhatsApp
+                    Enquiry</a>
+
+                <a class="btn ghost" href="tel:9999999999">Call 9999999999</a>
+
+                <a class="btn ghost"
+                    href="https://www.google.com/maps/search/?api=1&query=Bandra%20West%2C%20Maharashtra"
+                    target="_blank" rel="noopener">Open Maps</a>
+
+            </div>
+
+
+
+            <p class="muted" style="margin-top:14px;">
+
+                Tip: Replace images and brand names with your real catalog later.
+
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <main id="main">
+
+        <!-- Hero -->
+
+        <section id="hero" class="hero">
+
+            <div class="container hero-wrap">
+
+                <div data-reveal>
+
+                    <h1>Elevated essentials for the modern muse.</h1>
+
+                    <p class="hero-lede">
+
+                        A premium, <strong>mobile-first</strong> fashion retail portfolio built as a single HTML
+                        file—fast to edit,
+
+                        clean layout, SEO-ready, and designed to showcase categories, products, and store vibe.
+
+                    </p>
+
+
+
+                    <div class="cta-row">
+
+                        <a class="btn primary" href="#products">Explore Products</a>
+
+                        <a class="btn ghost" href="#gallery">View Store Gallery</a>
+
+                        <a class="btn ghost" href="https://wa.me/9999999999" target="_blank" rel="noopener">WhatsApp</a>
+
+                    </div>
+
+
+
+                    <div class="chip-row" style="margin-top:14px;">
+
+                        <span class="chip">Women • Men • Kids</span>
+
+                        <span class="chip">New Arrivals</span>
+
+                        <span class="chip">Lookbook</span>
+
+                        <span class="chip">In-store styling</span>
+
+                    </div>
+
+
+
+                    <div class="card" style="margin-top:18px;" data-reveal>
+
+                        <div class="grid two" style="gap:12px; align-items:center;">
+
+                            <div>
+
+                                <h3 style="margin-bottom:8px;">Featured Offer</h3>
+
+                                <p style="margin-bottom:0;">Book an in-store styling slot. Quick try-ons, curated edits,
+                                    and outfit pairing support.</p>
+
+                            </div>
+
+                            <div class="cta-row" style="justify-content:flex-end; margin-top:0;">
+
+                                <a class="btn primary" href="#contact">Plan a Visit</a>
+
+                                <a class="btn ghost" href="tel:9999999999">Call</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="hero-media" data-reveal>
+
+                    <div class="hero-shot big">
+
+                        <img src="https://images.unsplash.com/photo-1765009433753-c7462637d21f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                            alt="Modern clothing store interior with colorful garments" loading="eager" decoding="async"
+                            onerror="fallbackImg(this)" />
+
+                    </div>
+
+                    <div class="hero-shot small">
+
+                        <img src="https://images.unsplash.com/photo-1761090617068-f1b3257d27ad?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                            alt="Clothing racks displayed inside a boutique" loading="lazy" decoding="async"
+                            onerror="fallbackImg(this)" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Trust -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="grid three">
+
+                    <div class="card feature" data-reveal>
+
+                        <div class="dot" aria-hidden="true"></div>
+
+                        <div>
+
+                            <h3>Curated merchandising</h3>
+
+                            <p>Layouts that feel premium—clean categories, easy browsing, and hero products that stand
+                                out.</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card feature" data-reveal>
+
+                        <div class="dot" aria-hidden="true"></div>
+
+                        <div>
+
+                            <h3>Mobile-first design</h3>
+
+                            <p>Every section is responsive. Cards stack, images scale, and navigation stays usable on
+                                small screens.</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card feature" data-reveal>
+
+                        <div class="dot" aria-hidden="true"></div>
+
+                        <div>
+
+                            <h3>Fast edit workflow</h3>
+
+                            <p>One HTML file. Replace text, phone, WhatsApp, address, and images—then connect backend
+                                later.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div style="margin-top:22px;" data-reveal>
+
+                    <h3 style="margin-bottom:10px;">Stocked from trusted labels</h3>
+
+                    <p style="margin-bottom:14px;">(Safe placeholders — swap with your real brand logos later)</p>
+
+                    <div class="brands" aria-label="Brand list">
+
+                        <div class="brand-pill">Zara</div>
+
+                        <div class="brand-pill">H&M</div>
+
+                        <div class="brand-pill">Nike</div>
+
+                        <div class="brand-pill">Adidas</div>
+
+                        <div class="brand-pill">Levi’s</div>
+
+                        <div class="brand-pill">Puma</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Categories -->
+
+        <section id="categories" class="section alt">
+
+            <div class="container">
+
+                <h2 data-reveal>Categories</h2>
+
+                <p data-reveal>Showcase your range with clean, consistent image tiles. These images are verified
+                    links—if any fail, a built-in placeholder will appear.</p>
+
+
+
+                <div class="grid three" style="margin-top:16px;">
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1693026221384-87b69367fb65?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Elegant garment detail (women's wear placeholder)" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Women’s Wear</h3>
+
+                        <p>Contemporary staples, seasonal edits, and elevated occasion picks.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Kurtas</span><span class="tag">Dresses</span><span
+                                class="tag">Co-ords</span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1700659392887-0a026c53f8e2?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Folded garments on shelves (men's essentials placeholder)" loading="lazy"
+                                decoding="async" onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Men’s Essentials</h3>
+
+                        <p>Clean fits, premium basics, and sharp casualwear staples.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Shirts</span><span class="tag">Denim</span><span class="tag">Basics</span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1760287363879-6012adab292c?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Children's clothing displayed on racks" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Kids’ Styles</h3>
+
+                        <p>Comfort-first designs with playful modern colors.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Everyday</span><span class="tag">Party</span><span class="tag">Sets</span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1633464130613-0a9154299ac2?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Shoes displayed on a wall in store" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Footwear</h3>
+
+                        <p>Sneakers, slides, and everyday pairs to finish the look.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Sneakers</span><span class="tag">Casual</span><span class="tag">New
+                                drops</span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1761896902115-49793a359daf?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Men's accessories flat lay" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Accessories</h3>
+
+                        <p>Belts, eyewear, wallets, fragrances, and add-on pieces.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Styling</span><span class="tag">Gifting</span><span
+                                class="tag">Essentials</span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1515168746408-0f924dbb5c39?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Jewelry rings display" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Jewelry</h3>
+
+                        <p>Minimal accents to statement pieces for occasion looks.</p>
+
+                        <div class="tag-row">
+
+                            <span class="tag">Rings</span><span class="tag">Necklaces</span><span
+                                class="tag">Earrings</span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Products -->
+
+        <section id="products" class="section">
+
+            <div class="container">
+
+                <h2 data-reveal>Featured Products</h2>
+
+                <p data-reveal>Use this grid as a portfolio: replace names/prices with your actual catalog later.
+                    “Enquire” buttons can be wired to backend later.</p>
+
+
+
+                <div class="chip-row" style="margin: 14px 0 18px;" data-reveal>
+
+                    <span class="chip">INR 499–999</span>
+
+                    <span class="chip">INR 1,000–2,999</span>
+
+                    <span class="chip">INR 3,000+</span>
+
+                    <span class="chip">Everyday Staples</span>
+
+                    <span class="chip">Occasion Wear</span>
+
+                </div>
+
+
+
+                <div class="grid four">
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1620799139652-715e4d5b232d?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="White t-shirt on hanger" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Classic Tee</h3>
+
+                        <p class="muted">INR 799 • Soft cotton</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Unisex</span><span class="tag">Best seller</span>
+                            </div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Clothes hanging on rack" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Color Pop Shirts</h3>
+
+                        <p class="muted">INR 1,499 • Smart casual</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Men</span><span class="tag">New</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb tall">
+
+                            <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1200"
+                                alt="Folded shirts on wood panel" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Folded Basics</h3>
+
+                        <p class="muted">INR 999 • Everyday staples</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Basics</span><span class="tag">Value</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1753161027547-975af3d6e707?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Customers browsing clothing in a boutique" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Styling Picks</h3>
+
+                        <p class="muted">INR 2,499 • Outfit-ready</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Women</span><span class="tag">Curated</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1766918780914-5df4a5a98c44?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Baby clothes on hangers" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Kids Comfort Set</h3>
+
+                        <p class="muted">INR 899 • Soft fabrics</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Kids</span><span class="tag">New</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1623243880506-68651821063d?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Shoe store interior display" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Footwear Wall</h3>
+
+                        <p class="muted">INR 3,499+ • Premium pairs</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Footwear</span><span class="tag">Premium</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1750603247133-1fd1b4e4aca4?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Minimal boutique clothing rack" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Minimal Rack Edit</h3>
+
+                        <p class="muted">INR 1,999 • Neutral palette</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Collection</span><span class="tag">Clean</span></div>
+
+                            <a class="btn ghost" href="#contact">Enquire</a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <article class="card" data-reveal>
+
+                        <div class="thumb">
+
+                            <img src="https://images.unsplash.com/photo-1760863264233-99639e897e36?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1400"
+                                alt="Boutique interior with decor and clothing" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Store Edit</h3>
+
+                        <p class="muted">Portfolio piece • Visual merchandising</p>
+
+                        <div class="meta-row">
+
+                            <div class="tag-row"><span class="tag">Retail</span><span class="tag">Display</span></div>
+
+                            <a class="btn ghost" href="#gallery">View</a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Gallery -->
+
+        <section id="gallery" class="section alt">
+
+            <div class="container">
+
+                <h2 data-reveal>Store Gallery</h2>
+
+                <p data-reveal>Use this section to show your retail vibe (interiors, racks, displays). Replace with your
+                    store photos later.</p>
+
+
+
+                <div class="grid three" style="margin-top:16px;">
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1765009433753-c7462637d21f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Retail interior with clothing display" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Modern Interior</h3>
+
+                        <p class="muted">Clean counters, color story walls, and focus lighting.</p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1750603247133-1fd1b4e4aca4?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Minimal boutique rack" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Minimal Rack</h3>
+
+                        <p class="muted">Neutral palette styling, soft textures, and spacing.</p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1760863264233-99639e897e36?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Boutique interior with woven decor" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Warm Ambience</h3>
+
+                        <p class="muted">Lifestyle corner for accessories and feature drops.</p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1761090617068-f1b3257d27ad?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Clothing racks in boutique" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Rack Direction</h3>
+
+                        <p class="muted">Color blocking and easy browsing sections.</p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1753161027547-975af3d6e707?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Customers shopping in boutique" loading="lazy" decoding="async"
+                                onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Customer Experience</h3>
+
+                        <p class="muted">Service + styling support makes shopping easier.</p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <div class="thumb wide">
+
+                            <img src="https://images.unsplash.com/photo-1623243880506-68651821063d?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=70&w=1600"
+                                alt="Retail display wall" loading="lazy" decoding="async" onerror="fallbackImg(this)" />
+
+                        </div>
+
+                        <h3>Display Wall</h3>
+
+                        <p class="muted">High-impact merchandising for premium drops.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- About -->
+
+        <section id="about" class="section">
+
+            <div class="container grid two" style="align-items:start;">
+
+                <div data-reveal>
+
+                    <h2>About Verve West</h2>
+
+                    <p>
+
+                        Verve West is a fashion retail concept for shoppers who love clean silhouettes, modern colors,
+                        and effortless styling.
+
+                        This template is built as a polished “portfolio + catalog” layout for garment and fashion
+                        retailers.
+
+                    </p>
+
+                    <p>
+
+                        Replace the content with your own store story, sourcing strengths, and local details. All
+                        sections are designed for
+
+                        mobile responsiveness and easy editing.
+
+                    </p>
+
+
+
+                    <div class="cta-row">
+
+                        <a class="btn primary" href="#contact">Visit the Store</a>
+
+                        <a class="btn ghost" href="https://wa.me/9999999999" target="_blank" rel="noopener">WhatsApp
+                            Styling</a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card" data-reveal>
+
+                    <h3>Store Highlights</h3>
+
+                    <ul class="clean">
+
+                        <li>Curated seasonal drops and trend edits</li>
+
+                        <li>Try-on friendly layout with helpful staff</li>
+
+                        <li>Quick outfit pairing + styling suggestions</li>
+
+                        <li>Billing and GST invoice (add details later)</li>
+
+                    </ul>
+
+
+
+                    <div class="chip-row" style="margin-top:14px;">
+
+                        <span class="chip">Bandra West</span>
+
+                        <span class="chip">Mon–Sat</span>
+
+                        <span class="chip">9am–7pm</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FAQ -->
+
+        <section id="faq" class="section alt">
+
+            <div class="container">
+
+                <h2 data-reveal>FAQ</h2>
+
+
+
+                <details data-reveal>
+
+                    <summary>Is this website mobile responsive?</summary>
+
+                    <p>Yes. The layout uses responsive grids, a mobile drawer menu, scalable images, and a mobile action
+                        bar.</p>
+
+                </details>
+
+
+
+                <details data-reveal>
+
+                    <summary>Why do some images sometimes fail?</summary>
+
+                    <p>External image hosts can be blocked by networks. This template includes a built-in fallback
+                        image, so your layout won’t break.</p>
+
+                </details>
+
+
+
+                <details data-reveal>
+
+                    <summary>Is the contact form functional?</summary>
+
+                    <p>It behaves like a real form but shows a success message locally. Later, connect it to your
+                        backend by changing the <code>action</code> and removing the JS handler.</p>
+
+                </details>
+
+
+
+                <details data-reveal>
+
+                    <summary>Can I add more sections like Instagram or Blog?</summary>
+
+                    <p>Yes—this file is structured and easy to extend with new sections and cards.</p>
+
+                </details>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Contact -->
+
+        <section id="contact" class="section">
+
+            <div class="container">
+
+                <h2 data-reveal>Contact & Visit</h2>
+
+
+
+                <div class="grid two" style="align-items:start; margin-top:16px;">
+
+                    <div class="card" data-reveal>
+
+                        <h3>Store Details</h3>
+
+                        <p><strong>Address:</strong> Bandra West, Maharashtra</p>
+
+                        <p><strong>Phone:</strong> <a href="tel:9999999999">9999999999</a></p>
+
+                        <p><strong>Hours:</strong> Mon–Sat · 9am – 7pm</p>
+
+
+
+                        <div class="cta-row">
+
+                            <a class="btn primary" href="https://wa.me/9999999999" target="_blank"
+                                rel="noopener">WhatsApp</a>
+
+                            <a class="btn ghost" href="tel:9999999999">Call</a>
+
+                            <a class="btn ghost"
+                                href="https://www.google.com/maps/search/?api=1&query=Bandra%20West%2C%20Maharashtra"
+                                target="_blank" rel="noopener">Maps</a>
+
+                        </div>
+
+
+
+                        <p class="muted" style="margin-top:12px;">
+
+                            Tip: Update the phone/WhatsApp once and it updates all CTAs.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="card" data-reveal>
+
+                        <h3>Enquiry Form</h3>
+
+                        <form id="contactForm" class="form" action="#" method="post">
+
+                            <label class="sr-only" for="name">Name</label>
+
+                            <input id="name" name="name" type="text" placeholder="Your name" required />
+
+
+
+                            <label class="sr-only" for="phone">Phone</label>
+
+                            <input id="phone" name="phone" type="tel" placeholder="Your phone" required />
+
+
+
+                            <label class="sr-only" for="message">Message</label>
+
+                            <textarea id="message" name="message"
+                                placeholder="What are you looking for? (sizes, category, budget, etc.)"
+                                required></textarea>
+
+
+
+                            <button class="btn primary" type="submit">Send Enquiry</button>
+
+                            <p class="muted" style="margin-bottom:0;">This form is ready for backend integration later.
+                            </p>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Footer -->
+
+        <footer>
+
+            <div class="container footer-grid">
+
+                <div>
+
+                    <h3 style="margin-bottom:10px;">Verve West</h3>
+
+                    <p>Elevated essentials for the modern muse. Built as a single-file HTML portfolio template for
+                        garment & fashion retailers.</p>
+
+                </div>
+
+
+
+                <div>
+
+                    <h3 style="margin-bottom:10px;">Quick Links</h3>
+
+                    <p><a href="#categories">Categories</a></p>
+
+                    <p><a href="#products">Products</a></p>
+
+                    <p><a href="#gallery">Gallery</a></p>
+
+                    <p><a href="#contact">Contact</a></p>
+
+                </div>
+
+
+
+                <div>
+
+                    <h3 style="margin-bottom:10px;">Contact</h3>
+
+                    <p><a href="tel:9999999999">9999999999</a></p>
+
+                    <p><a href="https://wa.me/9999999999" target="_blank" rel="noopener">WhatsApp</a></p>
+
+                    <p><a href="https://www.google.com/maps/search/?api=1&query=Bandra%20West%2C%20Maharashtra"
+                            target="_blank" rel="noopener">Bandra West, Maharashtra</a></p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="container" style="margin-top:18px; padding-top:14px; border-top:1px solid var(--border);">
+
+                <p style="margin:0;">© <span id="year"></span> Verve West. All rights reserved.</p>
+
+            </div>
+
+        </footer>
+
+
+
+        <!-- Mobile bottom action bar -->
+
+        <div class="mobile-bar" role="navigation" aria-label="Quick actions">
+
+            <a class="btn primary" href="https://wa.me/9999999999" target="_blank" rel="noopener">WhatsApp</a>
+
+            <a class="btn ghost" href="tel:9999999999">Call</a>
+
+            <a class="btn ghost" href="#contact">Enquire</a>
+
+        </div>
+
+
+
+        <!-- Toast -->
+
+        <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    </main>
+
+
+
+    <script>
+
+        // ========= Image fallback (prevents broken layout if external images fail)
+
+        function fallbackImg(imgEl) {
+
+            imgEl.onerror = null;
+
+            const svg = `
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900">
+
+          <defs>
+
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+
+              <stop stop-color="#ffe5d9"/>
+
+              <stop offset="1" stop-color="#ffffff"/>
+
+            </linearGradient>
+
+          </defs>
+
+          <rect width="100%" height="100%" fill="url(#g)"/>
+
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+
+            font-family="Arial, sans-serif" font-size="34" fill="#6b5c55">
+
+            Image unavailable
+
+          </text>
+
+        </svg>
+
+      `;
+
+            imgEl.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+
+        }
+
+
+
+        // ========= Mobile drawer menu
+
+        const navToggle = document.getElementById('navToggle');
+
+        const navClose = document.getElementById('navClose');
+
+        const navOverlay = document.getElementById('navOverlay');
+
+        const drawer = document.getElementById('mobileDrawer');
+
+
+
+        function openNav() {
+
+            document.body.classList.add('nav-open');
+
+            navToggle?.setAttribute('aria-expanded', 'true');
+
+        }
+
+        function closeNav() {
+
+            document.body.classList.remove('nav-open');
+
+            navToggle?.setAttribute('aria-expanded', 'false');
+
+        }
+
+
+
+        navToggle?.addEventListener('click', () => {
+
+            document.body.classList.contains('nav-open') ? closeNav() : openNav();
+
+        });
+
+        navClose?.addEventListener('click', closeNav);
+
+        navOverlay?.addEventListener('click', closeNav);
+
+
+
+        // Close on ESC
+
+        document.addEventListener('keydown', (e) => {
+
+            if (e.key === 'Escape') closeNav();
+
+        });
+
+
+
+        // Close drawer when clicking a link
+
+        drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+
+
+        // ========= Theme toggle (light/dark)
+
+        const root = document.documentElement;
+
+        const themeToggle = document.getElementById('themeToggle');
+
+        const themeIcon = document.getElementById('themeIcon');
+
+
+
+        function setTheme(next) {
+
+            root.setAttribute('data-theme', next);
+
+            localStorage.setItem('theme', next);
+
+
+
+            // Update icon
+
+            const isDark = next === 'dark';
+
+            themeToggle?.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+
+
+
+            // moon / sun paths (swap)
+
+            if (themeIcon) {
+
+                themeIcon.innerHTML = isDark
+
+                    ? '<path d="M6.76 4.84 5.35 3.43 3.93 4.85l1.41 1.41 1.42-1.42ZM1 13h3v-2H1v2Zm10 10h2v-3h-2v3Zm9.07-18.15-1.41-1.41-1.42 1.41 1.42 1.42 1.41-1.42ZM20 11v2h3v-2h-3ZM11 1h2v3h-2V1Zm7.66 18.16 1.41 1.41 1.42-1.41-1.42-1.42-1.41 1.42ZM4.93 19.57l1.42 1.41 1.41-1.41-1.41-1.42-1.42 1.42ZM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/>'
+
+                    : '<path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z"/>';
+
+            }
+
+
+
+            // Theme color meta (nice touch)
+
+            const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+            if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f0c0b' : '#fffaf5');
+
+        }
+
+
+
+        const saved = localStorage.getItem('theme');
+
+        if (saved === 'dark' || saved === 'light') setTheme(saved);
+
+
+
+        themeToggle?.addEventListener('click', () => {
+
+            const current = root.getAttribute('data-theme') || 'light';
+
+            setTheme(current === 'dark' ? 'light' : 'dark');
+
+        });
+
+
+
+        // ========= Reveal on scroll
+
+        const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+
+        if (!reduceMotion && 'IntersectionObserver' in window) {
+
+            const io = new IntersectionObserver((entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add('reveal-in');
+
+                        io.unobserve(entry.target);
+
+                    }
+
+                });
+
+            }, { threshold: 0.12 });
+
+            revealEls.forEach(el => io.observe(el));
+
+        } else {
+
+            revealEls.forEach(el => el.classList.add('reveal-in'));
+
+        }
+
+
+
+        // ========= Contact form (client-side “functional” demo)
+
+        const form = document.getElementById('contactForm');
+
+        const toast = document.getElementById('toast');
+
+
+
+        function showToast(title, msg) {
+
+            if (!toast) return;
+
+            toast.innerHTML = '<strong>' + title + '</strong><div class="muted">' + msg + '</div>';
+
+            toast.classList.add('show');
+
+            window.clearTimeout(showToast._t);
+
+            showToast._t = window.setTimeout(() => toast.classList.remove('show'), 3200);
+
+        }
+
+
+
+        form?.addEventListener('submit', (e) => {
+
+            e.preventDefault();
+
+            const fd = new FormData(form);
+
+            const name = (fd.get('name') || '').toString().trim() || 'there';
+
+            showToast('Enquiry saved (demo)', 'Thanks, ' + name + '! Connect this form to your backend when ready.');
+
+            form.reset();
+
+        });
+
+
+
+        // ========= Footer year
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+    </script>
+
+</body>
+
+</html>

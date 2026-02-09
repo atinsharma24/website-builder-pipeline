@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharma Optics | Heritage Luxury & Precision Eye Care Indore</title>
+    <meta name="description" content="Experience 25 years of visionary excellence at Sharma Optics, Indore's premier destination for luxury eyewear and clinical precision.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0F172A',
+                        gold: '#C5A059',
+                        arctic: '#F8FAFC',
+                        sky: '#38BDF8',
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        signature: ['Dancing Script', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --navy: #0F172A;
+            --gold: #C5A059;
+            --sky: #38BDF8;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: var(--navy);
+            overflow-x: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
+        /* Lens Reveal Effect */
+        .lens-container {
+            position: relative;
+            cursor: none;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .lens-image-blur {
+            filter: blur(4px) grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .lens-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://picsum.photos/id/101/1200/800');
+            background-size: cover;
+            background-position: center;
+            clip-path: circle(0% at 50% 50%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Refraction Overlay */
+        .refraction {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(56,189,248,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #C5A059 0%, #B38E46 100%);
+            color: white;
+            animation: pulse-gold 2.5s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0F172A; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-arctic">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-[95%] left-1/2 -translate-x-1/2 top-6 z-50 glass-nav rounded-2xl px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-navy flex items-center justify-center rounded-lg">
+                <span class="text-gold font-playfair text-xl font-bold">S</span>
+            </div>
+            <span class="font-playfair text-2xl font-bold tracking-tight text-navy">SHARMA<span class="text-gold">OPTICS</span></span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-10 text-sm font-medium tracking-widest uppercase">
+            <a href="#collection" class="hover:text-gold transition-colors">The Collection</a>
+            <a href="#services" class="hover:text-gold transition-colors">Services</a>
+            <a href="#founder" class="hover:text-gold transition-colors">Our Story</a>
+            <a href="#contact" class="px-5 py-2.5 bg-navy text-white rounded-full hover:bg-gold transition-all duration-300">Book Appointment</a>
+        </div>
+
+        <button class="md:hidden text-navy" id="mobile-menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-navy z-[60] flex flex-col items-center justify-center text-white space-y-8 text-2xl font-playfair translate-x-full transition-transform duration-500">
+        <button id="close-menu" class="absolute top-8 right-8">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <a href="#collection" class="mobile-link">The Collection</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#founder" class="mobile-link">Our Story</a>
+        <a href="#contact" class="mobile-link px-8 py-3 bg-gold rounded-full">Book Appointment</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-32 pb-20 flex flex-col md:flex-row items-center px-6 md:px-20 gap-12">
+        <div class="w-full md:w-1/2 space-y-8 animate-fade-in-up">
+            <div class="inline-block px-4 py-1 border border-gold/30 rounded-full text-gold text-xs font-bold tracking-[0.2em] uppercase">
+                Est. 1998 • Indore
+            </div>
+            <h1 class="text-6xl md:text-8xl font-playfair text-navy leading-[1.1]">
+                The Art of <span class="italic text-gold">Sight.</span><br>
+                The Soul of Style.
+            </h1>
+            <p class="text-lg text-slate-600 max-w-lg leading-relaxed font-light">
+                Experience 25 years of premium optical care at Indore’s most trusted eyewear destination. Where clinical precision meets artisanal luxury.
+            </p>
+            <div class="flex flex-wrap gap-6 items-center">
+                <a href="#contact" class="btn-premium px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest btn-gold shadow-xl">
+                    Book Eye Test
+                </a>
+                <a href="#collection" class="group flex items-center gap-3 text-navy font-bold text-sm uppercase tracking-widest">
+                    Explore Frames
+                    <span class="w-10 h-[1px] bg-navy group-hover:w-16 transition-all"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 h-[500px] md:h-[700px] relative lens-container group shadow-2xl">
+            <div class="lens-image-blur h-full w-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="lens-mask" style="background-image: url('https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="absolute inset-0 border-[20px] border-white/10 pointer-events-none"></div>
+            <!-- Floating badge -->
+            <div class="absolute -bottom-6 -left-6 bg-white p-8 shadow-2xl rounded-2xl hidden md:block animate-bounce">
+                <p class="text-navy font-playfair italic text-xl">"Unmatched Clarity"</p>
+                <div class="flex text-gold mt-2">★★★★★</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="bg-navy py-12 px-6 md:px-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 opacity-60">
+            <span class="text-white font-playfair text-xl italic tracking-wider">Authorized Partner</span>
+            <div class="flex flex-wrap justify-center gap-12 md:gap-20 items-center grayscale invert opacity-70">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Ray-Ban_logo.svg" alt="Ray-Ban" class="h-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Oakley-logo.svg/1280px-Oakley-logo.svg.png" alt="Oakley" class="h-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Prada-Logo.svg/1280px-Prada-Logo.svg.png" alt="Prada" class="h-5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Gucci_logo.svg/1280px-Gucci_logo.svg.png" alt="Gucci" class="h-4">
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Grid -->
+    <section id="collection" class="py-24 px-6 md:px-20 bg-arctic">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="space-y-4">
+                    <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs">The 2024 Collection</h2>
+                    <h3 class="text-5xl font-playfair text-navy">Curated Elegance</h3>
+                </div>
+                <div class="flex gap-4">
+                    <button class="px-6 py-2 border border-navy/10 rounded-full hover:bg-navy hover:text-white transition-all">Men</button>
+                    <button class="px-6 py-2 border border-navy/10 rounded-full hover:bg-navy hover:text-white transition-all">Women</button>
+                    <button class="px-6 py-2 border border-navy/10 rounded-full hover:bg-navy hover:text-white transition-all">Luxury</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <div class="group animate-on-scroll stagger-1">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1511499767390-a7335958beba?q=80&w=2000&auto=format&fit=crop" alt="Premium Shades" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                            <button class="w-full py-4 bg-white text-navy font-bold uppercase text-xs tracking-widest rounded-xl">View Details</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Handcrafted Italian</p>
+                        <h4 class="text-xl font-playfair text-navy">The Aviator Classic</h4>
+                        <p class="text-gold font-medium mt-1">₹14,500</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group animate-on-scroll stagger-2">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop" alt="Clinical Frames" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                            <button class="w-full py-4 bg-white text-navy font-bold uppercase text-xs tracking-widest rounded-xl">View Details</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Modern Clinical</p>
+                        <h4 class="text-xl font-playfair text-navy">Arctic Titan Series</h4>
+                        <p class="text-gold font-medium mt-1">₹8,900</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group animate-on-scroll stagger-3">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4]">
+                        <img src="https://images.unsplash.com/photo-1508243529287-e21914733111?q=80&w=2070&auto=format&fit=crop" alt="Designer Frames" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                            <button class="w-full py-4 bg-white text-navy font-bold uppercase text-xs tracking-widest rounded-xl">View Details</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Luxury Edition</p>
+                        <h4 class="text-xl font-playfair text-navy">Midnight Velvet</h4>
+                        <p class="text-gold font-medium mt-1">₹22,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 bg-navy text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-sky/5 skew-x-12 translate-x-1/2"></div>
+        <div class="max-w-7xl mx-auto px-6 md:px-20 relative z-10">
+            <div class="text-center mb-20 space-y-4">
+                <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs animate-on-scroll">Clinical Precision</h2>
+                <h3 class="text-5xl font-playfair animate-on-scroll">Expertise That Matters</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div class="text-center space-y-6 animate-on-scroll stagger-1">
+                    <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto border border-white/10">
+                        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-playfair">Advanced Eye Exams</h4>
+                    <p class="text-slate-400 leading-relaxed">Comprehensive digital diagnostics using state-of-the-art Japanese technology for crystal clear vision.</p>
+                </div>
+                <div class="text-center space-y-6 animate-on-scroll stagger-2">
+                    <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto border border-white/10">
+                        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-playfair">Designer Styling</h4>
+                    <p class="text-slate-400 leading-relaxed">Personalized frame consultations with our stylists to find the perfect pair that complements your face shape.</p>
+                </div>
+                <div class="text-center space-y-6 animate-on-scroll stagger-3">
+                    <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto border border-white/10">
+                        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a2 2 0 00-1.96 1.414l-.533 1.067a10.031 10.031 0 01-5.465-5.465l1.067-.533a2 2 0 001.414-1.96l-.477-2.387a2 2 0 00-.547-1.022L7.05 4.05a2 2 0 00-2.828 0L3.05 5.22a2 2 0 00-.566 1.705 15.033 15.033 0 0011.586 11.586 2 2 0 001.705-.566l1.171-1.171a2 2 0 000-2.828l-1.112-1.112z"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-playfair">Contact Lens Clinic</h4>
+                    <p class="text-slate-400 leading-relaxed">Specialized fittings for daily, monthly, and progressive contact lenses from world-leading brands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section id="founder" class="py-24 px-6 md:px-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
+            <div class="w-full md:w-1/2 relative animate-on-scroll">
+                <div class="absolute -top-10 -left-10 w-64 h-64 bg-gold/10 rounded-full blur-3xl"></div>
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Atin Sharma" class="rounded-3xl shadow-2xl relative z-10 w-full object-cover aspect-[4/5]">
+                <div class="absolute bottom-10 right-10 bg-white p-6 rounded-2xl shadow-xl z-20">
+                    <p class="text-navy font-bold text-lg italic">"Precision is our legacy."</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 space-y-8 animate-on-scroll">
+                <h2 class="text-gold font-bold uppercase tracking-[0.3em] text-xs">A Quarter Century of Trust</h2>
+                <h3 class="text-5xl font-playfair text-navy leading-tight">A Note from Atin Sharma</h3>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    "Since 1998, Sharma Optics has been more than just a boutique. It's a sanctuary for those who value their vision as much as their style. We brought global standards of clinical eye care to Indore when it was needed most."
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    Our commitment remains unchanged: to provide every client with an unparalleled experience that blends the warmth of Indian hospitality with the rigor of modern science.
+                </p>
+                <div>
+                    <p class="font-signature text-4xl text-navy">Atin Sharma</p>
+                    <p class="text-gold font-bold uppercase tracking-widest text-xs mt-2">Founder & Master Optometrist</p>
+                </div>
+                <div class="flex gap-10 pt-4">
+                    <div>
+                        <p class="text-4xl font-playfair text-navy">25+</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest">Years</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-playfair text-navy">100k+</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest">Happy Eyes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-arctic relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-navy/5 animate-on-scroll stagger-1">
+                    <div class="flex text-gold mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"The collection at Sharma Optics is unrivaled in Indore. I found a pair of Prada frames that I couldn't find even in Mumbai. Excellent service!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://ui-avatars.com/api/?name=Priya+Sharma&background=0F172A&color=fff" class="w-12 h-12 rounded-full" alt="Priya Sharma">
+                        <div>
+                            <p class="font-bold text-navy">Priya Sharma</p>
+                            <p class="text-xs text-slate-400">Architect</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-navy/5 animate-on-scroll stagger-2">
+                    <div class="flex text-gold mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"Dr. Atin's eye testing is thorough and high-tech. My new progressive lenses are the most comfortable I've ever worn. Highly recommended."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://ui-avatars.com/api/?name=Raj+Patel&background=C5A059&color=fff" class="w-12 h-12 rounded-full" alt="Raj Patel">
+                        <div>
+                            <p class="font-bold text-navy">Raj Patel</p>
+                            <p class="text-xs text-slate-400">Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-navy/5 animate-on-scroll stagger-3">
+                    <div class="flex text-gold mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"Professionalism at its best. From the moment you enter to the final fitting, it feels like a luxury experience. Best opticians in Indore."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://ui-avatars.com/api/?name=Ananya+Gupta&background=38BDF8&color=fff" class="w-12 h-12 rounded-full" alt="Ananya Gupta">
+                        <div>
+                            <p class="font-bold text-navy">Ananya Gupta</p>
+                            <p class="text-xs text-slate-400">Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 md:px-20">
+        <div class="max-w-7xl mx-auto bg-white rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-navy/5">
+            <div class="w-full md:w-1/2 p-12 md:p-20 space-y-10">
+                <div class="space-y-4">
+                    <h3 class="text-4xl font-playfair text-navy">Visit Our Flagship</h3>
+                    <p class="text-slate-500">Book your appointment for a premium optical experience.</p>
+                </div>
+                
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-navy">Name</label>
+                            <input type="text" placeholder="Your Name" class="w-full px-6 py-4 bg-arctic border border-slate-200 rounded-xl focus:outline-none focus:border-gold transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-navy">Phone</label>
+                            <input type="tel" placeholder="+91" class="w-full px-6 py-4 bg-arctic border border-slate-200 rounded-xl focus:outline-none focus:border-gold transition-all">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-navy">Preferred Service</label>
+                        <select class="w-full px-6 py-4 bg-arctic border border-slate-200 rounded-xl focus:outline-none focus:border-gold transition-all appearance-none">
+                            <option>Comprehensive Eye Test</option>
+                            <option>Frame Styling Consultation</option>
+                            <option>Contact Lens Fitting</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full btn-premium py-5 rounded-xl font-bold uppercase tracking-widest">Request Appointment</button>
+                </form>
+
+                <div class="pt-10 border-t border-slate-100 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gold/10 flex items-center justify-center rounded-full text-gold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <p class="text-navy font-medium">123 MG Road, Indore, MP 452001</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gold/10 flex items-center justify-center rounded-full text-gold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </div>
+                        <p class="text-navy font-medium">+91 731 4001234</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-1/2 min-h-[400px] bg-slate-200 relative grayscale hover:grayscale-0 transition-all duration-1000">
+                <!-- Styled Map Placeholder -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.55530350906!2d75.7938131!3d22.7239117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fcad1b449373%3A0x748050871c7da396!2sIndore%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy pt-20 pb-10 text-white px-6 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-1 md:col-span-2 space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-white flex items-center justify-center rounded">
+                            <span class="text-navy font-playfair font-bold">S</span>
+                        </div>
+                        <span class="font-playfair text-2xl font-bold tracking-tight">SHARMA<span class="text-gold">OPTICS</span></span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm leading-relaxed">
+                        Redefining the optical landscape of Indore for over 25 years. Combining artisanal luxury with clinical excellence.
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="text-gold font-bold uppercase tracking-widest text-xs">Explore</h4>
+                    <ul class="space-y-4 text-slate-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Men's Collection</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Women's Collection</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Designer Brands</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="text-gold font-bold uppercase tracking-widest text-xs">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-navy transition-all">IG</a>
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-navy transition-all">FB</a>
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-navy transition-all">LN</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 text-center text-sm text-slate-500">
+                © 2024 Sharma Optics. Crafted for Visionary Excellence.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky CTAs -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] md:hidden flex gap-4">
+        <a href="tel:+917314001234" class="flex-1 bg-navy text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-bold shadow-2xl">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call
+        </a>
+        <a href="https://wa.me/917314001234" class="flex-1 bg-green-600 text-white py-4 rounded-2xl flex items-center justify-center gap-2 font-bold shadow-2xl">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.628 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // Navbar Shrink on Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'top-4', 'w-[90%]');
+                navbar.classList.remove('py-4', 'top-6', 'w-[95%]');
+            } else {
+                navbar.classList.add('py-4', 'top-6', 'w-[95%]');
+                navbar.classList.remove('py-2', 'top-4', 'w-[90%]');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileOverlay.classList.remove('translate-x-full');
+        });
+
+        const hideMenu = () => mobileOverlay.classList.add('translate-x-full');
+        closeMenuBtn.addEventListener('click', hideMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', hideMenu));
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Lens Mask Interaction
+        const lensContainer = document.querySelector('.lens-container');
+        const lensMask = document.querySelector('.lens-mask');
+
+        lensContainer.addEventListener('mousemove', (e) => {
+            const rect = lensContainer.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            lensMask.style.clipPath = `circle(120px at ${x}% ${y}%)`;
+        });
+
+        lensContainer.addEventListener('mouseleave', () => {
+            lensMask.style.clipPath = `circle(0% at 50% 50%)`;
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
