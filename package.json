@@ -7,7 +7,6 @@
     "build": "tsc",
     "bridge": "node --loader ts-node/esm src/bridge-server.ts",
     "worker": "node --loader ts-node/esm src/watcher.ts",
-    "dev": "node --loader ts-node/esm --watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
