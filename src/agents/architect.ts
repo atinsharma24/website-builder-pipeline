@@ -1,16 +1,12 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generateContent } from "../services/llm.js";
 import type { BusinessInput } from "../schemas/business-input.js";
 import type { ArchitectOutput } from "../schemas/architect-output.js";
 import "dotenv/config";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const model = genAI.getGenerativeModel({
-    model: process.env.GEMINI_MODEL || "gemini-3-flash-preview",
-});
-
 /**
  * Architect Agent
  * Takes structured business input and generates a comprehensive website generation prompt
+ * CRITICAL: Always uses Gemini provider - hardcoded for consistency
  */
 export async function runArchitect(
     input: BusinessInput
@@ -74,8 +70,8 @@ Return a JSON object with this exact structure:
 
 Return ONLY the JSON object, no additional text.`;
 
-    const result = await model.generateContent(prompt);
-    const rawOutput = result.response.text();
+    // CRITICAL: Architect ALWAYS uses Gemini - hardcoded provider
+    const rawOutput = await generateContent(prompt, "gemini");
 
     // Clean and parse JSON
     const cleanedOutput = rawOutput

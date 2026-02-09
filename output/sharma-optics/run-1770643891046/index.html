@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sharma Optics — Luxury Eyewear & Clinical Excellence in Indore</title>
+    <meta name="description" content="Visionary Elegance Since 1999. Sharma Optics is Indore's premier destination for luxury designer frames and comprehensive eye care by Atin Sharma." />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* ===============================
+           Design System: Sharma Optics
+        =============================== */
+        :root {
+            --bg: #FFFFFF;
+            --bg-elev: #fdfdfd;
+            --bg-soft: #F8FAFC;
+            --text: #0F172A;
+            --muted: #475569;
+            --primary: #0F172A; /* Midnight Navy */
+            --primary-2: #C5A059; /* Champagne Gold */
+            --border: #e2e8f0;
+            --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            --radius-lg: 4px; /* Sharper edges for luxury feel */
+            --radius-md: 4px;
+            --radius-sm: 2px;
+            --max: 1200px;
+            --s1: 8px; --s2: 12px; --s3: 16px; --s4: 24px; 
+            --s5: 32px; --s6: 48px; --s7: 80px;
+            --focus: 0 0 0 4px rgba(197, 160, 89, 0.25);
+        }
+        /* Dark mode */
+        html[data-theme="dark"] {
+            --bg: #0F172A;
+            --bg-elev: #1e293b;
+            --bg-soft: #0c1220;
+            --text: #F8FAFC;
+            --muted: #94a3b8;
+            --primary: #C5A059;
+            --primary-2: #e2c07d;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            --focus: 0 0 0 4px rgba(197, 160, 89, 0.4);
+        }
+        /* Base */
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        img { max-width: 100%; display: block; transition: transform 0.5s ease; }
+        img:hover { transform: scale(1.05); }
+        a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+        button, input, textarea { font: inherit; color: inherit; }
+        .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--s4); }
+        .section { padding: var(--s7) 0; }
+        .section.alt { background: var(--bg-soft); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.1; margin: 0 0 var(--s3) 0; font-weight: 900; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.03em; }
+        h2 { font-size: clamp(2rem, 3.5vw, 2.5rem); letter-spacing: -0.01em; }
+        h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--primary-2); }
+        p { margin: 0 0 var(--s3) 0; color: var(--muted); font-size: 1.05rem; }
+        .grid { display: grid; gap: var(--s5); }
+        .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        @media (max-width: 980px) { .grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 640px) { .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; } }
+        .card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: var(--s5); overflow: hidden; position: relative; }
+        .chip-row { display: flex; flex-wrap: wrap; gap: var(--s2); }
+        .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 0; border: 1px solid var(--primary-2); color: var(--primary-2); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 32px; border-radius: var(--radius-md); border: 1px solid transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; cursor: pointer; transition: all .3s ease; white-space: nowrap; }
+        .btn:focus { outline: none; box-shadow: var(--focus); }
+        .btn:active { transform: translateY(1px); }
+        .btn.primary { background: var(--primary); color: #fff; border: 1px solid var(--primary); }
+        .btn.primary:hover { background: var(--primary-2); border-color: var(--primary-2); color: #fff; }
+        .btn.ghost { background: transparent; border-color: var(--primary-2); color: var(--primary-2); }
+        .btn.ghost:hover { background: var(--primary-2); color: #fff; }
+        .btn.icon { padding: 10px 12px; border-radius: 4px; }
+        .icon-svg { width: 18px; height: 18px; fill: currentColor; }
+        .muted { color: var(--muted); }
+        .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+        /* Header */
+        .skip-link { position: absolute; left: -999px; top: 10px; background: var(--bg-elev); border: 1px solid var(--border); padding: 10px 12px; z-index: 9999; }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
+        html[data-theme="dark"] header { background: rgba(15, 23, 42, 0.9); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: 16px 0; }
+        .brand { display: flex; align-items: center; gap: 14px; }
+        .brand-mark { width: 42px; height: 42px; background: var(--primary-2); display: flex; align-items: center; justify-content: center; position: relative; }
+        .brand-mark::after { content: ''; width: 20px; height: 2px; background: white; }
+        .brand-name { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.5px; line-height: 1; color: var(--primary); }
+        html[data-theme="dark"] .brand-name { color: #fff; }
+        .brand-tag { font-size: 0.7rem; color: var(--primary-2); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+        .nav-desktop ul { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; }
+        .nav-desktop a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text); padding: 8px 0; border-bottom: 2px solid transparent; }
+        .nav-desktop a:hover { color: var(--primary-2); border-bottom-color: var(--primary-2); }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        /* Hero */
+        .hero { padding: var(--s7) 0; min-height: 80vh; display: flex; align-items: center; background: var(--bg); position: relative; overflow: hidden; }
+        .hero-wrap { display: grid; gap: var(--s6); align-items: center; grid-template-columns: 1fr 1.1fr; }
+        @media (max-width: 980px) { .hero-wrap { grid-template-columns: 1fr; } }
+        .hero-lede { font-size: 1.25rem; margin: var(--s4) 0; font-family: 'Montserrat', sans-serif; font-weight: 400; }
+        .cta-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: var(--s4); }
+        .hero-media { position: relative; }
+        .hero-shot { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); position: relative; }
+        .hero-shot.big { aspect-ratio: 4 / 5; }
+        .hero-shot img { width: 100%; height: 100%; object-fit: cover; }
+        .glass-card { position: absolute; bottom: 40px; right: -20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding: 24px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: var(--shadow); width: 280px; z-index: 2; }
+        html[data-theme="dark"] .glass-card { background: rgba(30, 41, 59, 0.8); border-color: rgba(255,255,255,0.1); }
+        @media (max-width: 1100px) { .glass-card { display: none; } }
+        /* Brands Marquee */
+        .brands-section { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-elev); }
+        .brands-marquee { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: var(--s5); opacity: 0.6; grayscale: 100%; }
+        .brand-pill { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: var(--text); }
+        /* Sections */
+        .thumb { aspect-ratio: 16 / 10; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 24px; border: 1px solid var(--border); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .feature { display: flex; gap: 16px; margin-bottom: 24px; }
+        .feature-icon { color: var(--primary-2); flex-shrink: 0; }
+        ul.clean { list-style: none; padding: 0; }
+        ul.clean li { margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px; }
+        ul.clean li::before { content: "—"; color: var(--primary-2); font-weight: bold; }
+        /* Contact Form */
+        .form { display: grid; gap: 16px; }
+        input, textarea { width: 100%; padding: 16px; border-radius: 0; border: 1px solid var(--border); background: var(--bg); outline: none; transition: border-color 0.3s; }
+        input:focus, textarea:focus { border-color: var(--primary-2); }
+        textarea { min-height: 150px; }
+        /* Footer */
+        footer { background: var(--primary); color: #fff; padding: var(--s6) 0; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: var(--s5); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; } }
+        footer p, footer .muted { color: #cbd5e1; }
+        footer h4 { color: var(--primary-2); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 24px; }
+        .toast { position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px); background: var(--primary); color: white; border: 1px solid var(--primary-2); padding: 16px 24px; opacity: 0; pointer-events: none; transition: all .3s ease; z-index: 300; text-align: center; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        [data-reveal] { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        [data-reveal].reveal-in { opacity: 1; transform: translateY(0); }
+        /* Mobile Bar */
+        .mobile-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; background: var(--primary); padding: 12px; display: flex; gap: 10px; }
+        .mobile-bar .btn { flex: 1; border-radius: 0; }
+        @media (min-width: 900px) { .mobile-bar { display: none; } }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "OpticalBusiness",
+        "name": "Sharma Optics",
+        "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 MG Road",
+          "addressLocality": "Indore",
+          "addressRegion": "MP",
+          "postalCode": "452001",
+          "addressCountry": "IN"
+        },
+        "description": "Luxury eyewear boutique and clinical eye care center with a 25-year legacy in Indore.",
+        "openingHours": "Mo-Sa 10:00-20:00",
+        "telephone": "+91-9999999999"
+      }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+        <div class="container header-inner">
+            <a class="brand" href="#hero" aria-label="Home">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span>
+                    <div class="brand-name">SHARMA OPTICS</div>
+                    <div class="brand-tag">Est. 1999</div>
+                </span>
+            </a>
+            <nav class="nav-desktop" aria-label="Primary">
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#legacy">Our Legacy</a></li>
+                    <li><a href="#brands">Collections</a></li>
+                    <li><a href="#contact">Appointment</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="themeToggle" class="btn ghost icon" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" id="themeIcon"><path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z" /></svg>
+                </button>
+                <a class="btn primary desktop-only" href="tel:+919999999999">Call Clinic</a>
+                <button id="navToggle" class="btn ghost icon nav-toggle" style="display:none;" type="button" aria-expanded="false" aria-label="Open menu">
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z" /></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="container hero-wrap">
+                <div data-reveal>
+                    <div class="chip">Luxury Eyewear Boutique</div>
+                    <h1>25 Years of Precision. <br/>A Lifetime of Style.</h1>
+                    <p class="hero-lede">Indore's most trusted destination for premium eyewear and clinical excellence. Experience the art of vision under the expert care of Atin Sharma.</p>
+                    <div class="cta-row">
+                        <a class="btn primary" href="#contact">Book an Eye Test</a>
+                        <a class="btn ghost" href="#brands">Explore Collections</a>
+                    </div>
+                </div>
+                <div class="hero-media" data-reveal>
+                    <div class="hero-shot big">
+                        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200" alt="Sophisticated person wearing premium glasses" />
+                    </div>
+                    <div class="glass-card">
+                        <h3>Visit MG Road</h3>
+                        <p class="muted">Experience our world-class luxury showroom in the heart of Indore.</p>
+                        <a href="#contact" style="color: var(--primary-2); font-weight:700; font-size: 0.8rem;">GET DIRECTIONS &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Showcase Marquee -->
+        <section id="brands" class="brands-section">
+            <div class="container">
+                <div class="brands-marquee">
+                    <span class="brand-pill">RAY-BAN</span>
+                    <span class="brand-pill">GUCCI</span>
+                    <span class="brand-pill">PRADA</span>
+                    <span class="brand-pill">OAKLEY</span>
+                    <span class="brand-pill">TOM FORD</span>
+                    <span class="brand-pill">CARTIER</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <div style="text-align:center; max-width:700px; margin: 0 auto var(--s6);">
+                    <h2 data-reveal>Curated Eye Care Services</h2>
+                    <p data-reveal>We blend advanced diagnostic technology with an eye for high-fashion aesthetics to ensure you see clearly and look remarkable.</p>
+                </div>
+                <div class="grid three">
+                    <article class="card" data-reveal>
+                        <div class="thumb"><img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800" alt="Eye Exam" /></div>
+                        <h3>Clinical Eye Exams</h3>
+                        <p>Comprehensive diagnostic assessments using state-of-the-art Japanese technology for absolute precision.</p>
+                    </article>
+                    <article class="card" data-reveal>
+                        <div class="thumb"><img src="https://images.unsplash.com/photo-1511130523564-ca9462c1630c?auto=format&fit=crop&w=800" alt="Designer Frames" /></div>
+                        <h3>Designer Frames</h3>
+                        <p>Access to curated international collections including limited editions from the world's leading fashion houses.</p>
+                    </article>
+                    <article class="card" data-reveal>
+                        <div class="thumb"><img src="https://images.unsplash.com/photo-1596708143419-f033190da57f?auto=format&fit=crop&w=800" alt="Contact Lenses" /></div>
+                        <h3>Contact Lens Clinic</h3>
+                        <p>Expert fitting for specialized lenses, including multi-focal, toric, and therapeutic contact lens solutions.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legacy Section -->
+        <section id="legacy" class="section alt">
+            <div class="container grid two" style="align-items:center;">
+                <div data-reveal>
+                   <div class="chip">The Sharma Legacy</div>
+                   <h2>Modern Heritage <br/>Since 1999</h2>
+                   <p>For over a quarter of a century, Atin Sharma has been at the forefront of Indore's optical industry. Our journey on MG Road began with a simple vision: to provide personalized, professional care that treats every eye as a masterpiece.</p>
+                   <p>With over 50,000 happy eyes served, our boutique remains the gold standard for clinical excellence and luxury eyewear retail in Central India.</p>
+                </div>
+                <div class="card" style="background: var(--primary); color: white;" data-reveal>
+                    <h3 style="color: var(--primary-2);">Why Trust Sharma?</h3>
+                    <ul class="clean">
+                        <li><strong>Expert Optometry:</strong> 25 years of clinical diagnostic experience.</li>
+                        <li><strong>Curated Selection:</strong> Every frame handpicked for style and durability.</li>
+                        <li><strong>Precision Fitting:</strong> Digital lens measurements for perfect peripheral vision.</li>
+                        <li><strong>Lifetime Service:</strong> Complimentary adjustments and ultrasonic cleaning.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section">
+            <div class="container">
+                <h2 data-reveal style="text-align:center;">The Wall of Trust</h2>
+                <div class="grid three" style="margin-top: var(--s5);">
+                    <div class="card" data-reveal>
+                        <p>"The best eye check-up experience in Indore. Mr. Sharma's attention to detail is unmatched. Highly recommend their designer collection."</p>
+                        <strong>— Rahul V.</strong>
+                    </div>
+                    <div class="card" data-reveal>
+                        <p>"I've been a regular since 2005. They consistently have the most trendy frames and the prescription is always spot on."</p>
+                        <strong>— Simran K.</strong>
+                    </div>
+                    <div class="card" data-reveal>
+                        <p>"World-class service right here on MG Road. The staff is knowledgeable and helped me pick the perfect Gucci frames."</p>
+                        <strong>— Amit S.</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointment Section -->
+        <section id="contact" class="section alt">
+            <div class="container">
+                <div class="grid two" style="align-items:start;">
+                    <div data-reveal>
+                        <h2>Schedule Your Precision Eye Test</h2>
+                        <p>Book your 25-minute comprehensive eye exam today. Our consultants will help you find the perfect pair to match your face shape and lifestyle.</p>
+                        <div class="card" style="margin-top: var(--s4);">
+                            <p><strong>Address:</strong> 123 MG Road, Indore, MP</p>
+                            <p><strong>Hours:</strong> Mon - Sat: 10:00 AM - 8:00 PM</p>
+                            <p><strong>Phone:</strong> +91-9999999999</p>
+                        </div>
+                    </div>
+                    <div class="card" data-reveal>
+                        <form id="contactForm" class="form">
+                            <input id="name" name="name" type="text" placeholder="Full Name" required />
+                            <input id="phone" name="phone" type="tel" placeholder="Mobile Number" required />
+                            <select style="width:100%; padding:16px; border: 1px solid var(--border); background: var(--bg);" name="service">
+                                <option>Eye Examination</option>
+                                <option>Frame Consultation</option>
+                                <option>Contact Lens Fitting</option>
+                            </select>
+                            <textarea id="message" name="message" placeholder="Preferred Date and Time"></textarea>
+                            <button class="btn primary" type="submit">Request Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container footer-grid">
+                <div>
+                    <div class="brand-name" style="color: white; margin-bottom: 8px;">SHARMA OPTICS</div>
+                    <p>Experience visionary elegance and world-class clinical care at Indore's most trusted luxury optical boutique.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <p><a href="#services">Our Services</a></p>
+                    <p><a href="#brands">Luxury Brands</a></p>
+                    <p><a href="#legacy">Our Heritage</a></p>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <p>Instagram</p>
+                    <p>Facebook</p>
+                    <p>Google Maps</p>
+                </div>
+            </div>
+            <div class="container" style="text-align:center; margin-top: var(--s6); padding-top: var(--s4); border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>&copy; <span id="year"></span> Sharma Optics. Designed for Visionaries.</p>
+            </div>
+        </footer>
+
+        <div class="mobile-bar">
+            <a class="btn primary" href="tel:+919999999999">Call Now</a>
+            <a class="btn ghost" href="#contact" style="background: white; color: var(--primary);">Book Test</a>
+        </div>
+
+        <div class="toast" id="toast" role="status"></div>
+    </main>
+
+    <script>
+        // ========= Theme toggle
+        const root = document.documentElement; 
+        const themeToggle = document.getElementById('themeToggle'); 
+        const themeIcon = document.getElementById('themeIcon');
+        
+        function setTheme(next) { 
+            root.setAttribute('data-theme', next); 
+            localStorage.setItem('theme', next); 
+            const isDark = next === 'dark'; 
+            themeIcon.innerHTML = isDark ? '<path d="M6.76 4.84 5.35 3.43 3.93 4.85l1.41 1.41 1.42-1.42ZM1 13h3v-2H1v2Zm10 10h2v-3h-2v3Zm9.07-18.15-1.41-1.41-1.42 1.41 1.42 1.42 1.41-1.42ZM20 11v2h3v-2h-3ZM11 1h2v3h-2V1Zm7.66 18.16 1.41 1.41 1.42-1.41-1.42-1.42-1.41 1.42ZM4.93 19.57l1.42 1.41 1.41-1.41-1.41-1.42-1.42 1.42ZM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/>' : '<path d="M21 14.5A7.5 7.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z"/>'; 
+        }
+        
+        const saved = localStorage.getItem('theme'); 
+        if (saved) setTheme(saved);
+        themeToggle?.addEventListener('click', () => { 
+            const current = root.getAttribute('data-theme') || 'light'; 
+            setTheme(current === 'dark' ? 'light' : 'dark'); 
+        });
+
+        // ========= Reveal on scroll
+        const revealEls = Array.from(document.querySelectorAll('[data-reveal]')); 
+        if ('IntersectionObserver' in window) { 
+            const io = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { 
+                    if (entry.isIntersecting) { 
+                        entry.target.classList.add('reveal-in'); 
+                        io.unobserve(entry.target); 
+                    } 
+                }); 
+            }, { threshold: 0.1 }); 
+            revealEls.forEach(el => io.observe(el)); 
+        }
+
+        // ========= Contact form
+        const form = document.getElementById('contactForm'); 
+        const toast = document.getElementById('toast');
+        function showToast(title, msg) { 
+            toast.innerHTML = '<strong>' + title + '</strong><div>' + msg + '</div>'; 
+            toast.classList.add('show'); 
+            setTimeout(() => toast.classList.remove('show'), 4000); 
+        }
+        form?.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            const name = document.getElementById('name').value;
+            showToast('Request Sent', 'Thank you, ' + name + '. We will contact you shortly to confirm your slot.'); 
+            form.reset(); 
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
