@@ -34,7 +34,7 @@ export async function generateContent(
 ): Promise<string> {
     if (provider === "gemini") {
         const model = geminiClient.getGenerativeModel({
-            model: modelName || process.env.GEMINI_MODEL || "gemini-2.0-flash",
+            model: modelName || process.env.GEMINI_MODEL || "gemini-3-pro-preview",
         });
         const result = await model.generateContent(prompt);
         return result.response.text();

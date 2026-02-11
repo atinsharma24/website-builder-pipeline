@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satya Traders | Premium Grain Wholesalers Gwalior</title>
+    <meta name="description" content="Gwalior's trusted wholesale partner for premium Wheat, Basmati, and Pulses. Located in Dal Bazar. Serving since 2005.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D97706', // Golden Harvest
+                        primaryLight: '#F59E0B',
+                        primaryDark: '#B45309',
+                        secondary: '#064E3B', // Deep Emerald
+                        secondaryLight: '#047857',
+                        accent: '#FEF3C7', // Cream
+                        surface: '#FFFFFF',
+                        dark: '#1F2937'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=1920&auto=format&fit=crop')",
+                        'grain-texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')",
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 0 0px rgba(217, 119, 6, 0.7)' },
+                            '100%': { boxShadow: '0 0 0 15px rgba(217, 119, 6, 0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Overrides */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FEF3C7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B45309;
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-dark {
+            background: rgba(6, 78, 59, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FCD34D 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scroll Progress */
+        #scroll-progress {
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #D97706, #F59E0B);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: width 0.1s;
+        }
+
+        /* Image Zoom Effect */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.6s ease;
+        }
+        .group:hover .img-zoom {
+            transform: scale(1.1);
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-dark antialiased">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="flex flex-col items-center">
+            <i class="fas fa-wheat text-6xl text-primary animate-bounce mb-4"></i>
+            <h2 class="text-2xl font-serif text-secondary font-bold tracking-widest">SATYA TRADERS</h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <span class="font-serif font-bold text-2xl text-secondary tracking-tight">Satya<span class="text-primary">Traders</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-gray-800 hover:text-primary font-medium transition-colors relative group">
+                        Legacy
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#products" class="text-gray-800 hover:text-primary font-medium transition-colors relative group">
+                        Collection
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#features" class="text-gray-800 hover:text-primary font-medium transition-colors relative group">
+                        Why Us
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="tel:+919301101169" class="bg-secondary hover:bg-secondaryLight text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2 animate-pulse-glow">
+                        <i class="fas fa-phone-alt text-sm"></i> Call Now
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-secondary hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glass shadow-xl border-t border-gray-100">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" class="block px-3 py-3 text-secondary font-medium hover:bg-accent/50 rounded-lg">Legacy</a>
+                <a href="#products" class="block px-3 py-3 text-secondary font-medium hover:bg-accent/50 rounded-lg">Collection</a>
+                <a href="#features" class="block px-3 py-3 text-secondary font-medium hover:bg-accent/50 rounded-lg">Why Us</a>
+                <a href="tel:+919301101169" class="block mt-4 text-center bg-primary text-white py-3 rounded-lg font-bold shadow-md">
+                    Call +91 9301101169
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Parallax-like fixity -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=1920&auto=format&fit=crop" 
+                 alt="Golden Wheat Field" 
+                 class="w-full h-full object-cover object-center transform scale-105 animate-float" style="animation-duration: 20s;">
+            <!-- Overlay Gradients -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-secondary/80 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 text-center sm:px-6 lg:px-8 pt-20">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <span class="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-accent text-sm font-bold tracking-wider mb-6 uppercase">
+                    Since 2005 • Gwalior, MP
+                </span>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                    The <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">Gold Standard</span><br>of Grains
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                    Supplying Gwalior with premium Sharbati Wheat, Basmati, and Pulses. <br class="hidden md:block">Where agrarian tradition meets wholesale excellence.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#products" class="px-8 py-4 bg-primary hover:bg-primaryLight text-white rounded-full font-bold text-lg shadow-lg shadow-primary/30 transition-all hover:scale-105 hover:shadow-xl w-full sm:w-auto">
+                        Order Bulk Supply
+                    </a>
+                    <a href="#contact" class="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-secondary rounded-full font-bold text-lg transition-all hover:scale-105 w-full sm:w-auto backdrop-blur-sm">
+                        Request Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl opacity-70"></i>
+        </div>
+    </section>
+
+    <!-- About / Legacy Section -->
+    <section id="about" class="py-24 bg-surface relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-accent/20 skew-x-12 transform origin-top translate-x-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Content -->
+                <div data-aos="fade-right">
+                    <h4 class="text-primary font-bold tracking-widest uppercase mb-2">Our Legacy</h4>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-secondary mb-6 leading-tight">
+                        Trust Cultivated in <br> <span class="text-gradient">Dal Bazar</span> Since 2005.
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Located in the historic trading hub of Dal Bazar, Gwalior, <strong>Satya Traders</strong> has stood as a pillar of reliability for over 18 years. We don't just sell grains; we deliver the promise of purity.
+                    </p>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Our direct sourcing from the finest mandis of Madhya Pradesh ensures that every sack of wheat and every packet of dal meets the highest standards of nutritional value and taste.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-6 border-t border-gray-200 pt-8">
+                        <div class="text-center md:text-left">
+                            <span class="block text-4xl font-serif font-bold text-primary counter" data-target="18">0</span>
+                            <span class="text-sm text-gray-500 font-medium uppercase">Years Experience</span>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <span class="block text-4xl font-serif font-bold text-primary counter" data-target="1000">0</span>
+                            <span class="text-sm text-gray-500 font-medium uppercase">Retail Partners</span>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <span class="block text-4xl font-serif font-bold text-primary">100%</span>
+                            <span class="text-sm text-gray-500 font-medium uppercase">Organic Sourcing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Composition -->
+                <div class="relative" data-aos="fade-left">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+                        <img src="https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?q=80&w=800&auto=format&fit=crop" alt="Grain Sacks in Market" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-lg shadow-xl max-w-xs hidden md:block animate-float">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                <i class="fas fa-certificate text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-secondary">FSSAI Certified</p>
+                                <p class="text-xs text-gray-500">License No: 1234567890</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Collection -->
+    <section id="products" class="py-24 bg-accent/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-bold tracking-widest uppercase mb-2 block">Wholesale Catalog</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-secondary mb-4">Our Harvest Collection</h2>
+                <div class="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600">Premium quality grains sorted, cleaned, and packed for retail excellence. Bulk orders available at market-best rates.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-transparent hover:border-primary/30" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 overflow-hidden img-zoom-container relative">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=600&auto=format&fit=crop" alt="Sharbati Wheat" class="w-full h-full object-cover img-zoom">
+                        <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Top Seller</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold text-secondary mb-2">Sharbati Wheat</h3>
+                        <p class="text-gray-500 text-sm mb-4">Premium MP Sharbati. Golden grains, high protein, soft rotis guaranteed.</p>
+                        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                            <span class="text-primary font-bold">50kg / 100kg</span>
+                            <button class="text-secondary font-bold hover:text-primary transition-colors flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Get Quote <i class="fas fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-transparent hover:border-primary/30" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-64 overflow-hidden img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=600&auto=format&fit=crop" alt="Basmati Rice" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold text-secondary mb-2">Basmati Rice</h3>
+                        <p class="text-gray-500 text-sm mb-4">Extra long grain, aromatic aged Basmati. Perfect for Biryani and daily use.</p>
+                        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                            <span class="text-primary font-bold">25kg / 50kg</span>
+                            <button class="text-secondary font-bold hover:text-primary transition-colors flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Get Quote <i class="fas fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-transparent hover:border-primary/30" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-64 overflow-hidden img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1515543904379-3d757afe7264?q=80&w=600&auto=format&fit=crop" alt="Toor Dal" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold text-secondary mb-2">Toor Dal</h3>
+                        <p class="text-gray-500 text-sm mb-4">Unpolished, protein-rich Arhar Dal. Farm fresh and free from adulteration.</p>
+                        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                            <span class="text-primary font-bold">30kg / 50kg</span>
+                            <button class="text-secondary font-bold hover:text-primary transition-colors flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Get Quote <i class="fas fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-transparent hover:border-primary/30" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-64 overflow-hidden img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1599579086780-87779d7c07b4?q=80&w=600&auto=format&fit=crop" alt="Desi Chana" class="w-full h-full object-cover img-zoom">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-serif font-bold text-secondary mb-2">Desi Chana</h3>
+                        <p class="text-gray-500 text-sm mb-4">Premium quality brown chickpeas. High nutritional value for bulk buyers.</p>
+                        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                            <span class="text-primary font-bold">50kg / 100kg</span>
+                            <button class="text-secondary font-bold hover:text-primary transition-colors flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Get Quote <i class="fas fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center" data-aos="fade-up">
+                <a href="#contact" class="inline-flex items-center gap-2 text-secondary font-bold hover:text-primary transition-colors text-lg border-b-2 border-primary pb-1">
+                    Download Full Price List <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="features" class="py-24 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-white border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 group text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-20 h-20 mx-auto bg-accent rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-tags text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Wholesale Pricing</h3>
+                    <p class="text-gray-600">Direct mandi sourcing allows us to offer the most competitive rates in Gwalior without compromising quality.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-white border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 group text-center relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+                    <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-medal text-3xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Premium Quality</h3>
+                    <p class="text-gray-600">Rigorous 3-step quality check: Cleaning, Grading, and Sorting to ensure zero wastage for retailers.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-white border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 group text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 mx-auto bg-accent rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-truck-fast text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Bulk Supply Chain</h3>
+                    <p class="text-gray-600">Robust logistics ensuring timely delivery within Gwalior and surrounding regions. We value your time.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-secondary relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white text-center mb-12">Trusted by 1000+ Retailers</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20" data-aos="fade-up">
+                    <div class="flex items-center gap-1 text-primary mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-6">"I have been buying Sharbati Wheat from Satya Traders for my shop for 5 years. The quality is consistent, and customers love the softness of the rotis."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">R</div>
+                        <div>
+                            <h4 class="text-white font-bold">Rajesh Gupta</h4>
+                            <p class="text-primaryLight text-xs">Gupta Kirana Store</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-1 text-primary mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-6">"Best wholesale rates in Dal Bazar. Their Basmati Rice range is premium. Service is very professional and prompt."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">P</div>
+                        <div>
+                            <h4 class="text-white font-bold">Priya Sharma</h4>
+                            <p class="text-primaryLight text-xs">Sharma General Store</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-1 text-primary mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-200 italic mb-6">"Honest weighing and clean pulses. It's rare to find such transparency in the grain market these days. Highly recommended."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">A</div>
+                        <div>
+                            <h4 class="text-white font-bold">Amit Patel</h4>
+                            <p class="text-primaryLight text-xs">Patel Supermarket</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-surface pt-24 pb-0 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-[-80px] relative z-20">
+            <div class="bg-secondary rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <!-- Contact Info & Form -->
+                <div class="p-10 md:w-1/2 text-white">
+                    <h2 class="text-3xl font-serif font-bold mb-2">Get a Quote</h2>
+                    <p class="text-gray-300 mb-8">Fill the form or call us directly for today's mandi rates.</p>
+
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-300 mb-1">Your Name</label>
+                            <input type="text" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors" placeholder="Enter name">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-300 mb-1">Shop/Business Name</label>
+                            <input type="text" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors" placeholder="e.g. Satya Kirana">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-300 mb-1">Requirement</label>
+                            <select class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors [&>option]:text-black">
+                                <option>Bulk Wheat</option>
+                                <option>Basmati Rice</option>
+                                <option>Pulses / Dal</option>
+                                <option>Mix Order</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primaryLight text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-primary/50 transition-all transform hover:-translate-y-1">
+                            Request Callback
+                        </button>
+                    </form>
+
+                    <div class="mt-8 pt-8 border-t border-white/10 flex flex-col gap-4">
+                        <a href="tel:+919301101169" class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <span class="text-xl font-bold group-hover:text-primary transition-colors">+91 9301101169</span>
+                        </a>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="text-gray-300">Dal Bazar, Gwalior, Madhya Pradesh 474009</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="md:w-1/2 h-96 md:h-auto bg-gray-300 relative">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.620021678887!2d78.1642!3d26.2096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3976c42900000001%3A0x1234567890abcdef!2sDal%20Bazar%2C%20Gwalior%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(100%) contrast(1.2);" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                    <div class="absolute inset-0 bg-secondary/20 pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="bg-gray-900 text-gray-400 py-24 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>&copy; 2023 Satya Traders. All Rights Reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary transition-colors">Terms of Trade</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS (Animate On Scroll)
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // Navbar Glass Effect on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass', 'shadow-sm', 'bg-white/80');
+                navbar.classList.remove('bg-transparent', 'py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('glass', 'shadow-sm', 'bg-white/80', 'py-2');
+                navbar.classList.add('bg-transparent', 'py-4');
+            }
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + "%";
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Number Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; // The lower the slower
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (target === 18 ? '+' : '+');
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger Counter on Scroll Intersection
+        let counterTriggered = false;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterTriggered) {
+                    animateCounters();
+                    counterTriggered = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const aboutSection = document.querySelector('#about');
+        if(aboutSection) observer.observe(aboutSection);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satya Traders — Premium Grains & Pulses | Indore</title>
+    <meta name="description"
+        content="Satya Traders - Leading wholesale supplier of premium Wheat, Basmati Rice, Toor Dal, and Chana in Indore since 2005.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --c-forest: #1a3a2a;
+            --c-emerald: #2d6a4f;
+            --c-sage: #52796f;
+            --c-gold: #c9a227;
+            --c-amber: #e8b931;
+            --c-cream: #faf8f0;
+            --c-sand: #f0ead2;
+            --c-warm: #f5f1e8;
+            --c-dark: #1a1a1a;
+            --c-body: #3d3d3d;
+            --c-muted: #6b6b6b;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .06);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, .1);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, .12);
+            --shadow-gold: 0 8px 30px rgba(201, 162, 39, .2);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--c-body);
+            background: var(--c-cream);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            color: var(--c-forest);
+            line-height: 1.2
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transition: all .4s ease
+        }
+
+        .nav--top {
+            background: transparent
+        }
+
+        .nav--scroll {
+            background: rgba(255, 255, 255, .95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-sm)
+        }
+
+        .nav__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .nav__logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            transition: color .3s
+        }
+
+        .nav--scroll .nav__logo {
+            color: var(--c-forest)
+        }
+
+        .nav__logo span {
+            color: var(--c-gold)
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 2rem;
+            list-style: none
+        }
+
+        .nav__links a {
+            font-size: .875rem;
+            font-weight: 500;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .85);
+            transition: color .3s;
+            position: relative
+        }
+
+        .nav--scroll .nav__links a {
+            color: var(--c-body)
+        }
+
+        .nav__links a:hover {
+            color: var(--c-gold)
+        }
+
+        .nav__links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--c-gold);
+            transition: width .3s
+        }
+
+        .nav__links a:hover::after {
+            width: 100%
+        }
+
+        .nav__cta {
+            padding: .6rem 1.5rem;
+            border-radius: 50px;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            background: var(--c-gold);
+            color: var(--c-forest);
+            transition: all .3s;
+            border: none;
+            cursor: pointer
+        }
+
+        .nav__cta:hover {
+            background: var(--c-amber);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold)
+        }
+
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer
+        }
+
+        .nav__toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            margin: 5px 0;
+            transition: all .3s
+        }
+
+        .nav--scroll .nav__toggle span {
+            background: var(--c-dark)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--c-forest) 0%, #0d2818 50%, #1a3a2a 100%)
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+        }
+
+        .hero__glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 162, 39, .15), transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: pulse 8s ease-in-out infinite
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .4rem 1rem;
+            border-radius: 50px;
+            background: rgba(201, 162, 39, .15);
+            border: 1px solid rgba(201, 162, 39, .3);
+            color: var(--c-gold);
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem
+        }
+
+        .hero__badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--c-gold);
+            animation: blink 2s infinite
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: #fff;
+            margin-bottom: 1.5rem
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--c-gold)
+        }
+
+        .hero__sub {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, .7);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            line-height: 1.8
+        }
+
+        .hero__btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .9rem 2rem;
+            border-radius: 50px;
+            font-size: .875rem;
+            font-weight: 600;
+            letter-spacing: .5px;
+            transition: all .3s;
+            cursor: pointer;
+            border: none
+        }
+
+        .btn--primary {
+            background: var(--c-gold);
+            color: var(--c-forest)
+        }
+
+        .btn--primary:hover {
+            background: var(--c-amber);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold)
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, .3)
+        }
+
+        .btn--outline:hover {
+            border-color: var(--c-gold);
+            color: var(--c-gold);
+            transform: translateY(-3px)
+        }
+
+        .hero__stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem
+        }
+
+        .hero__stat {
+            text-align: center
+        }
+
+        .hero__stat-num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--c-gold)
+        }
+
+        .hero__stat-label {
+            font-size: .75rem;
+            color: rgba(255, 255, 255, .5);
+            text-transform: uppercase;
+            letter-spacing: 1px
+        }
+
+        .hero__visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .hero__circle {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(201, 162, 39, .1), rgba(45, 106, 79, .2));
+            border: 1px solid rgba(201, 162, 39, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 6s ease-in-out infinite
+        }
+
+        .hero__emoji {
+            font-size: 8rem;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .3))
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 6rem 2rem
+        }
+
+        .section__inner {
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .section__header {
+            text-align: center;
+            margin-bottom: 4rem
+        }
+
+        .section__label {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c-gold);
+            margin-bottom: .75rem
+        }
+
+        .section__title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 1rem
+        }
+
+        .section__desc {
+            color: var(--c-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1rem
+        }
+
+        /* ABOUT */
+        .about {
+            background: #fff
+        }
+
+        .about__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .about__img {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--c-sand), var(--c-warm));
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .about__img-emoji {
+            font-size: 6rem
+        }
+
+        .about__tag {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: var(--c-forest);
+            color: #fff;
+            padding: .5rem 1.25rem;
+            border-radius: 50px;
+            font-size: .8rem;
+            font-weight: 600
+        }
+
+        .about__text h2 {
+            margin-bottom: 1.5rem
+        }
+
+        .about__text p {
+            color: var(--c-muted);
+            margin-bottom: 1.5rem
+        }
+
+        .about__features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .about__feat {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--c-warm);
+            transition: all .3s
+        }
+
+        .about__feat:hover {
+            transform: translateX(8px);
+            background: var(--c-sand)
+        }
+
+        .about__feat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--c-forest);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0
+        }
+
+        .about__feat-text {
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--c-forest)
+        }
+
+        /* PRODUCTS */
+        .products {
+            background: var(--c-cream)
+        }
+
+        .products__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all .4s ease;
+            border: 1px solid rgba(0, 0, 0, .04)
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg)
+        }
+
+        .product-card__img {
+            aspect-ratio: 1;
+            background: var(--c-sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .product-card__emoji {
+            font-size: 4.5rem;
+            transition: transform .4s
+        }
+
+        .product-card:hover .product-card__emoji {
+            transform: scale(1.15) rotate(5deg)
+        }
+
+        .product-card__badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: .3rem .8rem;
+            border-radius: 50px;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .product-card__badge--premium {
+            background: var(--c-gold);
+            color: var(--c-forest)
+        }
+
+        .product-card__badge--organic {
+            background: var(--c-emerald);
+            color: #fff
+        }
+
+        .product-card__body {
+            padding: 1.5rem
+        }
+
+        .product-card__name {
+            font-size: 1.25rem;
+            margin-bottom: .5rem
+        }
+
+        .product-card__desc {
+            font-size: .875rem;
+            color: var(--c-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6
+        }
+
+        .product-card__meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .product-card__type {
+            font-size: .75rem;
+            font-weight: 600;
+            color: var(--c-emerald);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .product-card__link {
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--c-gold);
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+            transition: gap .3s
+        }
+
+        .product-card__link:hover {
+            gap: .6rem
+        }
+
+        /* WHY US */
+        .why {
+            background: var(--c-forest);
+            color: #fff
+        }
+
+        .why .section__title {
+            color: #fff
+        }
+
+        .why .section__desc {
+            color: rgba(255, 255, 255, .6)
+        }
+
+        .why__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem
+        }
+
+        .why-card {
+            padding: 2rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            transition: all .4s;
+            text-align: center
+        }
+
+        .why-card:hover {
+            background: rgba(255, 255, 255, .1);
+            transform: translateY(-5px);
+            border-color: rgba(201, 162, 39, .3)
+        }
+
+        .why-card__icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--c-gold), var(--c-amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem
+        }
+
+        .why-card__title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: .75rem;
+            color: #fff
+        }
+
+        .why-card__desc {
+            font-size: .875rem;
+            color: rgba(255, 255, 255, .6);
+            line-height: 1.7
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-amber) 100%);
+            text-align: center;
+            padding: 5rem 2rem
+        }
+
+        .cta h2 {
+            color: var(--c-forest);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem
+        }
+
+        .cta p {
+            color: var(--c-forest);
+            opacity: .7;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .btn--dark {
+            background: var(--c-forest);
+            color: #fff
+        }
+
+        .btn--dark:hover {
+            background: #0d2818;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg)
+        }
+
+        /* CONTACT */
+        .contact {
+            background: #fff
+        }
+
+        .contact__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem
+        }
+
+        .contact__info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem
+        }
+
+        .contact__item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.25rem;
+            border-radius: 16px;
+            background: var(--c-warm);
+            transition: all .3s
+        }
+
+        .contact__item:hover {
+            transform: translateX(5px);
+            background: var(--c-sand)
+        }
+
+        .contact__item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--c-forest);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0
+        }
+
+        .contact__item-label {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--c-muted);
+            margin-bottom: .25rem
+        }
+
+        .contact__item-value {
+            font-weight: 600;
+            color: var(--c-forest)
+        }
+
+        .contact__form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .contact__form input,
+        .contact__form textarea {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            border: 1.5px solid rgba(0, 0, 0, .08);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            transition: border-color .3s;
+            background: var(--c-warm)
+        }
+
+        .contact__form input:focus,
+        .contact__form textarea:focus {
+            outline: none;
+            border-color: var(--c-gold)
+        }
+
+        .contact__form textarea {
+            resize: vertical;
+            min-height: 120px
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--c-dark);
+            color: rgba(255, 255, 255, .5);
+            padding: 3rem 2rem;
+            text-align: center
+        }
+
+        .footer__inner {
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .footer__logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1rem
+        }
+
+        .footer__logo span {
+            color: var(--c-gold)
+        }
+
+        .footer__links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap
+        }
+
+        .footer__links a {
+            font-size: .85rem;
+            transition: color .3s
+        }
+
+        .footer__links a:hover {
+            color: var(--c-gold)
+        }
+
+        .footer__copy {
+            font-size: .8rem
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: .6;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-15px)
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all .8s cubic-bezier(.25, .46, .45, .94)
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px) {
+
+            .nav__links,
+            .nav__cta {
+                display: none
+            }
+
+            .nav__toggle {
+                display: block
+            }
+
+            .hero__content {
+                grid-template-columns: 1fr;
+                text-content: center;
+                padding: 7rem 1.5rem 4rem
+            }
+
+            .hero__visual {
+                display: none
+            }
+
+            .hero__stats {
+                justify-content: center
+            }
+
+            .about__grid,
+            .contact__grid {
+                grid-template-columns: 1fr
+            }
+
+            .about__img {
+                max-height: 300px
+            }
+
+            .hero h1 {
+                font-size: 2.25rem
+            }
+
+            .section {
+                padding: 4rem 1.5rem
+            }
+        }
+
+        @media(max-width:480px) {
+            .hero__stats {
+                flex-direction: column;
+                gap: 1rem
+            }
+
+            .hero__btns {
+                flex-direction: column
+            }
+
+            .btn {
+                justify-content: center
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav nav--top" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo">Satya<span>Traders</span></a>
+            <ul class="nav__links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#why">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav__cta">Get Quote</a>
+            <button class="nav__toggle" onclick="document.querySelector('.nav__links').classList.toggle('show')"
+                aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero__overlay"></div>
+        <div class="hero__glow"></div>
+        <div class="hero__content">
+            <div>
+                <div class="hero__badge">🌾 Established 2005</div>
+                <h1>India's Finest <em>Grains & Pulses</em> — Wholesale</h1>
+                <p class="hero__sub">Satya Traders is Indore's most trusted wholesaler of premium wheat, basmati rice,
+                    toor dal, and chana. Two decades of uncompromising quality.</p>
+                <div class="hero__btns">
+                    <a href="#products" class="btn btn--primary">Explore Products →</a>
+                    <a href="#contact" class="btn btn--outline">Request Pricing</a>
+                </div>
+                <div class="hero__stats">
+                    <div class="hero__stat">
+                        <div class="hero__stat-num">20+</div>
+                        <div class="hero__stat-label">Years</div>
+                    </div>
+                    <div class="hero__stat">
+                        <div class="hero__stat-num">500+</div>
+                        <div class="hero__stat-label">Clients</div>
+                    </div>
+                    <div class="hero__stat">
+                        <div class="hero__stat-num">50K+</div>
+                        <div class="hero__stat-label">Tonnes/yr</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="hero__circle">
+                    <div class="hero__emoji">🌾</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about" id="about">
+        <div class="section__inner">
+            <div class="about__grid">
+                <div class="about__img reveal">
+                    <div class="about__img-emoji">🏪</div>
+                    <div class="about__tag">Since 2005</div>
+                </div>
+                <div class="about__text reveal">
+                    <div class="section__label">Our Story</div>
+                    <h2>A Legacy Built on Trust & Quality</h2>
+                    <p>Founded by Satya Narayan Agarwal in 2005, Satya Traders has grown from a small grain shop in
+                        Indore to one of Madhya Pradesh's most respected wholesale distributors of grains and pulses.
+                    </p>
+                    <p>We source directly from farmers across India's finest agricultural regions, ensuring every grain
+                        meets our exacting standards for purity, freshness, and nutritional value.</p>
+                    <div class="about__features">
+                        <div class="about__feat">
+                            <div class="about__feat-icon">✓</div>
+                            <div class="about__feat-text">Direct farm-to-business sourcing</div>
+                        </div>
+                        <div class="about__feat">
+                            <div class="about__feat-icon">✓</div>
+                            <div class="about__feat-text">FSSAI certified quality standards</div>
+                        </div>
+                        <div class="about__feat">
+                            <div class="about__feat-icon">✓</div>
+                            <div class="about__feat-text">Pan-India delivery network</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="section products" id="products">
+        <div class="section__inner">
+            <div class="section__header reveal">
+                <div class="section__label">Our Products</div>
+                <h2 class="section__title">Premium Quality, Every Grain</h2>
+                <p class="section__desc">Hand-selected from India's finest agricultural belts — delivered fresh to your
+                    doorstep.</p>
+            </div>
+            <div class="products__grid">
+                <div class="product-card reveal">
+                    <div class="product-card__img">
+                        <div class="product-card__emoji">🌾</div>
+                        <div class="product-card__badge product-card__badge--premium">Premium</div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__name">Wheat</h3>
+                        <p class="product-card__desc">MP Sharbati & Lokwan varieties. High-protein, golden wheat sourced
+                            from the heartland of India.</p>
+                        <div class="product-card__meta"><span class="product-card__type">Grain</span><a href="#contact"
+                                class="product-card__link">Enquire →</a></div>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-card__img" style="background:var(--c-warm)">
+                        <div class="product-card__emoji">🍚</div>
+                        <div class="product-card__badge product-card__badge--premium">Premium</div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__name">Basmati Rice</h3>
+                        <p class="product-card__desc">1121 & Traditional Basmati. Extra-long grain, aromatic rice from
+                            the foothills of the Himalayas.</p>
+                        <div class="product-card__meta"><span class="product-card__type">Grain</span><a href="#contact"
+                                class="product-card__link">Enquire →</a></div>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-card__img">
+                        <div class="product-card__emoji">🫘</div>
+                        <div class="product-card__badge product-card__badge--organic">Organic</div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__name">Toor Dal</h3>
+                        <p class="product-card__desc">Polished & unpolished options. Rich in protein, sourced from
+                            Maharashtra and Karnataka's best farms.</p>
+                        <div class="product-card__meta"><span class="product-card__type">Pulse</span><a href="#contact"
+                                class="product-card__link">Enquire →</a></div>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-card__img" style="background:var(--c-warm)">
+                        <div class="product-card__emoji">🥜</div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__name">Chana</h3>
+                        <p class="product-card__desc">Desi & Kabuli varieties. Perfectly sized, high-yield chickpeas
+                            ideal for wholesale distribution.</p>
+                        <div class="product-card__meta"><span class="product-card__type">Pulse</span><a href="#contact"
+                                class="product-card__link">Enquire →</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US SECTION -->
+    <section class="section why" id="why">
+        <div class="section__inner">
+            <div class="section__header reveal">
+                <div class="section__label" style="color:var(--c-gold)">Why Satya Traders</div>
+                <h2 class="section__title">Built Different. Trusted by Hundreds.</h2>
+                <p class="section__desc">Two decades of excellence in grain trading — here's what sets us apart.</p>
+            </div>
+            <div class="why__grid">
+                <div class="why-card reveal">
+                    <div class="why-card__icon">🏆</div>
+                    <h3 class="why-card__title">Unmatched Quality</h3>
+                    <p class="why-card__desc">Every batch is lab-tested and FSSAI certified. We never compromise on
+                        purity or freshness.</p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-card__icon">💰</div>
+                    <h3 class="why-card__title">Competitive Pricing</h3>
+                    <p class="why-card__desc">Direct farmer relationships eliminate middlemen, passing savings directly
+                        to your business.</p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-card__icon">🚚</div>
+                    <h3 class="why-card__title">Reliable Supply</h3>
+                    <p class="why-card__desc">Consistent availability year-round with our pan-India logistics network
+                        and warehouse capacity.</p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-card__icon">🤝</div>
+                    <h3 class="why-card__title">Trusted Partnership</h3>
+                    <p class="why-card__desc">500+ long-term clients trust us with their supply chain. Flexible credit
+                        terms for regulars.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="section__inner reveal">
+            <h2>Ready to Source Premium Quality?</h2>
+            <p>Get competitive wholesale pricing for your business. No minimum order for first-time buyers.</p>
+            <a href="#contact" class="btn btn--dark">Get a Free Quote →</a>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact" id="contact">
+        <div class="section__inner">
+            <div class="section__header reveal">
+                <div class="section__label">Get In Touch</div>
+                <h2 class="section__title">Let's Talk Business</h2>
+                <p class="section__desc">Reach out for pricing, bulk orders, or partnership opportunities.</p>
+            </div>
+            <div class="contact__grid">
+                <div class="contact__info reveal">
+                    <div class="contact__item">
+                        <div class="contact__item-icon">📍</div>
+                        <div>
+                            <div class="contact__item-label">Visit Us</div>
+                            <div class="contact__item-value">Mandi Road, Indore, MP 452001</div>
+                        </div>
+                    </div>
+                    <div class="contact__item">
+                        <div class="contact__item-icon">📞</div>
+                        <div>
+                            <div class="contact__item-label">Call Us</div>
+                            <div class="contact__item-value">+91 98260 XXXXX</div>
+                        </div>
+                    </div>
+                    <div class="contact__item">
+                        <div class="contact__item-icon">✉️</div>
+                        <div>
+                            <div class="contact__item-label">Email Us</div>
+                            <div class="contact__item-value">info@satyatraders.com</div>
+                        </div>
+                    </div>
+                    <div class="contact__item">
+                        <div class="contact__item-icon">⏰</div>
+                        <div>
+                            <div class="contact__item-label">Business Hours</div>
+                            <div class="contact__item-value">Mon–Sat: 9:00 AM – 7:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact__form reveal"
+                    onsubmit="event.preventDefault();alert('Thank you! We will contact you soon.')">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <textarea placeholder="Your Message — tell us what you need..."></textarea>
+                    <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">Send
+                        Enquiry →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__logo">Satya<span>Traders</span></div>
+            <ul class="footer__links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#why">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <p class="footer__copy">© 2025 Satya Traders. All Rights Reserved. | Indore, Madhya Pradesh</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Scroll-based nav styling
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => { nav.classList.toggle('nav--scroll', window.scrollY > 50); nav.classList.toggle('nav--top', window.scrollY <= 50) });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }) }) });
+    </script>
+</body>
+
+</html>

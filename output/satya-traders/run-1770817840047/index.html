@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satya Traders: Premium Grains & Pulses Wholesaler – Since 2005</title>
+    <meta name="description" content="Satya Traders - Your trusted partner for market-best purity and competitive pricing in premium grains and pulses since 2005. Discover our range of Wheat, Basmati Rice, Toor Dal, Chana.">
+    <meta name="keywords" content="Satya Traders, grains, pulses, wholesaler, premium quality, Basmati Rice, Wheat, Toor Dal, Chana, wholesale, Gwalior, Madhya Pradesh, food materials, agri products">
+    <meta name="author" content="Satya Traders">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.satyatraders.com/"> <!-- Placeholder URL -->
+    <meta property="og:title" content="Satya Traders: Premium Grains & Pulses Wholesaler">
+    <meta property="og:description" content="Satya Traders - Your trusted partner for market-best purity and competitive pricing in premium grains and pulses since 2005.">
+    <meta property="og:image" content="https://picsum.photos/1200/630?grayscale&blur=5"> <!-- Placeholder image -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.satyatraders.com/"> <!-- Placeholder URL -->
+    <meta property="twitter:title" content="Satya Traders: Premium Grains & Pulses Wholesaler">
+    <meta property="twitter:description" content="Satya Traders - Your trusted partner for market-best purity and competitive pricing in premium grains and pulses since 2005.">
+    <meta property="twitter:image" content="https://picsum.photos/1200/630?grayscale&blur=5"> <!-- Placeholder image -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E5F3B',    // Dark Green
+                        secondary: '#F8E7D1',  // Creamy White
+                        accent: '#DAA520',     // Golden Yellow
+                        'primary-dark': '#264d30',
+                        'accent-light': '#FCD566',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        lato: ['Lato', 'sans-serif'],
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            from: { opacity: '0', transform: 'translateY(30px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            from: { opacity: '0' },
+                            to: { opacity: '1' },
+                        },
+                        slideDown: {
+                            from: { opacity: '0', transform: 'translateY(-20px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 10px rgba(218, 165, 32, 0.4)' },
+                            '50%': { boxShadow: '0 0 25px rgba(218, 165, 32, 0.6)' },
+                        },
+                        zoomIn: {
+                            from: { transform: 'scale(1)' },
+                            to: { transform: 'scale(1.03)' },
+                        },
+                        underlineGrow: {
+                            from: { transform: 'scaleX(0)' },
+                            to: { transform: 'scaleX(1)' },
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-down': 'slideDown 0.6s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'zoom-in': 'zoomIn 8s ease-in-out infinite alternate',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom CSS Variables for easier color management in custom styles */
+        :root {
+            --primary: #2E5F3B;
+            --secondary: #F8E7D1;
+            --accent: #DAA520;
+            --primary-rgb: 46, 95, 59;
+            --accent-rgb: 218, 165, 32;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #333; /* Dark gray for body text */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth; /* Smooth scroll for anchor links */
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother bezier curve */
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .btn-accent-glow:hover {
+             animation: pulseGlow 2s infinite; /* Using Tailwind's animation utility */
+        }
+
+        /* Glassmorphism Effect */
+        .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Blur effect */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1); /* Soft shadow */
+            border-radius: 12px; /* Rounded corners */
+        }
+        
+        /* Custom scrollbar for aesthetics */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Active Navigation Link Highlight */
+        .nav-link.active {
+            color: var(--accent);
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Adjust as needed */
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            animation: underlineGrow 0.3s ease-out forwards;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* "Since 2005" Badge */
+        .since-2005-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.3);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Mobile Nav Specifics */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(var(--primary-rgb), 0.95); /* Darker overlay */
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-nav-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-nav-overlay .nav-link-mobile {
+            font-size: 1.8rem;
+            margin: 1rem 0;
+            color: var(--secondary);
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0; /* Initial state for staggered animation */
+        }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(5) { animation-delay: 0.5s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(6) { animation-delay: 0.6s; }
+        .mobile-nav-overlay.open .nav-link-mobile:nth-child(7) { animation-delay: 0.7s; }
+
+        /* Back-to-Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 50;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background-color: var(--primary); /* change on hover */
+        }
+
+        /* Custom SVG Icon Styles (for elegance) */
+        .icon-small {
+            width: 2rem;
+            height: 2rem;
+            fill: var(--accent);
+        }
+        .icon-medium {
+            width: 2.5rem; /* Slightly smaller for contact section */
+            height: 2.5rem;
+            fill: var(--accent);
+        }
+        .icon-large {
+            width: 4rem;
+            height: 4rem;
+            fill: var(--accent);
+        }
+
+        /* Subtle Background Patterns */
+        .bg-pattern-grain {
+            background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 0h3v3H0V0zm3 3h3v3H3V3z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 6px 6px;
+            background-repeat: repeat;
+        }
+        .bg-pattern-dots {
+            background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+            background-size: 16px 16px;
+            background-repeat: repeat;
+            opacity: 0.05;
+        }
+
+    </style>
+</head>
+<body class="font-lato text-gray-800 bg-secondary">
+
+    <!-- Header & Navigation -->
+    <header class="bg-primary shadow-lg py-4 fixed top-0 left-0 w-full z-50 animate-slide-down">
+        <nav class="container mx-auto flex justify-between items-center px-6 lg:px-8">
+            <a href="#" class="flex items-center text-white text-3xl font-poppins font-extrabold tracking-tight">
+                <span class="text-accent text-4xl mr-1">S</span>atya <span class="text-accent ml-1">T</span>raders
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden lg:flex space-x-8">
+                <li><a href="#hero" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Home</a></li>
+                <li><a href="#about_us" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">About Us</a></li>
+                <li><a href="#products" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Products</a></li>
+                <li><a href="#why_choose_us" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Why Choose Us</a></li>
+                <li><a href="#quality_assurance" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Quality</a></li>
+                <li><a href="#testimonials" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Testimonials</a></li>
+                <li><a href="#contact_us" class="nav-link text-white hover:text-accent font-poppins font-medium transition-colors">Contact</a></li>
+            </ul>
+
+            <!-- CTA Button in Header -->
+            <a href="#contact_us" class="hidden lg:block bg-accent text-primary px-6 py-2 rounded-full font-poppins font-bold hover:bg-accent-light transition-all shadow-md btn-accent-glow">
+                Request a Quote
+            </a>
+
+            <!-- Mobile Hamburger Menu -->
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-white text-5xl focus:outline-none">
+            &times;
+        </button>
+        <ul class="flex flex-col items-center">
+            <li><a href="#hero" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="hero">Home</a></li>
+            <li><a href="#about_us" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="about_us">About Us</a></li>
+            <li><a href="#products" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="products">Products</a></li>
+            <li><a href="#why_choose_us" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="why_choose_us">Why Choose Us</a></li>
+            <li><a href="#quality_assurance" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="quality_assurance">Quality</a></li>
+            <li><a href="#testimonials" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="testimonials">Testimonials</a></li>
+            <li><a href="#contact_us" class="nav-link-mobile text-white hover:text-accent font-poppins font-medium transition-colors" data-section="contact_us">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-primary min-h-screen flex items-center justify-center text-center overflow-hidden py-20 lg:py-0">
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat animate-zoom-in" style="background-image: url('https://picsum.photos/id/1083/1920/1080?grayscale&blur=3');">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary opacity-80"></div>
+            </div>
+            <div class="relative z-10 p-8 max-w-5xl mx-auto flex flex-col items-center">
+                <h1 class="font-poppins text-white text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Satya Traders: Your Trusted Partner for <span class="text-accent">Premium Grains & Pulses</span>
+                </h1>
+                <p class="font-lato text-secondary text-lg sm:text-xl lg:text-2xl mb-10 max-w-3xl animate-fade-in-up" style="animation-delay: 0.6s;">
+                    Unwavering Quality, Unbeatable Prices, Delivered Since 2005.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-8">
+                    <a href="#contact_us" class="bg-accent text-primary px-10 py-4 rounded-full font-poppins font-bold text-xl hover:bg-accent-light transition-all shadow-lg hover-lift btn-accent-glow animate-fade-in-up" style="animation-delay: 0.9s;">
+                        Request a Quote
+                    </a>
+                    <div class="since-2005-badge animate-fade-in-up" style="animation-delay: 1.2s;">
+                        Since <span class="text-primary">2005</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about_us" class="py-20 lg:py-28 bg-secondary animate-on-scroll">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-12 relative pb-4">
+                    Our Legacy of Purity and Trust
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-accent rounded-full"></span>
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="animate-on-scroll">
+                        <p class="text-lg leading-relaxed mb-6">
+                            Since our establishment in <span class="font-bold text-primary">2005</span>, Satya Traders has grown to become a leading wholesale trading firm, specializing in the finest quality raw food materials. Our journey began with a simple yet profound vision: to deliver agricultural produce that exemplifies market-best purity and offers unparalleled value.
+                        </p>
+                        <p class="text-lg leading-relaxed mb-6">
+                            We pride ourselves on our deep understanding of the agricultural supply chain, fostering strong, long-standing relationships with farmers and suppliers. This enables us to consistently source premium grains and pulses, ensuring every product meets our stringent quality benchmarks. Our commitment extends beyond trade; it's about nurturing trust, ensuring sustainability, and contributing to the prosperity of our partners.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            At Satya Traders, our legacy is built on the unwavering principles of integrity, efficiency, and a relentless pursuit of excellence. We are more than just traders; we are partners in progress, dedicated to fueling your business with the best nature has to offer.
+                        </p>
+                    </div>
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl hover-lift animate-on-scroll">
+                        <img src="https://picsum.photos/id/1020/800/600" alt="Modern warehouse operations at Satya Traders" loading="lazy" class="w-full h-auto object-cover rounded-xl transition-transform duration-300 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-dark to-transparent opacity-60"></div>
+                        <p class="absolute bottom-4 left-4 text-white text-sm font-poppins px-3 py-1 bg-accent rounded-full">Operational Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Products Section -->
+        <section id="products" class="py-20 lg:py-28 bg-white animate-on-scroll">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-12 relative pb-4">
+                    Discover Our <span class="text-accent">Premium Range</span>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-primary rounded-full"></span>
+                </h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Product Card 1: Wheat -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift animate-on-scroll" style="animation-delay: 0.1s;">
+                        <img src="https://picsum.photos/id/214/400/300" alt="Premium Wheat Grains" loading="lazy" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="p-6">
+                            <h3 class="font-poppins text-2xl font-semibold text-primary mb-2">Premium Wheat</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Sourced from the finest fields, our wheat is ideal for flour, bread, and other staples, known for its high protein content and rich flavor.</p>
+                            <a href="#contact_us" class="inline-block bg-accent text-primary px-4 py-2 rounded-full font-poppins text-sm font-bold hover:bg-accent-light transition-colors btn-accent-glow">
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2: Basmati Rice -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift animate-on-scroll" style="animation-delay: 0.2s;">
+                        <img src="https://picsum.photos/id/1080/400/300" alt="Finest Basmati Rice" loading="lazy" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="p-6">
+                            <h3 class="font-poppins text-2xl font-semibold text-primary mb-2">Basmati Rice</h3>
+                            <p class="text-gray-600 mb-4 text-sm">The aromatic 'King of Rice', our Basmati is carefully selected for its long grains, distinct aroma, and fluffy texture.</p>
+                            <a href="#contact_us" class="inline-block bg-accent text-primary px-4 py-2 rounded-full font-poppins text-sm font-bold hover:bg-accent-light transition-colors btn-accent-glow">
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3: Toor Dal -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift animate-on-scroll" style="animation-delay: 0.3s;">
+                        <img src="https://picsum.photos/id/1082/400/300" alt="High Quality Toor Dal" loading="lazy" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="p-6">
+                            <h3 class="font-poppins text-2xl font-semibold text-primary mb-2">Toor Dal</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Premium quality split pigeon peas, a staple in Indian cuisine, known for its rich flavor and quick cooking.</p>
+                            <a href="#contact_us" class="inline-block bg-accent text-primary px-4 py-2 rounded-full font-poppins text-sm font-bold hover:bg-accent-light transition-colors btn-accent-glow">
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4: Chana (Chickpeas) -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift animate-on-scroll" style="animation-delay: 0.4s;">
+                        <img src="https://picsum.photos/id/292/400/300" alt="Finest Chana (Chickpeas)" loading="lazy" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="p-6">
+                            <h3 class="font-poppins text-2xl font-semibold text-primary mb-2">Chana (Chickpeas)</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Nutrient-rich chickpeas, perfect for a variety of dishes, offering excellent taste and consistent quality.</p>
+                            <a href="#contact_us" class="inline-block bg-accent text-primary px-4 py-2 rounded-full font-poppins text-sm font-bold hover:bg-accent-light transition-colors btn-accent-glow">
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Satya Traders? Section -->
+        <section id="why_choose_us" class="py-20 lg:py-28 bg-primary relative overflow-hidden animate-on-scroll">
+            <div class="absolute inset-0 bg-pattern-dots"></div>
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-16 relative pb-4 text-white">
+                    The Satya Traders Advantage: <span class="text-accent">Quality You Can Trust</span>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-accent rounded-full"></span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Advantage Card 1 -->
+                    <div class="glassmorphism text-white p-8 rounded-xl text-center hover-lift animate-on-scroll" style="animation-delay: 0.1s;">
+                        <svg class="icon-large mx-auto mb-4 text-accent" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        <h3 class="font-poppins text-2xl font-semibold text-accent mb-3">Market-Best Purity</h3>
+                        <p class="text-lg leading-relaxed text-secondary">We guarantee unparalleled purity and natural goodness in every grain and pulse, free from contaminants.</p>
+                    </div>
+                    <!-- Advantage Card 2 -->
+                    <div class="glassmorphism text-white p-8 rounded-xl text-center hover-lift animate-on-scroll" style="animation-delay: 0.2s;">
+                        <svg class="icon-large mx-auto mb-4 text-accent" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 1L3 6v6l9 5 9-5V6L12 1zm0 2.22l5.63 3.11L12 12.3l-5.63-3.11L12 3.22zm0 13.91l-7-3.89v-4.5l7 3.89 7-3.89v4.5l-7 3.89z"></path>
+                        </svg>
+                        <h3 class="font-poppins text-2xl font-semibold text-accent mb-3">Competitive Pricing</h3>
+                        <p class="text-lg leading-relaxed text-secondary">Benefit from our efficient supply chain that ensures premium quality products at the most competitive rates.</p>
+                    </div>
+                    <!-- Advantage Card 3 -->
+                    <div class="glassmorphism text-white p-8 rounded-xl text-center hover-lift animate-on-scroll" style="animation-delay: 0.3s;">
+                        <svg class="icon-large mx-auto mb-4 text-accent" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-3.08 1.83-5.74 4.47-7.05L12 12l-1 7.93z"></path>
+                        </svg>
+                        <h3 class="font-poppins text-2xl font-semibold text-accent mb-3">Reliable & Timely Supply</h3>
+                        <p class="text-lg leading-relaxed text-secondary">Our robust logistics ensure your orders are delivered promptly and consistently, keeping your operations smooth.</p>
+                    </div>
+                    <!-- Advantage Card 4 -->
+                    <div class="glassmorphism text-white p-8 rounded-xl text-center hover-lift animate-on-scroll" style="animation-delay: 0.4s;">
+                        <svg class="icon-large mx-auto mb-4 text-accent" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                        <h3 class="font-poppins text-2xl font-semibold text-accent mb-3">Decades of Expertise</h3>
+                        <p class="text-lg leading-relaxed text-secondary">Leverage our 18+ years of industry experience and deep market knowledge for your business success.</p>
+                    </div>
+                </div>
+
+                <!-- Animated Counters -->
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+                    <div class="animate-on-scroll" style="animation-delay: 0.5s;">
+                        <p class="font-poppins text-6xl font-extrabold text-accent mb-2">
+                            <span class="count-up" data-target="18">0</span>+
+                        </p>
+                        <p class="font-lato text-xl">Years of Experience</p>
+                    </div>
+                    <div class="animate-on-scroll" style="animation-delay: 0.6s;">
+                        <p class="font-poppins text-6xl font-extrabold text-accent mb-2">
+                            <span class="count-up" data-target="150">0</span>+
+                        </p>
+                        <p class="font-lato text-xl">Happy Clients</p>
+                    </div>
+                    <div class="animate-on-scroll" style="animation-delay: 0.7s;">
+                        <p class="font-poppins text-6xl font-extrabold text-accent mb-2">
+                            <span class="count-up" data-target="5000">0</span>+
+                        </p>
+                        <p class="font-lato text-xl">Tons Delivered Annually</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quality & Assurance Section -->
+        <section id="quality_assurance" class="py-20 lg:py-28 bg-secondary animate-on-scroll">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-12 relative pb-4">
+                    Our Commitment to <span class="text-accent">Uncompromising Quality</span>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-primary rounded-full"></span>
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="animate-on-scroll">
+                        <p class="text-lg leading-relaxed mb-6">
+                            At Satya Traders, quality is not just a promise; it's the foundation of everything we do. Our rigorous quality assurance process begins right at the source, partnering exclusively with trusted farmers and suppliers who adhere to sustainable and ethical farming practices.
+                        </p>
+                        <p class="text-lg leading-relaxed mb-6">
+                            Upon arrival at our state-of-the-art facilities, every batch undergoes stringent quality checks. We meticulously inspect for purity, moisture content, foreign particles, and adherence to international standards. Our modern, climate-controlled storage ensures that products retain their freshness, nutritional value, and natural aroma until they reach you.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            Efficient logistics and careful packaging further safeguard the integrity of our products during transit. We are committed to transparency and traceability, ensuring that you receive nothing but the finest. Our certifications (ISO 9001:2015, FSSAI Certified) stand as a testament to our dedication to excellence.
+                        </p>
+                        <ul class="list-disc list-inside mt-6 text-lg text-primary-dark font-medium space-y-2">
+                            <li><strong class="font-poppins text-primary">Strict Sourcing:</strong> Partnerships with ethical farmers.</li>
+                            <li><strong class="font-poppins text-primary">Advanced Quality Control:</strong> Lab-tested for purity and safety.</li>
+                            <li><strong class="font-poppins text-primary">Modern Storage:</strong> Preserving freshness and nutritional value.</li>
+                            <li><strong class="font-poppins text-primary">Efficient Logistics:</strong> Timely and secure delivery.</li>
+                        </ul>
+                    </div>
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl hover-lift animate-on-scroll">
+                        <img src="https://picsum.photos/id/400/800/600" alt="Quality control process in a laboratory" loading="lazy" class="w-full h-auto object-cover rounded-xl transition-transform duration-300 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-dark to-transparent opacity-60"></div>
+                        <p class="absolute bottom-4 left-4 text-white text-sm font-poppins px-3 py-1 bg-accent rounded-full">Certified Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Testimonials Section -->
+        <section id="testimonials" class="py-20 lg:py-28 bg-white animate-on-scroll">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-12 relative pb-4">
+                    What Our <span class="text-accent">Partners Say</span>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-primary rounded-full"></span>
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-secondary p-8 rounded-xl shadow-lg glassmorphism text-primary-dark hover-lift animate-on-scroll" style="animation-delay: 0.1s;">
+                        <img src="https://ui-avatars.com/api/?name=Priya+Sharma&background=DAA520&color=2E5F3B&bold=true&size=128" alt="Priya Sharma" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-accent shadow-md">
+                        <p class="text-lg italic mb-6">"Satya Traders has been our go-to supplier for years. Their commitment to purity and competitive pricing is unmatched. Truly a reliable partner!"</p>
+                        <p class="font-poppins font-semibold text-primary text-lg">- Priya Sharma</p>
+                        <p class="text-sm text-gray-600">Operations Manager, Fresh Harvest Retail</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-secondary p-8 rounded-xl shadow-lg glassmorphism text-primary-dark hover-lift animate-on-scroll" style="animation-delay: 0.2s;">
+                        <img src="https://ui-avatars.com/api/?name=Raj+Patel&background=DAA520&color=2E5F3B&bold=true&size=128" alt="Raj Patel" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-accent shadow-md">
+                        <p class="text-lg italic mb-6">"The quality of grains we receive from Satya Traders consistently exceeds our expectations. Their timely deliveries keep our mills running smoothly."</p>
+                        <p class="font-poppins font-semibold text-primary text-lg">- Raj Patel</p>
+                        <p class="text-sm text-gray-600">Procurement Head, Golden Grain Mills</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-secondary p-8 rounded-xl shadow-lg glassmorphism text-primary-dark hover-lift animate-on-scroll" style="animation-delay: 0.3s;">
+                        <img src="https://ui-avatars.com/api/?name=Ananya+Gupta&background=DAA520&color=2E5F3B&bold=true&size=128" alt="Ananya Gupta" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-accent shadow-md">
+                        <p class="text-lg italic mb-6">"Exceptional service and impeccable quality. Satya Traders understands our needs and always delivers with integrity. Highly recommended!"</p>
+                        <p class="font-poppins font-semibold text-primary text-lg">- Ananya Gupta</p>
+                        <p class="text-sm text-gray-600">Owner, Spices & Staples Distributors</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Banner -->
+        <section id="cta_banner" class="py-20 bg-primary text-white text-center relative overflow-hidden animate-on-scroll">
+            <div class="absolute inset-0 bg-pattern-grain opacity-10"></div>
+            <div class="container mx-auto px-6 lg:px-8 relative z-10">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    Ready to Elevate Your Supply Chain?
+                </h2>
+                <p class="text-xl lg:text-2xl font-lato mb-10 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Partner with Satya Traders for unparalleled quality and service in grains and pulses.
+                </p>
+                <a href="#contact_us" class="bg-accent text-primary px-10 py-4 rounded-full font-poppins font-bold text-xl hover:bg-accent-light transition-all shadow-lg hover-lift btn-accent-glow animate-fade-in-up" style="animation-delay: 0.5s;">
+                    Contact Us Today
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact_us" class="py-20 lg:py-28 bg-secondary animate-on-scroll">
+            <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+                <h2 class="text-4xl lg:text-5xl font-poppins font-bold text-center mb-12 relative pb-4">
+                    Connect With Us
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-accent rounded-full"></span>
+                </h2>
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div class="animate-on-scroll">
+                        <p class="text-lg leading-relaxed mb-6">
+                            Have questions or ready to place a bulk order? Reach out to us using the form below, or connect directly via phone and email. Our team is ready to assist you with all your premium grain and pulse requirements.
+                        </p>
+                        <form class="space-y-6 bg-white p-8 rounded-xl shadow-lg">
+                            <div>
+                                <label for="name" class="block text-lg font-poppins text-primary mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="Enter your full name" aria-label="Your Name" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-lg font-poppins text-primary mb-2">Your Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="name@example.com" aria-label="Your Email" required>
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-lg font-poppins text-primary mb-2">Subject</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="Inquiry about products / partnership" aria-label="Subject">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-lg font-poppins text-primary mb-2">Your Message</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="How can we help you?" aria-label="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-accent text-primary px-8 py-4 rounded-full font-poppins font-bold text-lg hover:bg-accent-light transition-all shadow-md hover-lift btn-accent-glow">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="animate-on-scroll">
+                        <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
+                            <h3 class="font-poppins text-3xl font-bold text-primary mb-6">Our Details</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center space-x-4">
+                                    <svg class="icon-medium text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
+                                    <div>
+                                        <p class="font-poppins font-semibold text-primary text-lg">Address:</p>
+                                        <p class="text-gray-700">Dal Bazar, Gwalior, Madhya Pradesh</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <svg class="icon-medium text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.32.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
+                                    <div>
+                                        <p class="font-poppins font-semibold text-primary text-lg">Phone:</p>
+                                        <a href="tel:+919301101169" class="text-gray-700 hover:text-accent transition-colors">+91 9301101169</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <svg class="icon-medium text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                                    <div>
+                                        <p class="font-poppins font-semibold text-primary text-lg">Email:</p>
+                                        <a href="mailto:info@satyatraders.com" class="text-gray-700 hover:text-accent transition-colors">info@satyatraders.com</a> <!-- Placeholder -->
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <svg class="icon-medium text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.929 17.5c-.752-.206-1.5-.478-2.21-1.028l.05-1.121a.75.75 0 0 0-.58-.737l-1.398-.246a.75.75 0 0 0-.82.493L5.42 16.5c-.104.18-.088.406.04.577l.08.1c.404.503.75 1.11 1.08 1.83.078.17.27.247.45.19l1.17-.38c.17-.057.34-.012.45.122l.98 1.258c.11.14.3.17.45.08l.76-.39c.17-.09.38-.07.52.05l.07.07c.21.21.41.38.64.55.15.11.37.1.5-.04l.7-.7a.75.75 0 0 0 .15-.81L13.5 15.6l-1.5 2.45c-.09.15-.09.33 0 .48l.05.08zm4.321-4.321c.542.71 1.028 1.46 1.233 2.21l-1.121-.05a.75.75 0 0 0-.737.58l-.246 1.398a.75.75 0 0 0 .493.82L16.5 18.58c.18.104.406.088.577-.04l.1-.08c.503-.404 1.11-.75 1.83-1.08.17-.078.247-.27.19-.45l-.38-1.17c-.057-.17-.012-.34.122-.45l1.258-.98c.14-.11.17-.3.08-.45l-.39-.76c-.09-.17-.07-.38.05-.52l.07-.07c.21-.21.38-.41.55-.64.11-.15.1-.37-.04-.5l-.7-.7a.75.755 0 0 0-.81-.15L15.6 13.5l2.45 1.5c.15.09.33.09.48 0l.08-.05z"></path></svg>
+                                    <div>
+                                        <p class="font-poppins font-semibold text-primary text-lg">Business Hours:</p>
+                                        <p class="text-gray-700">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Google Map -->
+                        <div class="rounded-xl overflow-hidden shadow-lg animate-on-scroll">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14480.982938166548!2d78.16335359999999!3d26.21634735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397669d2d0b57e03%3A0x6a0f44e7c7a52f44!2sDal%20Bazar%2C%20Lashkar%2C%20Gwalior%2C%20Madhya%20Pradesh%20474001!5e0!3m2!1sen!2sin!4v1701198421877!5m2!1sen!2sin"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-xl" aria-label="Google Map showing Satya Traders location in Dal Bazar, Gwalior">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12 lg:py-16">
+        <div class="container mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="md:col-span-2">
+                <a href="#" class="flex items-center text-white text-3xl font-poppins font-extrabold tracking-tight mb-4">
+                    <span class="text-accent text-4xl mr-1">S</span>atya <span class="text-accent ml-1">T</span>raders
+                </a>
+                <p class="text-secondary leading-relaxed max-w-sm mb-4">
+                    Your trusted partner for premium quality grains and pulses, committed to purity and competitive pricing since 2005.
+                </p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" aria-label="Facebook" class="text-secondary hover:text-accent transition-colors">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.505 1.492-3.89 3.776-3.89 1.094 0 2.24.195 2.24.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C17.34 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn" class="text-secondary hover:text-accent transition-colors">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12S18.627 0 12 0 0 5.373 0 12zm8.501-4.999h-3.002c-.829 0-1.499.67-1.499 1.499v9.002c0 .829.67 1.499 1.499 1.499h3.002c.829 0 1.499-.67 1.499-1.499v-9.002c0-.829-.67-1.499-1.499-1.499zm-1.501 3.501v-3.002c0-.829-.67-1.499-1.499-1.499h-3.002c-.829 0-1.499.67-1.499 1.499v3.002c0 .829.67 1.499 1.499 1.499h3.002c.829 0 1.499-.67 1.499-1.499zm1.501 1.5c0-.829-.67-1.499-1.499-1.499h-3.002c-.829 0-1.499.67-1.499 1.499v9.002c0 .829.67 1.499 1.499 1.499h3.002c.829 0 1.499-.67 1.499-1.499v-9.002c0-.829-.67-1.499-1.499-1.499zM19.5 10.5h-3.002c-.829 0-1.499.67-1.499 1.499v9.002c0 .829.67 1.499 1.499 1.499h3.002c.829 0 1.499-.67 1.499-1.499v-9.002c0-.829-.67-1.499-1.499-1.499zM19.5 7.5h-3.002c-.829 0-1.499.67-1.499 1.499v3.002c0 .829.67 1.499 1.499 1.499h3.002c.829 0 1.499-.67 1.499-1.499v-3.002c0-.829-.67-1.499-1.499-1.499z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-poppins text-xl font-bold text-accent mb-6">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="#hero" class="text-secondary hover:text-accent transition-colors">Home</a></li>
+                    <li><a href="#about_us" class="text-secondary hover:text-accent transition-colors">About Us</a></li>
+                    <li><a href="#products" class="text-secondary hover:text-accent transition-colors">Our Products</a></li>
+                    <li><a href="#contact_us" class="text-secondary hover:text-accent transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="font-poppins text-xl font-bold text-accent mb-6">Contact Info</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 mr-3 text-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
+                        <p class="text-secondary">Dal Bazar, Gwalior, Madhya Pradesh</p>
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.32.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
+                        <a href="tel:+919301101169" class="text-secondary hover:text-accent transition-colors">+91 9301101169</a>
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-3 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                        <a href="mailto:info@satyatraders.com" class="text-secondary hover:text-accent transition-colors">info@satyatraders.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 lg:px-8 text-center text-secondary mt-12 border-t border-primary-dark pt-8">
+            <p>&copy; <span id="current-year"></span> Satya Traders. All rights reserved.</p>
+            <p class="text-sm mt-2">
+                <a href="#" class="hover:text-accent transition-colors">Privacy Policy</a> |
+                <a href="#" class="hover:text-accent transition-colors">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Offset for sticky header
+                    const headerOffset = 100; // Adjust as needed for header height
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileNav = document.getElementById('mobile-nav-overlay');
+                    if (mobileNav && mobileNav.classList.contains('open')) {
+                        mobileNav.classList.remove('open');
+                        document.body.style.overflowY = 'auto'; // Restore scroll
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Stop observing once visible to prevent re-triggering
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+
+        // Animated Counters
+        const animateCountUp = (element, target) => {
+            let start = 0;
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 10); // Calculate increment based on 10ms intervals
+
+            const updateCount = () => {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    element.textContent = target;
+                }
+            };
+            requestAnimationFrame(updateCount);
+        };
+
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.count-up');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        animateCountUp(counter, target);
+                    });
+                    observer.unobserve(entry.target); // Stop observing once counted
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+
+        // Observe the section containing the counters
+        const whyChooseUsSection = document.getElementById('why_choose_us');
+        if (whyChooseUsSection) {
+            counterObserver.observe(whyChooseUsSection);
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+
+        if (mobileMenuButton && mobileNavOverlay && closeMobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileNavOverlay.classList.add('open');
+                document.body.style.overflowY = 'hidden'; // Disable scroll on body
+            });
+
+            closeMobileMenuButton.addEventListener('click', () => {
+                mobileNavOverlay.classList.remove('open');
+                document.body.style.overflowY = 'auto'; // Restore scroll
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileNavOverlay.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNavOverlay.classList.remove('open');
+                    document.body.style.overflowY = 'auto';
+                });
+            });
+        }
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) { // Show button after scrolling 300px
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Active Navigation Link Highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const highlightNav = () => {
+            let current = '';
+            // Get current scroll position, accounting for header height
+            const scrollY = window.pageYOffset + 150; // Adjust offset as needed for visual alignment
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightNav);
+        window.addEventListener('load', highlightNav); // Highlight on page load
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
