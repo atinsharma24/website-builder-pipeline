@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/bridge-server.js",
-    "dev": "tsx --watch src/bridge-server.ts",
+    "dev": "nodemon",
     "test:mock": "curl -X POST http://localhost:4000/pipeline?mock=true -H 'Content-Type: application/json' -d @test-input.json",
     "worker": "tsc && node dist/watcher.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -36,6 +36,7 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^25.2.2",
     "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

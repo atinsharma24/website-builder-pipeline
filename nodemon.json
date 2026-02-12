@@ -1,0 +1,14 @@
+{
+    "watch": [
+        "src"
+    ],
+    "ext": "ts,json,env",
+    "ignore": [
+        "src/**/*.test.ts",
+        "output/*",
+        "tasks/*",
+        "dist/*",
+        "node_modules"
+    ],
+    "exec": "tsx src/bridge-server.ts"
+}
