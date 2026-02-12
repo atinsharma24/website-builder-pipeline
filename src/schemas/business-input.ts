@@ -32,7 +32,8 @@ export const BusinessInputSchema = z.object({
   owner_name: z
     .string()
     .min(2, "Owner name must be at least 2 characters")
-    .max(100, "Owner name must be at most 100 characters"),
+    .max(100, "Owner name must be at most 100 characters")
+    .optional(),
   business_category: z
     .string()
     .min(2, "Business category must be at least 2 characters")

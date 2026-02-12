@@ -6,11 +6,27 @@ import "dotenv/config";
 /**
  * Architect Agent
  * Takes structured business input and generates a comprehensive website generation prompt
- * CRITICAL: Always uses Gemini provider - hardcoded for consistency
+ * Provider is configurable via ARCHITECT_LLM_PROVIDER env variable (default: gemini)
  */
 export async function runArchitect(
     input: BusinessInput
 ): Promise<ArchitectOutput> {
+    // Determine provider from environment variable (default to gemini for backward compat)
+    const provider = (process.env.ARCHITECT_LLM_PROVIDER || "gemini") as "gemini" | "openai" | "claude";
+
+    // Handle optional owner_name gracefully
+    const ownerDisplay = input.owner_name || "The Team";
+
+    // Handle missing contact info
+    const contactNote =
+        !input.phone && !input.email
+            ? "\n**NOTE**: No phone/email provided; generate a contact form only."
+            : !input.phone
+                ? "\n**NOTE**: No phone provided; use email and a contact form."
+                : !input.email
+                    ? "\n**NOTE**: No email provided; use phone and a contact form."
+                    : "";
+
     const photosSection =
         input.photos.length > 0
             ? `\n## Provided Photos:\n${input.photos.map((p, i) => `${i + 1}. ${p.url}${p.alt ? ` (${p.alt})` : ""}`).join("\n")}`
@@ -24,14 +40,18 @@ export async function runArchitect(
 
     const prompt = `You are an expert Website Architect specializing in creating stunning, conversion-optimized business websites.
 
+## IMPORTANT INSTRUCTION
+If specific business details (Owner Name, Phone, Email) are missing from the input, do NOT output 'undefined' or placeholders like '[Insert Name]'. Instead, write professional copy that focuses on the brand, heritage, and service quality. Hallucinate a professional backstory if necessary to make the site feel complete.
+
 ## Business Information
 - **Name**: ${input.business_name}
 - **Category**: ${input.business_category}
-- **Owner**: ${input.owner_name}
+- **Owner**: ${ownerDisplay}
 - **Location**: ${input.address}, ${input.city}, ${input.state}
 ${input.phone ? `- **Phone**: ${input.phone}` : ""}
 ${input.email ? `- **Email**: ${input.email}` : ""}
 ${input.website ? `- **Website**: ${input.website}` : ""}
+${contactNote}
 
 ## Business Description
 ${input.description}
@@ -70,8 +90,8 @@ Return a JSON object with this exact structure:
 
 Return ONLY the JSON object, no additional text.`;
 
-    // CRITICAL: Architect ALWAYS uses Gemini - hardcoded provider
-    const rawOutput = await generateContent(prompt, "gemini");
+    // Use dynamic provider from environment
+    const rawOutput = await generateContent(prompt, provider);
 
     // Clean and parse JSON
     const cleanedOutput = rawOutput
@@ -94,13 +114,15 @@ Return ONLY the JSON object, no additional text.`;
  * Mock Architect Agent (for testing without LLM)
  */
 export function mockArchitect(input: BusinessInput): ArchitectOutput {
+    const ownerDisplay = input.owner_name || "The Team";
+
     return {
         website_generation_prompt: `
 Create a breathtaking, conversion-focused website for "${input.business_name}" - a ${input.business_category} business in ${input.city}, ${input.state}.
 
 ## Business Profile
 - **Name**: ${input.business_name}
-- **Owner**: ${input.owner_name}
+- **Owner**: ${ownerDisplay}
 - **Specialty**: ${input.business_category}
 - **Story**: ${input.description}
 - **Location**: ${input.address}, ${input.city}, ${input.state}
@@ -147,7 +169,8 @@ Create an ABSOLUTELY STUNNING, modern website that makes the business owner say 
 
 ### 6. CONTACT SECTION
 - Business address prominently displayed
-- Phone number (click-to-call on mobile)
+${input.phone ? "- Phone number (click-to-call on mobile)" : "- No phone provided — use a contact form"}
+${input.email ? "- Email link" : "- No email provided — use a contact form"}
 - Simple contact form (name, email, message)
 - Operating hours if provided
 - Embedded map placeholder

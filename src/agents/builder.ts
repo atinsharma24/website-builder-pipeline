@@ -20,7 +20,7 @@ function cleanLLMOutput(text: string): string {
  */
 export async function runBuilder(spec: ArchitectOutput): Promise<string> {
   // Determine provider from environment variable
-  const provider = (process.env.BUILDER_LLM_PROVIDER || "gemini") as "gemini" | "openai";
+  const provider = (process.env.BUILDER_LLM_PROVIDER || "gemini") as "gemini" | "openai" | "claude";
 
   const styleGuidelines = spec.site_style_guidelines
     ? `
@@ -191,6 +191,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 4. Include at least 3 testimonials with Indian names (e.g., Priya Sharma, Raj Patel, Ananya Gupta)
 5. Make the design feel PREMIUM and EXPENSIVE
 6. The business owner should be IMPRESSED and feel proud of their website
+7. INTELLIGENT CONTACT SECTION: If the architect spec does not provide a specific phone number or email, do not generate fake ones. Instead, build a high-quality 'Send us a message' form and display the physical address/location prominently.
+8. MODERN STYLING: Use Tailwind's backdrop-blur for glassmorphism and ensure high contrast for accessibility. Use ui-avatars.com for testimonials if no photos are provided.
 
 NOW CREATE THE WEBSITE. OUTPUT ONLY THE HTML CODE.`;
 
