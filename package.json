@@ -9,7 +9,10 @@
     "dev": "node --loader ts-node/esm --watch src/bridge-server.ts",
     "test:mock": "curl -X POST http://localhost:4000/pipeline?mock=true -H 'Content-Type: application/json' -d @test-input.json",
     "worker": "tsc && node dist/watcher.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wb:import-html": "node --loader ts-node/esm scripts/importWebsiteBuilderPublishedHtml.ts",
+    "wb:override-html": "node --loader ts-node/esm scripts/overrideWebsiteBuilderHtml.ts",
+    "wb:purge-user": "node --loader ts-node/esm scripts/purgeWebsiteFlowUser.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,12 +26,14 @@
     "chokidar": "^5.0.0",
     "dotenv": "^17.2.4",
     "fastify": "^5.7.4",
+    "minimist": "^1.2.8",
     "openai": "^6.18.0",
     "uuid": "^13.0.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/chokidar": "^1.7.5",
+    "@types/minimist": "^1.2.5",
     "@types/node": "^25.2.2",
     "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
