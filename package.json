@@ -6,13 +6,13 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/bridge-server.js",
-    "dev": "node --loader ts-node/esm --watch src/bridge-server.ts",
+    "dev": "tsx --watch src/bridge-server.ts",
     "test:mock": "curl -X POST http://localhost:4000/pipeline?mock=true -H 'Content-Type: application/json' -d @test-input.json",
     "worker": "tsc && node dist/watcher.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wb:import-html": "node --loader ts-node/esm scripts/importWebsiteBuilderPublishedHtml.ts",
-    "wb:override-html": "node --loader ts-node/esm scripts/overrideWebsiteBuilderHtml.ts",
-    "wb:purge-user": "node --loader ts-node/esm scripts/purgeWebsiteFlowUser.ts"
+    "wb:import-html": "tsx scripts/importWebsiteBuilderPublishedHtml.ts",
+    "wb:override-html": "tsx scripts/overrideWebsiteBuilderHtml.ts",
+    "wb:purge-user": "tsx scripts/purgeWebsiteFlowUser.ts"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,7 @@
     "@types/node": "^25.2.2",
     "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
