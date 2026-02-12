@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satya Traders - Premium Grain & Pulse Trading | Gwalior, Madhya Pradesh</title>
+    <meta name="description" content="Satya Traders: 20+ years of trusted grain and pulse trading excellence in Dal Bazar, Gwalior. Premium quality grains, pulses, competitive prices, reliable supply chain.">
+    <meta property="og:title" content="Satya Traders - Premium Grain & Pulse Trading Excellence">
+    <meta property="og:description" content="Two decades of trusted agricultural trading in Gwalior. Quality grains, pulses, and reliable service.">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #D4860F;
+            --secondary: #2C5F2D;
+            --accent: #F4A460;
+            --primary-rgb: 212, 134, 15;
+            --secondary-rgb: 44, 95, 45;
+            --accent-rgb: 244, 164, 96;
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.5); }
+            50% { box-shadow: 0 0 50px rgba(var(--accent-rgb), 0.8); }
+        }
+        
+        @keyframes grain-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        /* Animation Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .animate-slide-down {
+            animation: slideDown 0.6s ease-out forwards;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+        
+        /* Hover Effects */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .hover-scale {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.4);
+        }
+        
+        .btn-secondary {
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .btn-shimmer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+        
+        /* Hero Section */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.8) 0%, rgba(var(--secondary-rgb), 0.7) 100%),
+                        url('https://picsum.photos/1920/1080?random=1') center/cover;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+        }
+        
+        .grain-particle {
+            position: absolute;
+            width: 4px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: grain-fall linear infinite;
+        }
+        
+        .grain-particle:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .grain-particle:nth-child(2) { left: 20%; animation-duration: 10s; animation-delay: 1s; }
+        .grain-particle:nth-child(3) { left: 30%; animation-duration: 7s; animation-delay: 2s; }
+        .grain-particle:nth-child(4) { left: 40%; animation-duration: 9s; animation-delay: 0.5s; }
+        .grain-particle:nth-child(5) { left: 50%; animation-duration: 11s; animation-delay: 1.5s; }
+        .grain-particle:nth-child(6) { left: 60%; animation-duration: 8s; animation-delay: 2.5s; }
+        .grain-particle:nth-child(7) { left: 70%; animation-duration: 10s; animation-delay: 1s; }
+        .grain-particle:nth-child(8) { left: 80%; animation-duration: 9s; animation-delay: 0s; }
+        .grain-particle:nth-child(9) { left: 90%; animation-duration: 7s; animation-delay: 2s; }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Sticky Navigation */
+        nav {
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav.scrolled .nav-link {
+            color: var(--secondary);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Pattern Background */
+        .pattern-bg {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(var(--accent-rgb), 0.05) 35px, rgba(var(--accent-rgb), 0.05) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(var(--primary-rgb), 0.05) 35px, rgba(var(--primary-rgb), 0.05) 70px);
+        }
+        
+        /* Counter Animation */
+        .counter {
+            animation: countUp 0.6s ease-out forwards;
+        }
+        
+        /* Badge Ribbon */
+        .badge-ribbon {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+        }
+        
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Decorative Elements */
+        .wheat-divider {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M50 0 L55 10 L50 20 L45 10 Z M30 0 L35 10 L30 20 L25 10 Z M70 0 L75 10 L70 20 L65 10 Z" fill="%23D4860F"/></svg>') center/contain no-repeat;
+            height: 40px;
+            opacity: 0.3;
+        }
+        
+        /* Loading Animation */
+        .loader {
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Card Gradient Shift */
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.95) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .card-gradient:hover {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.1) 100%);
+        }
+        
+        /* Image Zoom on Hover */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        
+        .img-zoom {
+            transition: transform 0.5s ease;
+        }
+        
+        .img-zoom-container:hover .img-zoom {
+            transform: scale(1.1);
+        }
+        
+        /* Star Rating */
+        .star {
+            color: #FFD700;
+        }
+        
+        /* Testimonial Card */
+        .testimonial-card {
+            background: white;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Wave Divider */
+        .wave-divider {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff"/></svg>') center/cover no-repeat;
+            height: 80px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">

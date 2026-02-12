@@ -50,7 +50,10 @@ export async function generateContent(
 ): Promise<string> {
     if (provider === "gemini") {
         const model = geminiClient.getGenerativeModel({
-            model: modelName || process.env.GEMINI_MODEL || "gemini-3-pro-preview",
+            model: modelName || process.env.GEMINI_MODEL || "gemini-3.0-flash",
+            generationConfig: {
+                maxOutputTokens: 16384,
+            },
         });
         const result = await model.generateContent(prompt);
         return result.response.text();
@@ -73,8 +76,8 @@ export async function generateContent(
     if (provider === "claude") {
         const client = await getAnthropicClient();
         const response = await client.messages.create({
-            model: modelName || process.env.ANTHROPIC_MODEL || "claude-3-5-sonnet-20240620",
-            max_tokens: 4096,
+            model: modelName || process.env.ANTHROPIC_MODEL || "claude-3-5-sonnet-20241022",
+            max_tokens: 8192,
             messages: [
                 {
                     role: "user",
