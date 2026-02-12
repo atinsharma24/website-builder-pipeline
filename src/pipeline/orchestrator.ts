@@ -201,7 +201,7 @@ export async function runPipeline(
     }
 
     try {
-        const uploadResult = await uploadWebsite(ctx.businessSlug, htmlContent, runId);
+        const uploadResult = await uploadWebsite(ctx.businessSlug, htmlContent, runId, architectOutput.website_generation_prompt);
 
         if (!uploadResult.success) {
             log(ctx, `Upload failed: ${uploadResult.error}`, "error");

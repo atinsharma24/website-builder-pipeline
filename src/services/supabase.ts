@@ -39,7 +39,8 @@ export interface UploadResult {
 export async function uploadWebsite(
     businessSlug: string,
     htmlContent: string,
-    runId: string
+    runId: string,
+    architectPrompt?: string
 ): Promise<UploadResult> {
     if (!supabase) {
         return {
@@ -49,27 +50,56 @@ export async function uploadWebsite(
     }
 
     const timestamp = Date.now();
-    const storagePath = `${businessSlug}/${timestamp}/index.html`;
+    const folderPath = `${businessSlug}/${timestamp}`;
+    const storagePath = `${folderPath}/index.html`;
     const sizeBytes = Buffer.byteLength(htmlContent, "utf-8");
 
     console.log(`📤 Uploading to: ${BUCKET_NAME}/${storagePath} (${sizeBytes} bytes)`);
 
     try {
-        const { data, error } = await supabase.storage
-            .from(BUCKET_NAME)
-            .upload(storagePath, htmlContent, {
-                contentType: "text/html; charset=utf-8",
-                upsert: false, // Each run is unique, don't overwrite
-                cacheControl: "public, max-age=3600", // 1 hour cache
-            });
+        // Build upload tasks — HTML is always uploaded; prompt is optional
+        const uploadTasks: Promise<any>[] = [
+            supabase.storage
+                .from(BUCKET_NAME)
+                .upload(storagePath, htmlContent, {
+                    contentType: "text/html; charset=utf-8",
+                    upsert: false,
+                    cacheControl: "public, max-age=3600",
+                }),
+        ];
 
-        if (error) {
-            console.error("❌ Upload error:", error.message);
+        if (architectPrompt) {
+            const promptPath = `${folderPath}/architect-prompt.md`;
+            const promptContent = `# Architect Generation Prompt\n\n${architectPrompt}`;
+            console.log(`📝 Uploading architect prompt to: ${BUCKET_NAME}/${promptPath}`);
+            uploadTasks.push(
+                supabase.storage
+                    .from(BUCKET_NAME)
+                    .upload(promptPath, promptContent, {
+                        contentType: "text/markdown; charset=utf-8",
+                        upsert: false,
+                    })
+            );
+        }
+
+        const results = await Promise.all(uploadTasks);
+
+        // Check HTML upload result (first task)
+        const htmlResult = results[0];
+        if (htmlResult.error) {
+            console.error("❌ Upload error:", htmlResult.error.message);
             return {
                 success: false,
-                error: error.message,
+                error: htmlResult.error.message,
                 storagePath,
             };
+        }
+
+        // Log prompt upload result if applicable
+        if (architectPrompt && results[1]?.error) {
+            console.warn(`⚠️  Prompt upload failed (non-blocking): ${results[1].error.message}`);
+        } else if (architectPrompt) {
+            console.log(`✅ Architect prompt uploaded`);
         }
 
         // Get public URL
