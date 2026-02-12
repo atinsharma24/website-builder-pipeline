@@ -14,8 +14,9 @@ export async function runArchitect(
     // Determine provider from environment variable (default to gemini for backward compat)
     const provider = (process.env.ARCHITECT_LLM_PROVIDER || "gemini") as "gemini" | "openai" | "claude";
 
-    // Handle optional owner_name gracefully
+    // Handle optional fields gracefully
     const ownerDisplay = input.owner_name || "The Team";
+    const categoryDisplay = input.business_category || "General Business";
 
     // Handle missing contact info
     const contactNote =
@@ -45,7 +46,7 @@ If specific business details (Owner Name, Phone, Email) are missing from the inp
 
 ## Business Information
 - **Name**: ${input.business_name}
-- **Category**: ${input.business_category}
+- **Category**: ${input.business_category ? input.business_category : "General / Unspecified (Infer from description)"}
 - **Owner**: ${ownerDisplay}
 - **Location**: ${input.address}, ${input.city}, ${input.state}
 ${input.phone ? `- **Phone**: ${input.phone}` : ""}
@@ -115,15 +116,16 @@ Return ONLY the JSON object, no additional text.`;
  */
 export function mockArchitect(input: BusinessInput): ArchitectOutput {
     const ownerDisplay = input.owner_name || "The Team";
+    const categoryDisplay = input.business_category || "General Business";
 
     return {
         website_generation_prompt: `
-Create a breathtaking, conversion-focused website for "${input.business_name}" - a ${input.business_category} business in ${input.city}, ${input.state}.
+Create a breathtaking, conversion-focused website for "${input.business_name}" - a ${categoryDisplay} business in ${input.city}, ${input.state}.
 
 ## Business Profile
 - **Name**: ${input.business_name}
 - **Owner**: ${ownerDisplay}
-- **Specialty**: ${input.business_category}
+- **Specialty**: ${categoryDisplay}
 - **Story**: ${input.description}
 - **Location**: ${input.address}, ${input.city}, ${input.state}
 ${input.phone ? `- **Phone**: ${input.phone}` : ""}
