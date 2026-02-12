@@ -52,7 +52,7 @@ export async function generateContent(
         const model = geminiClient.getGenerativeModel({
             model: modelName || process.env.GEMINI_MODEL || "gemini-3.0-flash",
             generationConfig: {
-                maxOutputTokens: 16384,
+                maxOutputTokens: 65536,
             },
         });
         const result = await model.generateContent(prompt);
