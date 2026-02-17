@@ -77,7 +77,7 @@ export async function generateContent(
         const client = await getAnthropicClient();
         const response = await client.messages.create({
             model: modelName || process.env.ANTHROPIC_MODEL || "claude-3-5-sonnet-20241022",
-            max_tokens: 8192,
+            max_tokens: 65536,
             messages: [
                 {
                     role: "user",
