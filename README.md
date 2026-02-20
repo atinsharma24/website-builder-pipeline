@@ -77,11 +77,24 @@ curl -X POST "http://localhost:4000/pipeline" \
    curl -X POST "http://localhost:4000/upload?runId={run-id}&slug={slug}"
    ```
 
+### C. Builder-Only Retry (Recovery from Builder Failure)
+If a `/pipeline` run completes the architect stage but fails at builder or upload, you can retry without re-running the architect:
+
+1. **Note from the error response**: `run_id` and `business_slug` (returned automatically when builder fails).
+2. **Retry**:
+   ```bash
+   curl -X POST "http://localhost:4000/pipeline/retry?retryRunId={run_id}&retrySlug={slug}" \
+     -H "Content-Type: application/json" \
+     -d @test-input.json
+   ```
+   This loads the persisted `architect-spec.json` from the previous run, skips the architect entirely, and re-runs builder + upload.
+
 ## API Endpoints
 
 | Endpoint | Method | Description | Query Params |
 |----------|--------|-------------|--------------|
 | `/pipeline` | POST | Full automated generation | `?mock=true`, `?skipUpload=true` |
+| `/pipeline/retry` | POST | Builder-only retry (skips architect) | `?retryRunId=...&retrySlug=...`, `?skipUpload=true` |
 | `/architect`| POST | Generate task for Antigravity | `?mock=true` |
 | `/upload` | POST | Manually upload generated HTML | `?runId=...&slug=...` |
 | `/validate` | POST | Validate input JSON | - |
@@ -95,11 +108,14 @@ src/
 │   └── builder.ts     # Builder Agent
 ├── schemas/
 │   ├── business-input.ts
-│   └── architect-output.ts
+│   ├── architect-output.ts
+│   └── pipeline-result.ts
 ├── services/
 ├── pipeline/
+│   └── orchestrator.ts  # Pipeline orchestrator (supports retry)
 ├── bridge-server.ts   # API server
-└── tasks/             # Generated tasks for Antigravity
+output/                # Generated websites + architect-spec.json
+tasks/                 # Generated tasks for Antigravity
 ```
 
 ## License

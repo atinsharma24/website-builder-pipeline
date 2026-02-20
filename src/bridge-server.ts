@@ -59,6 +59,55 @@ fastify.post("/pipeline", async (request, reply) => {
 });
 
 // ============================================
+// POST /pipeline/retry - Builder-Only Retry
+// ============================================
+// Skips the architect stage by loading a persisted architect-spec.json
+// from a previous run, then re-runs builder + upload only.
+fastify.post("/pipeline/retry", async (request, reply) => {
+    const body = request.body as Record<string, unknown>;
+    const query = request.query as Record<string, string>;
+
+    const retryRunId = query.retryRunId;
+    const retrySlug = query.retrySlug;
+    const skipUpload = query.skipUpload === "true";
+
+    if (!retryRunId || !retrySlug) {
+        return reply.code(400).send({
+            status: "error",
+            error_message:
+                "Missing required query params: retryRunId and retrySlug. " +
+                "These are returned in the error response of a failed /pipeline run.",
+        });
+    }
+
+    try {
+        console.log(
+            `\n🔁 Retry request: retryRunId=${retryRunId}, retrySlug=${retrySlug}, skipUpload=${skipUpload}`
+        );
+
+        const result = await runPipeline(body, {
+            skipUpload,
+            outputDir,
+            retryRunId,
+            retrySlug,
+        });
+
+        if (result.status === "error") {
+            return reply.code(400).send(result);
+        }
+
+        return result;
+    } catch (error) {
+        request.log.error(error);
+        return reply.code(500).send({
+            status: "error",
+            error_message: "Internal pipeline retry error",
+            error_phase: "unknown",
+        });
+    }
+});
+
+// ============================================
 // POST /validate - Validate Input Only
 // ============================================
 // Validates business input without running the pipeline
@@ -286,16 +335,20 @@ const start = async () => {
         console.log(`   Supabase: ${process.env.SUPABASE_URL ? "✅ Configured" : "❌ Missing"}`);
         console.log("=".repeat(60));
         console.log("\nEndpoints:");
-        console.log("  POST /pipeline   - Full automated pipeline (Gemini builds)");
-        console.log("  POST /architect  - Architect only → saves task for Antigravity");
-        console.log("  POST /upload     - Upload HTML to Supabase (?runId=X&slug=Y)");
-        console.log("  POST /validate   - Validate business input");
-        console.log("  GET  /health     - Health check");
+        console.log("  POST /pipeline        - Full automated pipeline (Gemini builds)");
+        console.log("  POST /pipeline/retry  - Builder-only retry (?retryRunId=X&retrySlug=Y)");
+        console.log("  POST /architect       - Architect only → saves task for Antigravity");
+        console.log("  POST /upload          - Upload HTML to Supabase (?runId=X&slug=Y)");
+        console.log("  POST /validate        - Validate business input");
+        console.log("  GET  /health          - Health check");
         console.log("\nAntigravity Workflow:");
         console.log("  1. POST /architect → generates task file");
         console.log("  2. Antigravity reads task, generates index.html");
         console.log("  3. Watcher auto-uploads OR call POST /upload");
-        console.log("=".repeat(60) + "\n");
+        console.log("\nRetry Workflow (Builder-Only):");
+        console.log("  1. POST /pipeline → fails at builder phase → returns run_id + business_slug");
+        console.log("  2. POST /pipeline/retry?retryRunId=<run_id>&retrySlug=<slug> → skips architect, re-runs builder");
+        console.log("=" + "=".repeat(59) + "\n");
 
     } catch (err) {
         fastify.log.error(err);

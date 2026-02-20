@@ -48,10 +48,12 @@ export function createErrorResult(params: {
     run_id: string;
     error_message: string;
     error_phase: "validation" | "architect" | "builder" | "upload";
+    business_slug?: string;
 }): PipelineResult {
     return {
         status: "error",
         run_id: params.run_id,
+        business_slug: params.business_slug,
         error_message: params.error_message,
         error_phase: params.error_phase,
         generated_at: new Date().toISOString(),

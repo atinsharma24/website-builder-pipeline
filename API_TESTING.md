@@ -92,6 +92,56 @@ http POST ":4000/upload?runId=run-123&slug=sharma-optics"
 
 ---
 
+## 3.5. Builder-Only Retry
+
+If a `/pipeline` run succeeded at the architect stage but failed at builder or upload, retry without re-running the architect. The `retryRunId` and `retrySlug` values come from the error response of the failed run.
+
+**Endpoint:** `POST /pipeline/retry`
+
+### Prerequisites
+- A previous `/pipeline` run that failed at the builder phase
+- The `run_id` and `business_slug` from that failed run
+
+### Example Request
+- **URL**: `http://localhost:4000/pipeline/retry?retryRunId=run-1770626564911&retrySlug=sharma-optics`
+- **Body** (JSON): Same `test-input.json` content (used only for validation / slug generation)
+
+**HTTPie Command:**
+```bash
+http POST ":4000/pipeline/retry?retryRunId=run-1770626564911&retrySlug=sharma-optics" < test-input.json
+```
+
+**With skipUpload (local test):**
+```bash
+http POST ":4000/pipeline/retry?retryRunId=run-1770626564911&retrySlug=sharma-optics&skipUpload=true" < test-input.json
+```
+
+### Expected Responses
+
+**Success:**
+```json
+{
+  "status": "success",
+  "run_id": "run-1770...",
+  "business_slug": "sharma-optics",
+  "public_url": "https://...",
+  "html_size_bytes": 45328,
+  "generated_at": "2026-02-20T..."
+}
+```
+
+**Failure (spec not found):**
+```json
+{
+  "status": "error",
+  "run_id": "run-1770...",
+  "error_message": "Recovery failed: architect-spec.json not found for run run-INVALID",
+  "error_phase": "architect"
+}
+```
+
+---
+
 ## 4. Input Validation
 
 Checks if your JSON is valid without running any AI.
