@@ -12,6 +12,16 @@ export const PhotoSchema = z.object({
 
 export const BusinessHoursSchema = z.record(z.string(), z.string());
 
+/**
+ * A real customer testimonial supplied by the business.
+ * The pipeline only ever shows testimonials that arrive here. It never asks
+ * a model to invent one.
+ */
+export const TestimonialSchema = z.object({
+  author: z.string().min(2).max(100),
+  quote: z.string().min(10).max(600),
+});
+
 export const BusinessInputSchema = z.object({
   business_name: z
     .string()
@@ -51,7 +61,9 @@ export const BusinessInputSchema = z.object({
   email: z.string().email("Invalid email format").optional(),
   website: z.string().url("Invalid website URL").optional(),
   hours: BusinessHoursSchema.optional(),
+  testimonials: z.array(TestimonialSchema).max(6).default([]),
 });
 
 export type BusinessInput = z.infer<typeof BusinessInputSchema>;
 export type Photo = z.infer<typeof PhotoSchema>;
+export type Testimonial = z.infer<typeof TestimonialSchema>;

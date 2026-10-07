@@ -20,7 +20,10 @@ npm run build
 # Run file watcher for auto-upload to Supabase
 npm run worker
 
-# Test with mock LLM (no API calls)
+# Unit tests and strict typecheck (no network, no API keys)
+npm run check
+
+# Hit a running server with mock agents (no API calls)
 npm run test:mock
 ```
 
@@ -43,10 +46,13 @@ BusinessInput JSON → Architect Agent (Gemini) → Builder Agent (Gemini/OpenAI
 ### Key Components
 
 - **`src/bridge-server.ts`**: Fastify HTTP server with all API endpoints
-- **`src/agents/architect.ts`**: Takes BusinessInput, outputs detailed website generation prompt (always uses Gemini)
+- **`src/agents/architect.ts`**: Takes BusinessInput, outputs a Zod validated website spec, with a bounded repair loop
 - **`src/agents/builder.ts`**: Takes ArchitectOutput, generates complete HTML (provider configurable via `BUILDER_LLM_PROVIDER`)
 - **`src/pipeline/orchestrator.ts`**: Coordinates validation → architect → builder → upload phases
-- **`src/services/llm.ts`**: Unified LLM abstraction supporting Gemini and OpenAI
+- **`src/llm/`**: `LlmGateway` (timeout, retry with backoff, provider failover) and the Gemini, OpenAI and Claude adapters
+- **`src/quality/html-validator.ts`**: Deterministic quality gate for generated HTML
+- **`src/runs/`**: Idempotency keys and run records
+- **`src/server.ts`**: Builds the Fastify app from injected dependencies (`bridge-server.ts` only starts it)
 - **`src/services/supabase.ts`**: Storage upload utilities for the `websites` bucket
 - **`src/watcher.ts`**: Chokidar-based file watcher that auto-uploads HTML from `output/` directory
 - **`src/schemas/`**: Zod schemas for BusinessInput, ArchitectOutput, and PipelineResult

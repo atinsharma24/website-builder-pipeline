@@ -1,6 +1,8 @@
 # Website Pipeline API
 
-A 2-agent website generation pipeline that creates stunning, professional business websites and uploads them to Supabase Storage.
+A 2-agent website generation pipeline that creates professional business websites and uploads them to Supabase Storage.
+
+Around the two agents sits a reliability layer: an LLM gateway with timeouts, retries and provider failover, schema validation of the Architect's output, a deterministic quality gate on the Builder's HTML with a bounded repair loop, idempotent runs, and a record of every run. The reasoning behind each piece is in [docs/RELIABILITY.md](docs/RELIABILITY.md).
 
 ## Architecture
 
@@ -89,16 +91,35 @@ If a `/pipeline` run completes the architect stage but fails at builder or uploa
    ```
    This loads the persisted `architect-spec.json` from the previous run, skips the architect entirely, and re-runs builder + upload.
 
+## Reliability at a Glance
+
+| Concern | What the pipeline does |
+|---------|------------------------|
+| A provider is rate limited or down | Retries with exponential backoff and jitter, then fails over along `BUILDER_LLM_CHAIN` / `ARCHITECT_LLM_CHAIN` |
+| The model returns malformed JSON | Validates with Zod and sends the errors back for a bounded repair |
+| The model returns broken or cut off HTML | Blocks it at the quality gate, asks for one repair, and refuses to publish if it still fails |
+| The same request arrives twice | Replays the earlier result instead of generating and uploading again |
+| Something failed and you need to know where | `GET /runs/:runId` shows the stage, timings and every LLM attempt |
+
+## Testing
+
+```bash
+npm test          # 126 unit tests, no network, no API keys
+npm run typecheck # strict TypeScript, including tests
+npm run check     # both
+```
+
 ## API Endpoints
 
 | Endpoint | Method | Description | Query Params |
 |----------|--------|-------------|--------------|
-| `/pipeline` | POST | Full automated generation | `?mock=true`, `?skipUpload=true` |
+| `/pipeline` | POST | Full automated generation | `?mock=true`, `?skipUpload=true`, `?force=true` |
 | `/pipeline/retry` | POST | Builder-only retry (skips architect) | `?retryRunId=...&retrySlug=...`, `?skipUpload=true` |
 | `/architect`| POST | Generate task for Antigravity | `?mock=true` |
 | `/upload` | POST | Manually upload generated HTML | `?runId=...&slug=...` |
 | `/validate` | POST | Validate input JSON | - |
 | `/health` | GET | Health check | - |
+| `/runs/:runId` | GET | Run record: stage, timings, LLM attempts, result | - |
 
 ## Project Structure
 ```

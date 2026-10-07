@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
+import { describeErrors, validateHtml } from "./quality/html-validator.js";
 
 dotenv.config();
 
@@ -42,6 +43,13 @@ watcher.on("add", async (filePath) => {
 
     try {
         const fileContent = fs.readFileSync(filePath, "utf-8");
+
+        // Hand built HTML goes through the same gate as generated HTML.
+        const report = validateHtml(fileContent);
+        if (!report.ok) {
+            console.error(`❌ Not uploaded, HTML failed the quality gate:\n${describeErrors(report)}`);
+            return;
+        }
         const runId = path.basename(path.dirname(filePath)); // Get folder name (e.g. task-123)
         const uploadName = `${runId}.html`;
 

@@ -1,18 +1,21 @@
 {
   "name": "website-pipeline-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Two agent website generation pipeline with LLM failover, a deterministic quality gate and idempotent runs",
+  "main": "dist/bridge-server.js",
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/bridge-server.js",
     "dev": "nodemon",
     "test:mock": "curl -X POST http://localhost:4000/pipeline?mock=true -H 'Content-Type: application/json' -d @test-input.json",
     "worker": "tsc && node dist/watcher.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
     "wb:import-html": "tsx scripts/importWebsiteBuilderPublishedHtml.ts",
     "wb:override-html": "tsx scripts/overrideWebsiteBuilderHtml.ts",
-    "wb:purge-user": "tsx scripts/purgeWebsiteFlowUser.ts"
+    "wb:purge-user": "tsx scripts/purgeWebsiteFlowUser.ts",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
+    "check": "npm run typecheck && npm test"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +42,10 @@
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

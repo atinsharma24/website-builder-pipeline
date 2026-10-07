@@ -1,22 +1,30 @@
-import { generateContent } from "../services/llm.js";
+import { err, ok, pipelineError, type PipelineError, type Result } from "../core/result.js";
+import { isChainRetryable, type AttemptRecord, type LlmClient } from "../llm/types.js";
 import type { BusinessInput } from "../schemas/business-input.js";
-import type { ArchitectOutput } from "../schemas/architect-output.js";
-import "dotenv/config";
+import { ArchitectOutputSchema, type ArchitectOutput } from "../schemas/architect-output.js";
+
+/** What an agent hands back to the orchestrator. */
+export interface AgentOutput<T> {
+    readonly value: T;
+    /** Every LLM call the agent made, including retries and failovers. */
+    readonly attempts: readonly AttemptRecord[];
+    /** How many times the agent had to ask the model to correct its output. */
+    readonly repairs: number;
+    /** True when the output is usable but not in the ideal shape. */
+    readonly degraded: boolean;
+}
+
+export interface ArchitectOptions {
+    /** Extra model calls allowed to fix output that fails validation. */
+    readonly maxRepairAttempts: number;
+}
 
 /**
- * Architect Agent
- * Takes structured business input and generates a comprehensive website generation prompt
- * Provider is configurable via ARCHITECT_LLM_PROVIDER env variable (default: gemini)
+ * Build the Architect prompt. Pure: the same input always gives the same prompt.
  */
-export async function runArchitect(
-    input: BusinessInput
-): Promise<ArchitectOutput> {
-    // Determine provider from environment variable (default to gemini for backward compat)
-    const provider = (process.env.ARCHITECT_LLM_PROVIDER || "gemini") as "gemini" | "openai" | "claude";
-
+export function buildArchitectPrompt(input: BusinessInput): string {
     // Handle optional fields gracefully
     const ownerDisplay = input.owner_name || "The Team";
-    const categoryDisplay = input.business_category || "General Business";
 
     // Handle missing contact info
     const contactNote =
@@ -39,10 +47,20 @@ export async function runArchitect(
             .join("\n")}`
         : "";
 
-    const prompt = `You are an expert Website Architect specializing in creating stunning, conversion-optimized business websites.
+    const testimonialsSection =
+        input.testimonials.length > 0
+            ? `\n## Customer Testimonials (real, provided by the business, quote them exactly):\n${input.testimonials
+                .map((t, i) => `${i + 1}. "${t.quote}" by ${t.author}`)
+                .join("\n")}`
+            : "\n## Customer Testimonials: None provided. Do not include a testimonials section.";
+
+    return `You are an expert Website Architect specializing in creating stunning, conversion-optimized business websites.
 
 ## IMPORTANT INSTRUCTION
-If specific business details (Owner Name, Phone, Email) are missing from the input, do NOT output 'undefined' or placeholders like '[Insert Name]'. Instead, write professional copy that focuses on the brand, heritage, and service quality. Hallucinate a professional backstory if necessary to make the site feel complete.
+If specific business details (Owner Name, Phone, Email) are missing from the input, do NOT output 'undefined' or placeholders like '[Insert Name]'. Write professional copy that focuses on the brand and the services described below.
+
+## GROUNDING RULES
+Use only facts given in this prompt. Do NOT invent years in business, awards, certifications, customer counts, prices, reviews or testimonials. If no customer testimonials are provided below, do not plan a testimonials section.
 
 ## Business Information
 - **Name**: ${input.business_name}
@@ -58,6 +76,7 @@ ${contactNote}
 ${input.description}
 ${photosSection}
 ${hoursSection}
+${testimonialsSection}
 
 ## Your Task
 Create a detailed, production-ready website specification that will guide a web developer to create an absolutely STUNNING, CHARMING, and LUCRATIVE website for this business. The design must be so impressive that the business owner is WOWED at first sight.
@@ -84,31 +103,117 @@ Return a JSON object with this exact structure:
 1. **Visual Impact**: The design must be jaw-dropping. Use bold colors, gradients, glassmorphism, or modern design trends appropriate for the business category.
 2. **Professional Animations**: Include scroll-triggered animations, hover effects, subtle micro-interactions, and smooth transitions that feel premium.
 3. **Charming Elements**: Add personality through custom icons, decorative elements, or unique typography treatments.
-4. **Trust Signals**: Include testimonials, certifications, years of experience, or social proof strategically placed.
+4. **Trust Signals**: Use only the testimonials and facts provided above. Never invent social proof.
 5. **Strong CTAs**: Every section should guide the user toward contacting or visiting the business.
 6. **Mobile-First**: Design must be flawless on mobile devices.
 7. **Performance**: Use efficient CSS animations, lazy loading hints for images.
 
 Return ONLY the JSON object, no additional text.`;
 
-    // Use dynamic provider from environment
-    const rawOutput = await generateContent(prompt, provider);
+}
 
-    // Clean and parse JSON
-    const cleanedOutput = rawOutput
+function describeIssues(issues: readonly { path: PropertyKey[]; message: string }[]): string {
+    return issues
+        .map((issue) => `${issue.path.map(String).join(".") || "(root)"}: ${issue.message}`)
+        .join("; ");
+}
+
+/** Strip markdown code fences that models often wrap JSON in. */
+export function stripCodeFences(text: string): string {
+    return text
         .replace(/```json/gi, "")
         .replace(/```/g, "")
         .trim();
+}
 
+/**
+ * Parse and validate raw model text against `ArchitectOutputSchema`.
+ * Returns the reason as a string on failure, ready to be fed back to the model.
+ */
+export function parseArchitectOutput(raw: string): Result<ArchitectOutput, string> {
+    const cleaned = stripCodeFences(raw);
+    let parsed: unknown;
     try {
-        const parsed = JSON.parse(cleanedOutput) as ArchitectOutput;
-        return parsed;
-    } catch {
-        // If JSON parsing fails, wrap the output as a prompt
-        return {
-            website_generation_prompt: cleanedOutput,
-        };
+        parsed = JSON.parse(cleaned);
+    } catch (cause) {
+        return err(`Output is not valid JSON (${cause instanceof Error ? cause.message : "parse error"})`);
     }
+    const validation = ArchitectOutputSchema.safeParse(parsed);
+    if (!validation.success) {
+        return err(`JSON does not match the required structure. ${describeIssues(validation.error.issues)}`);
+    }
+    return ok(validation.data);
+}
+
+/**
+ * Architect Agent
+ *
+ * Turns structured business input into a validated website specification.
+ * The model's reply is never trusted: it is parsed and checked with Zod. If it
+ * fails, the validation errors are sent back to the model for a bounded number
+ * of repair attempts. As a last resort the raw text is used as a plain prompt,
+ * and the output is marked `degraded`.
+ */
+export async function runArchitect(
+    input: BusinessInput,
+    llm: LlmClient,
+    options: ArchitectOptions = { maxRepairAttempts: 1 }
+): Promise<Result<AgentOutput<ArchitectOutput>, PipelineError>> {
+    const basePrompt = buildArchitectPrompt(input);
+    const attempts: AttemptRecord[] = [];
+    let prompt = basePrompt;
+    let lastRaw = "";
+    let lastProblem = "";
+
+    for (let round = 0; round <= options.maxRepairAttempts; round++) {
+        const response = await llm.generate(prompt);
+        if (!response.ok) {
+            attempts.push(...response.error.attempts);
+            return err(
+                pipelineError(
+                    "architect",
+                    response.error.code,
+                    response.error.message,
+                    isChainRetryable(response.error)
+                )
+            );
+        }
+        attempts.push(...response.value.attempts);
+        lastRaw = response.value.text;
+
+        const parsed = parseArchitectOutput(lastRaw);
+        if (parsed.ok) {
+            return ok({ value: parsed.value, attempts, repairs: round, degraded: false });
+        }
+        lastProblem = parsed.error;
+        prompt = `${basePrompt}
+
+## YOUR PREVIOUS REPLY WAS REJECTED
+Reason: ${lastProblem}
+Return ONLY a corrected JSON object with the exact structure described above.`;
+    }
+
+    // Last resort: use the raw text as the generation prompt, without style
+    // guidelines or sections. Only acceptable when it is long enough to be one.
+    const fallback = ArchitectOutputSchema.safeParse({
+        website_generation_prompt: stripCodeFences(lastRaw),
+    });
+    if (fallback.success) {
+        return ok({
+            value: fallback.data,
+            attempts,
+            repairs: options.maxRepairAttempts,
+            degraded: true,
+        });
+    }
+    return err(
+        pipelineError(
+            "architect",
+            "ARCHITECT_INVALID_OUTPUT",
+            `Architect output failed validation after ${options.maxRepairAttempts} repair attempt(s). ${lastProblem}`,
+            true
+        )
+    );
 }
 
 /**
@@ -148,7 +253,7 @@ Create an ABSOLUTELY STUNNING, modern website that makes the business owner say 
 - Split layout: Image on one side, content on other
 - Owner's name and photo placeholder
 - Years of experience / establishment highlighted
-- Trust badges or certifications
+- Only facts stated in the description
 - Fade-in animation on scroll
 
 ### 3. SERVICES / WHAT WE OFFER
@@ -164,10 +269,8 @@ Create an ABSOLUTELY STUNNING, modern website that makes the business owner say 
 - Smooth image transitions
 
 ### 5. TESTIMONIALS
-- 3 customer testimonials with Indian names
-- Star ratings
-- Profile photo placeholders
-- Carousel or stacked cards with animations
+- ${input.testimonials.length > 0 ? `Quote the ${input.testimonials.length} provided testimonial(s) exactly` : "None provided, omit this section"}
+- Never invent reviews, names or star ratings
 
 ### 6. CONTACT SECTION
 - Business address prominently displayed
@@ -237,8 +340,8 @@ ${input.email ? "- Email link" : "- No email provided — use a contact form"}
             {
                 section_id: "testimonials",
                 section_name: "Testimonials",
-                copy_hints: "3 reviews with ratings",
-                required: true,
+                copy_hints: "Only testimonials provided by the business, quoted exactly",
+                required: false,
             },
             {
                 section_id: "contact",

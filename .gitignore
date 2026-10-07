@@ -28,3 +28,8 @@ Thumbs.db
 *.swo
 
 *.html
+
+# Generated sites, task files and run records are runtime data, not source
+output/
+tasks/
+.runs/
