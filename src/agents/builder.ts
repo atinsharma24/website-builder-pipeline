@@ -1,11 +1,12 @@
-import { generateContent } from "../services/llm.js";
+import { err, ok, pipelineError, type PipelineError, type Result } from "../core/result.js";
+import { isChainRetryable, type AttemptRecord, type LlmClient } from "../llm/types.js";
 import type { ArchitectOutput } from "../schemas/architect-output.js";
-import "dotenv/config";
+import type { AgentOutput } from "./architect.js";
 
 /**
  * Clean LLM output by removing markdown code fences
  */
-function cleanLLMOutput(text: string): string {
+export function cleanLLMOutput(text: string): string {
   return text
     .replace(/```html/gi, "")
     .replace(/```json/gi, "")
@@ -14,14 +15,13 @@ function cleanLLMOutput(text: string): string {
 }
 
 /**
- * Builder Agent
- * Takes an ArchitectOutput and generates a complete, stunning HTML website
- * Provider is configurable via BUILDER_LLM_PROVIDER env variable (default: gemini)
+ * Build the Builder prompt. Pure: the same spec always gives the same prompt.
+ *
+ * `repairNotes` is set on a repair attempt. It lists the exact problems the
+ * quality gate found in the previous HTML, so the model fixes those instead
+ * of starting over blind.
  */
-export async function runBuilder(spec: ArchitectOutput): Promise<string> {
-  // Determine provider from environment variable
-  const provider = (process.env.BUILDER_LLM_PROVIDER || "gemini") as "gemini" | "openai" | "claude";
-
+export function buildBuilderPrompt(spec: ArchitectOutput, repairNotes?: string): string {
   const styleGuidelines = spec.site_style_guidelines
     ? `
 ## Style Guidelines
@@ -42,7 +42,17 @@ ${spec.page_sections.map((s) => `- **${s.section_name}** (${s.section_id}): ${s.
 `
     : "";
 
-  const prompt = `You are an ELITE Web Developer known for creating visually STUNNING, JAW-DROPPING websites that make business owners say "WOW!"
+  const repairSection =
+    repairNotes !== undefined && repairNotes.trim() !== ""
+      ? `
+
+## YOUR PREVIOUS HTML WAS REJECTED BY AUTOMATED CHECKS
+Fix every problem below and return the complete corrected document:
+${repairNotes}
+`
+      : "";
+
+  return `You are an ELITE Web Developer known for creating visually STUNNING, JAW-DROPPING websites that make business owners say "WOW!"
 
 ## WEBSITE SPECIFICATION
 ${spec.website_generation_prompt}
@@ -98,7 +108,7 @@ Include these animations (CSS-only where possible):
 
 ### 4. CONVERSION-OPTIMIZED
 - Clear, compelling CTAs in hero and throughout
-- Trust signals prominently displayed
+- Trust signals only when they are facts from the specification
 - Easy-to-find contact information
 - Simple, inviting contact form
 - Phone number clickable on mobile
@@ -187,19 +197,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 ## CRITICAL RULES
 1. Return ONLY the raw HTML code - no markdown, no code fences, no explanations
 2. The HTML must be complete and self-contained
-3. All images should use placeholder services (picsum.photos, placehold.co, or ui-avatars.com for testimonial photos)
-4. Include at least 3 testimonials with Indian names (e.g., Priya Sharma, Raj Patel, Ananya Gupta)
+3. Use the photo URLs from the specification. Where none are given, use placeholder services (picsum.photos or placehold.co)
+4. GROUNDED CONTENT ONLY: show testimonials only if the specification quotes real ones, and quote them exactly. Never invent reviews, customer names, star ratings, awards, certifications or years in business.
 5. Make the design feel PREMIUM and EXPENSIVE
 6. The business owner should be IMPRESSED and feel proud of their website
 7. INTELLIGENT CONTACT SECTION: If the architect spec does not provide a specific phone number or email, do not generate fake ones. Instead, build a high-quality 'Send us a message' form and display the physical address/location prominently.
-8. MODERN STYLING: Use Tailwind's backdrop-blur for glassmorphism and ensure high contrast for accessibility. Use ui-avatars.com for testimonials if no photos are provided.
-
+8. MODERN STYLING: Use Tailwind's backdrop-blur for glassmorphism and ensure high contrast for accessibility.
+9. SCRIPTS: Load external scripts only from cdn.tailwindcss.com, cdn.jsdelivr.net, unpkg.com or cdnjs.cloudflare.com. The document must end with </body></html>.
+${repairSection}
 NOW CREATE THE WEBSITE. OUTPUT ONLY THE HTML CODE.`;
+}
 
-  // Use dynamic provider from environment
-  const rawOutput = await generateContent(prompt, provider);
 
-  return cleanLLMOutput(rawOutput);
+/**
+ * Builder Agent
+ *
+ * Asks the model for one complete HTML document that implements the spec.
+ * It returns raw HTML only. Whether that HTML is acceptable is decided by the
+ * deterministic quality gate in the orchestrator, not here and not by a model.
+ */
+export async function runBuilder(
+  spec: ArchitectOutput,
+  llm: LlmClient,
+  repairNotes?: string
+): Promise<Result<AgentOutput<string>, PipelineError>> {
+  const response = await llm.generate(buildBuilderPrompt(spec, repairNotes));
+  if (!response.ok) {
+    return err(
+      pipelineError(
+        "builder",
+        response.error.code,
+        response.error.message,
+        isChainRetryable(response.error)
+      )
+    );
+  }
+  const attempts: readonly AttemptRecord[] = response.value.attempts;
+  return ok({
+    value: cleanLLMOutput(response.value.text),
+    attempts,
+    repairs: 0,
+    degraded: false,
+  });
 }
 
 /**
@@ -214,6 +253,17 @@ export function mockBuilder(spec: ArchitectOutput): string {
     font_heading: "Playfair Display",
     font_body: "Inter",
   };
+
+  // One simple block for every required section the fixed template does not already have.
+  const builtIn = new Set(["hero", "about", "contact", "footer"]);
+  const extraSections = (spec.page_sections ?? [])
+    .filter((section) => section.required !== false && !builtIn.has(section.section_id))
+    .map(
+      (section) => `        <section id="${section.section_id.replace(/[^a-zA-Z0-9_-]/g, "")}" class="py-16">
+            <h2 class="text-4xl font-bold text-center mb-8">${section.section_name.replace(/[<>&]/g, "")}</h2>
+        </section>`
+    )
+    .join("\n");
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -245,7 +295,7 @@ export function mockBuilder(spec: ArchitectOutput): string {
 </head>
 <body class="bg-white">
     <!-- MOCK WEBSITE - Generated for Testing -->
-    <header class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+    <header id="hero" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
         <div class="text-center animate-fade-in-up">
             <h1 class="text-5xl md:text-7xl font-bold mb-4">Mock Website</h1>
             <p class="text-xl md:text-2xl mb-8 opacity-90">This is a test-generated website</p>
@@ -264,6 +314,7 @@ export function mockBuilder(spec: ArchitectOutput): string {
             </p>
         </section>
         
+${extraSections}
         <section id="contact" class="py-16 bg-gray-50 rounded-2xl p-8">
             <h2 class="text-4xl font-bold text-center mb-8">Contact Us</h2>
             <form class="max-w-md mx-auto space-y-4">
@@ -277,7 +328,7 @@ export function mockBuilder(spec: ArchitectOutput): string {
         </section>
     </main>
     
-    <footer class="bg-gray-900 text-white py-8 text-center">
+    <footer id="footer" class="bg-gray-900 text-white py-8 text-center">
         <p>&copy; ${new Date().getFullYear()} Mock Business. All rights reserved.</p>
         <p class="text-sm text-gray-400 mt-2">Generated by Website Pipeline</p>
     </footer>
