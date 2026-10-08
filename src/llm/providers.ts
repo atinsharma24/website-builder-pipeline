@@ -55,7 +55,7 @@ function createGeminiProvider(env: ProviderEnv): LlmProvider {
             const { GoogleGenerativeAI } = await import("@google/generative-ai");
             const client = new GoogleGenerativeAI(apiKey);
             const model = client.getGenerativeModel({
-                model: env.GEMINI_MODEL ?? DEFAULT_MODELS.gemini,
+                model: env.GEMINI_MODEL?.trim() || DEFAULT_MODELS.gemini,
                 generationConfig: { maxOutputTokens: 65536 },
             });
             const result = await model.generateContent(prompt, { signal });
@@ -73,7 +73,7 @@ function createOpenAiProvider(env: ProviderEnv): LlmProvider {
             const client = new OpenAI({ apiKey, maxRetries: 0 });
             const response = await client.chat.completions.create(
                 {
-                    model: env.OPENAI_MODEL ?? DEFAULT_MODELS.openai,
+                    model: env.OPENAI_MODEL?.trim() || DEFAULT_MODELS.openai,
                     messages: [{ role: "user", content: prompt }],
                 },
                 { signal }
@@ -93,7 +93,7 @@ function createClaudeProvider(env: ProviderEnv): LlmProvider {
             const maxTokens = Number(env.ANTHROPIC_MAX_TOKENS ?? "8192");
             const response = await client.messages.create(
                 {
-                    model: env.ANTHROPIC_MODEL ?? DEFAULT_MODELS.claude,
+                    model: env.ANTHROPIC_MODEL?.trim() || DEFAULT_MODELS.claude,
                     max_tokens: Number.isFinite(maxTokens) && maxTokens > 0 ? maxTokens : 8192,
                     messages: [{ role: "user", content: prompt }],
                 },

@@ -66,6 +66,18 @@ describe("provider adapters", () => {
         expect([calls.gemini, calls.openai, calls.claude]).toEqual([["g"], ["o"], ["c"]]);
     });
 
+    it("fall back to the default model when the model variable is empty", async () => {
+        const env = { ...keys, GEMINI_MODEL: "", OPENAI_MODEL: "  ", ANTHROPIC_MODEL: "" };
+        await createProvider("gemini", env).generate("p", signal);
+        await createProvider("openai", env).generate("p", signal);
+        await createProvider("claude", env).generate("p", signal);
+        expect([calls.gemini, calls.openai, calls.claude]).toEqual([
+            [DEFAULT_MODELS.gemini],
+            [DEFAULT_MODELS.openai],
+            [DEFAULT_MODELS.claude],
+        ]);
+    });
+
     it("fail with a config error when the key is missing", async () => {
         await expect(createProvider("gemini", {}).generate("p", signal)).rejects.toBeInstanceOf(
             ProviderConfigError
