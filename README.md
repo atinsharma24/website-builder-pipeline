@@ -25,7 +25,8 @@ Around the two agents sits a reliability layer: an LLM gateway with timeouts, re
 
 ### 1. Install Dependencies
 ```bash
-npm install
+npm ci
+npm run check   # typecheck and unit tests, no API keys needed
 ```
 
 ### 2. Configure Environment
@@ -34,10 +35,19 @@ cp .env.example .env
 # Edit .env with your API keys
 ```
 
-Required environment variables:
-- `GEMINI_API_KEY` - Google AI API key
-- `SUPABASE_URL` - Supabase project URL
-- `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key
+Environment variables:
+- `GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` - only the providers named in your chains
+- `ARCHITECT_LLM_CHAIN`, `BUILDER_LLM_CHAIN` - failover order per agent, e.g. `gemini,openai`. With a single key, set both to that provider
+- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` - needed only for uploads. Without them, call `/pipeline?skipUpload=true`
+
+The full list is in [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md).
+
+To check the server without spending credits:
+```bash
+curl -X POST "http://localhost:4000/pipeline?mock=true&skipUpload=true" \
+  -H "Content-Type: application/json" \
+  -d @test-input.json
+```
 
 ### 3. Create Supabase Bucket
 In your Supabase dashboard:

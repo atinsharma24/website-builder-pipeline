@@ -20,6 +20,17 @@ export interface ProviderEnv {
     readonly ANTHROPIC_MAX_TOKENS?: string | undefined;
 }
 
+/**
+ * Models used when GEMINI_MODEL, OPENAI_MODEL or ANTHROPIC_MODEL is unset.
+ * Vendors retire model names, so check their model pages when a call fails
+ * with "model not found" and override the variable rather than this default.
+ */
+export const DEFAULT_MODELS: Readonly<Record<ProviderName, string>> = {
+    gemini: "gemini-3.8-flash",
+    openai: "gpt-6-astra",
+    claude: "claude-sonnet-5-5",
+};
+
 /** Thrown when a provider is selected but its key is missing. Never retried. */
 export class ProviderConfigError extends Error {
     readonly status = 401;
@@ -44,7 +55,7 @@ function createGeminiProvider(env: ProviderEnv): LlmProvider {
             const { GoogleGenerativeAI } = await import("@google/generative-ai");
             const client = new GoogleGenerativeAI(apiKey);
             const model = client.getGenerativeModel({
-                model: env.GEMINI_MODEL ?? "gemini-3.0-flash",
+                model: env.GEMINI_MODEL?.trim() || DEFAULT_MODELS.gemini,
                 generationConfig: { maxOutputTokens: 65536 },
             });
             const result = await model.generateContent(prompt, { signal });
@@ -62,7 +73,7 @@ function createOpenAiProvider(env: ProviderEnv): LlmProvider {
             const client = new OpenAI({ apiKey, maxRetries: 0 });
             const response = await client.chat.completions.create(
                 {
-                    model: env.OPENAI_MODEL ?? "gpt-4o",
+                    model: env.OPENAI_MODEL?.trim() || DEFAULT_MODELS.openai,
                     messages: [{ role: "user", content: prompt }],
                 },
                 { signal }
@@ -82,7 +93,7 @@ function createClaudeProvider(env: ProviderEnv): LlmProvider {
             const maxTokens = Number(env.ANTHROPIC_MAX_TOKENS ?? "8192");
             const response = await client.messages.create(
                 {
-                    model: env.ANTHROPIC_MODEL ?? "claude-3-5-sonnet-20241022",
+                    model: env.ANTHROPIC_MODEL?.trim() || DEFAULT_MODELS.claude,
                     max_tokens: Number.isFinite(maxTokens) && maxTokens > 0 ? maxTokens : 8192,
                     messages: [{ role: "user", content: prompt }],
                 },

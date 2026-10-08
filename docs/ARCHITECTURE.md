@@ -9,7 +9,7 @@ The Website Builder Pipeline uses a **Two-Agent AI** pattern to generate complet
 | **Architect** | Analyzes business data, generates a detailed website specification (prompt, style guidelines, page sections) | Configurable (`gemini` / `openai` / `claude`) |
 | **Builder** | Receives the Architect's specification and generates a complete, standalone HTML file | Configurable (`gemini` / `openai` / `claude`) |
 
-The agents' LLM providers are independently configurable via environment variables (`ARCHITECT_LLM_PROVIDER`, `BUILDER_LLM_PROVIDER`), enabling mix-and-match strategies such as Gemini for planning and Claude for code generation.
+Each agent has its own provider failover chain (`ARCHITECT_LLM_CHAIN`, `BUILDER_LLM_CHAIN`), enabling mix-and-match strategies such as Gemini for planning and Claude for code generation. See `docs/RELIABILITY.md` for retries, timeouts, the quality gate and idempotent runs.
 
 ---
 
@@ -89,7 +89,8 @@ flowchart TD
 ```
 website-pipeline-api/
 ├── src/
-│   ├── bridge-server.ts          # Fastify HTTP server (5 endpoints)
+│   ├── bridge-server.ts          # Process entry point: loads config, wires dependencies, starts server
+│   ├── server.ts                 # Fastify app and routes, built from injected dependencies
 │   ├── watcher.ts                # Chokidar file watcher → auto-upload
 │   │
 │   ├── agents/
@@ -101,6 +102,25 @@ website-pipeline-api/
 │   │   ├── orchestrator.ts       # 4-phase pipeline (validate → architect → build → upload)
 │   │   └── index.ts              # Barrel export
 │   │
+│   ├── config/
+│   │   └── env.ts                # Zod validated environment configuration
+│   │
+│   ├── llm/
+│   │   ├── gateway.ts            # LlmGateway: timeout, retry with jittered backoff, provider failover
+│   │   ├── providers.ts          # Gemini, OpenAI and Claude adapters, default model names
+│   │   ├── errors.ts             # Error classification (retryable, fatal)
+│   │   └── types.ts              # Provider contract and attempt records
+│   │
+│   ├── quality/
+│   │   └── html-validator.ts     # Deterministic HTML quality gate
+│   │
+│   ├── runs/
+│   │   ├── idempotency.ts        # SHA256 keys over canonical input, single flight
+│   │   └── run-store.ts          # File based run records (.runs/)
+│   │
+│   ├── security/
+│   │   └── path-safety.ts        # Path traversal guard for file routes
+│   │
 │   ├── schemas/
 │   │   ├── business-input.ts     # Zod schema: BusinessInput validation
 │   │   ├── architect-output.ts   # Zod schema: ArchitectOutput (prompt, styles, sections)
@@ -108,7 +128,6 @@ website-pipeline-api/
 │   │   └── index.ts              # Barrel exports
 │   │
 │   └── services/
-│       ├── llm.ts                # Multi-provider LLM abstraction (Gemini/OpenAI/Claude)
 │       ├── supabase.ts           # Supabase client, uploadWebsite, bucket checks
 │       ├── database.ts           # CRUD for sites/revisions, storage bucket ops
 │       ├── slugify.ts            # URL-safe slug generation, runId generation
@@ -130,11 +149,12 @@ website-pipeline-api/
 
 | Module | Purpose |
 |---|---|
-| `src/agents/` | AI agent implementations. Each agent calls `generateContent()` from the LLM service and parses the response. Both agents have mock variants for testing without API calls. |
+| `src/agents/` | AI agent implementations. Each agent calls the `LlmGateway` and parses the response. Both agents have mock variants for testing without API calls. |
 | `src/pipeline/` | The orchestrator that sequences all 4 phases: Input Validation → Architect → Builder → Upload. Handles error propagation and contextual logging. |
 | `src/schemas/` | Zod validation schemas that define the data contracts between components. Ensures type safety at runtime boundaries. |
-| `src/services/` | Infrastructure layer: LLM provider abstraction, Supabase client initialization, database CRUD operations, storage bucket management, and utility functions. |
-| `scripts/` | Administrative CLI tools for lifecycle management. Executed via `ts-node` (not compiled by `tsc`). |
+| `src/llm/` | LLM gateway and vendor adapters. The gateway owns timeouts, retries and failover; the SDKs' own retries are switched off. |
+| `src/services/` | Infrastructure layer: Supabase client initialization, database CRUD operations, storage bucket management, and utility functions. |
+| `scripts/` | Administrative CLI tools for lifecycle management. Executed via `tsx` (not compiled by `tsc`). |
 
 ---
 
