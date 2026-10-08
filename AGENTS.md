@@ -47,7 +47,7 @@ BusinessInput JSON → Architect Agent (Gemini) → Builder Agent (Gemini/OpenAI
 
 - **`src/bridge-server.ts`**: Fastify HTTP server with all API endpoints
 - **`src/agents/architect.ts`**: Takes BusinessInput, outputs a Zod validated website spec, with a bounded repair loop
-- **`src/agents/builder.ts`**: Takes ArchitectOutput, generates complete HTML (provider configurable via `BUILDER_LLM_PROVIDER`)
+- **`src/agents/builder.ts`**: Takes ArchitectOutput, generates complete HTML (provider failover order set by `BUILDER_LLM_CHAIN`)
 - **`src/pipeline/orchestrator.ts`**: Coordinates validation → architect → builder → upload phases
 - **`src/llm/`**: `LlmGateway` (timeout, retry with backoff, provider failover) and the Gemini, OpenAI and Claude adapters
 - **`src/quality/html-validator.ts`**: Deterministic quality gate for generated HTML
@@ -74,10 +74,10 @@ BusinessInput JSON → Architect Agent (Gemini) → Builder Agent (Gemini/OpenAI
 ## Environment Variables
 
 Required in `.env` (see `.env.example`):
-- `GEMINI_API_KEY` - Required for Architect Agent (and Builder if using Gemini)
-- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` - Required for upload
-- `BUILDER_LLM_PROVIDER` - Optional: `gemini` (default) or `openai`
-- `OPENAI_API_KEY` - Required only if `BUILDER_LLM_PROVIDER=openai`
+- `ARCHITECT_LLM_CHAIN`, `BUILDER_LLM_CHAIN` - Failover order per agent, e.g. `gemini,openai` (default `gemini`). The older `ARCHITECT_LLM_PROVIDER` / `BUILDER_LLM_PROVIDER` are used only when no chain is set
+- `GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` - Needed only for providers that appear in a chain
+- `GEMINI_MODEL`, `OPENAI_MODEL`, `ANTHROPIC_MODEL` - Override the defaults in `src/llm/providers.ts` (`DEFAULT_MODELS`)
+- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` - Required for upload; leave empty and pass `?skipUpload=true` otherwise
 
 ## API Endpoints
 

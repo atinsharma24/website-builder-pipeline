@@ -39,32 +39,36 @@ cp .env.example .env
 | Variable | Required | Default | Description |
 |---|---|---|---|
 | `GEMINI_API_KEY` | Yes (if using Gemini) | — | Google AI Studio API key |
-| `GEMINI_MODEL` | No | `gemini-2.0-flash` | Gemini model name |
+| `GEMINI_MODEL` | No | `gemini-3.8-flash` | Gemini model name |
 | `OPENAI_API_KEY` | Yes (if using OpenAI) | — | OpenAI API key |
-| `OPENAI_MODEL` | No | `gpt-4o` | OpenAI model name |
+| `OPENAI_MODEL` | No | `gpt-6-astra` | OpenAI model name |
 | `ANTHROPIC_API_KEY` | Yes (if using Claude) | — | Anthropic API key |
-| `ANTHROPIC_MODEL` | No | `claude-3-5-sonnet-20240620` | Claude model name |
+| `ANTHROPIC_MODEL` | No | `claude-sonnet-5-5` | Claude model name |
 
 #### Provider Toggles
 
 | Variable | Required | Default | Options | Description |
 |---|---|---|---|---|
-| `ARCHITECT_LLM_PROVIDER` | No | `gemini` | `gemini`, `openai`, `claude` | Which LLM runs the Architect Agent |
-| `BUILDER_LLM_PROVIDER` | No | `gemini` | `gemini`, `openai`, `claude` | Which LLM runs the Builder Agent |
+| `ARCHITECT_LLM_CHAIN` | No | `gemini` | comma separated `gemini`, `openai`, `claude` | Failover order for the Architect Agent |
+| `BUILDER_LLM_CHAIN` | No | `gemini` | comma separated `gemini`, `openai`, `claude` | Failover order for the Builder Agent |
+| `ARCHITECT_LLM_PROVIDER` | No | — | `gemini`, `openai`, `claude` | Older single provider setting, used only when `ARCHITECT_LLM_CHAIN` is unset |
+| `BUILDER_LLM_PROVIDER` | No | — | `gemini`, `openai`, `claude` | Older single provider setting, used only when `BUILDER_LLM_CHAIN` is unset |
 
-> **Tip**: You can mix providers. For example, use Gemini for the Architect (fast planning) and Claude for the Builder (strong HTML generation):
+> **Tip**: You can mix providers and give each agent a fallback. For example, Gemini first for the Architect and Claude first for the Builder:
 > ```
-> ARCHITECT_LLM_PROVIDER=gemini
-> BUILDER_LLM_PROVIDER=claude
+> ARCHITECT_LLM_CHAIN=gemini,openai
+> BUILDER_LLM_CHAIN=claude,gemini
 > ```
+>
+> Leave the key of any provider you do not use empty. See `docs/RELIABILITY.md` for retries, timeouts and the quality gate.
 
 #### Supabase Configuration
 
 | Variable | Required | Description |
 |---|---|---|
-| `SUPABASE_URL` | Yes | Your Supabase project URL (e.g. `https://abc123.supabase.co`) |
+| `SUPABASE_URL` | For uploads | Your Supabase project URL (e.g. `https://abc123.supabase.co`). Leave empty and use `?skipUpload=true` to run without uploads |
 | `SUPABASE_ANON_KEY` | No | Public anon key (used by client-side apps) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Service role key (full access, used by the server) |
+| `SUPABASE_SERVICE_ROLE_KEY` | For uploads | Service role key (full access, used by the server) |
 | `SUPABASE_DATABASE_URL` | No | Direct PostgreSQL connection string |
 
 #### Server
